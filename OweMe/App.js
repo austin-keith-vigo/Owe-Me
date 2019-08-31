@@ -4,22 +4,18 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
-import EmailPasswordForm from './src/components/EmailPasswordForm';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import LoginScreen from './src/screens/LoginScreen';
 
-class App extends Component{
-  render(){
-    return(
-      <View style={{flex:1,justifyContent: 'center'}}>
-        <EmailPasswordForm
-          loginUser={(email, password)=>{
-            console.log(email);
-            console.log(password);
-          }}
-        />
-      </View>
-    );
+const AppNavigator = createStackNavigator(
+  {
+    Login: LoginScreen,
+  },
+  {
+    initialRouteName: 'Login',
   }
-}
+);
 
-
+const App = createAppContainer(AppNavigator);
 export default App;
