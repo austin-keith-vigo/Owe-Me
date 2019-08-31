@@ -39,7 +39,8 @@ class EmailPasswordForm extends Component {
 
 const styles = StyleSheet.create({
   viewStyle:{
-    justifyContent: 'center'
+    justifyContent: 'center',
+    width: "100%"
   }
 })
 

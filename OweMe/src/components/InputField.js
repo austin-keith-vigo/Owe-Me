@@ -25,8 +25,9 @@ class InputField extends Component{
 
 const styles = StyleSheet.create({
   textInputStyle:{
-    width: 200,
-    height: 20
+    width: "100%",
+    height: 20,
+    backgroundColor:'transparent'
   }
 });
 
