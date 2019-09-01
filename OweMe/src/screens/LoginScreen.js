@@ -8,6 +8,7 @@ import {
 import EmailPasswordForm from './../components/EmailPasswordForm';
 
 class LoginScreen extends Component{
+
   render(){
     return(
       <View style = {styles.viewStyle}>
