@@ -8,14 +8,16 @@ import {
 import EmailPasswordForm from './../components/EmailPasswordForm';
 
 class LoginScreen extends Component{
+
+  loginUser(email, password){
+    console.log(email);
+    console.log(password);
+  }
   render(){
     return(
       <View style = {styles.viewStyle}>
         <EmailPasswordForm
-          loginUser={(email, password)=>{
-            console.log(email);
-            console.log(password);
-          }}
+          loginUser={this.loginUser.bind(this)}
         />
         <TouchableOpacity
           onPress={()=>{
