@@ -3,15 +3,22 @@ import {
   View,
   Text
 } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-class App extends Component{
-  render(){
-    return(
-      <View>
-        <Text>App</Text>
-      </View>
-    );
+//Screens
+import LoginScreen from './src/screens/LoginScreen';
+import HomeScreen from './src/screens/HomeScreen';
+
+const AppNavigator = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Login: LoginScreen,
+  },
+  {
+    initialRouteName: 'Login',
   }
-}
+);
 
+const App = createAppContainer(AppNavigator);
 export default App;
