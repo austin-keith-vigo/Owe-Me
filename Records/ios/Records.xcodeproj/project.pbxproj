@@ -20,6 +20,7 @@
 		38D17570A0D068525C28890A /* libPods-Records-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A24F90BBB5D191352900DD /* libPods-Records-tvOS.a */; };
 		49536BD4CB45F02DF9337E85 /* libPods-Records.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95DD4F9EF358EE8700D2D86D /* libPods-Records.a */; };
 		7D1FB5F8F802E323B2FE0B96 /* libPods-RecordsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B46A0EBFF5179CE8BF2AC5 /* libPods-RecordsTests.a */; };
+		D9FCAFBA23208167000417C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9FCAFB923208167000417C3 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		BF20DA435D7F8768F40AF4EC /* Pods-Records-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Records-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Records-tvOSTests/Pods-Records-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D473DE9B8533148B8F2B184D /* Pods-Records.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Records.release.xcconfig"; path = "Target Support Files/Pods-Records/Pods-Records.release.xcconfig"; sourceTree = "<group>"; };
 		D8A24F90BBB5D191352900DD /* libPods-Records-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Records-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9FCAFB923208167000417C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E01D07F69FB87DE77BEBC8F4 /* libPods-Records-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Records-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -159,6 +161,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D9FCAFB923208167000417C3 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* Records */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* RecordsTests */,
@@ -194,7 +197,6 @@
 				5142A29E00220F8D742C84E3 /* Pods-RecordsTests.debug.xcconfig */,
 				8E000D00B289714B864CE6DC /* Pods-RecordsTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -292,6 +294,9 @@
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 4457DMU5QZ;
+					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -308,6 +313,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -338,6 +344,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				D9FCAFBA23208167000417C3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +635,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 4457DMU5QZ;
 				INFOPLIST_FILE = Records/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -635,7 +643,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.austin.vigo.Records;
 				PRODUCT_NAME = Records;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -647,6 +655,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4457DMU5QZ;
 				INFOPLIST_FILE = Records/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -654,7 +663,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.austin.vigo.Records;
 				PRODUCT_NAME = Records;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
