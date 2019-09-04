@@ -10,6 +10,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
 
+//Main App Navigator for all the screens
 const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
