@@ -3,15 +3,17 @@ import {
   Text,
   View
 } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-class App extends Component{
-  render(){
-    return(
-      <View>
+import LoginScreen from './src/screens/LoginScreen';
 
-      </View>
-    );
+const AppNavigator = createStackNavigator(
+  {
+    Login: LoginScreen,
+  },
+  {
+    initialRouteName: 'Login',
   }
-}
-
-export default App;
+);
+export default createAppContainer(AppNavigator);
