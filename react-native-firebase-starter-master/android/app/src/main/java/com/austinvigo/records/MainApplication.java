@@ -1,4 +1,4 @@
-package com.austinvigo.groupo;
+package com.austinvigo.records;
 
 import android.support.multidex.MultiDexApplication;
 

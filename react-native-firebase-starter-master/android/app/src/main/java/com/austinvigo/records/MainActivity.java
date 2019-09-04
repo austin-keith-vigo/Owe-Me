@@ -1,4 +1,4 @@
-package com.austinvigo.groupo;
+package com.austinvigo.records;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "GroupO";
+        return "Records";
     }
 }

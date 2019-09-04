@@ -107,7 +107,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.austinvigo.groupo"
+        applicationId "com.austinvigo.records"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
