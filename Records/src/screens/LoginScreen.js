@@ -6,24 +6,24 @@ import {
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import EmailPasswordForm from './../components/EmailPasswordForm';
+import Dialog from "react-native-dialog";
 
 class LoginScreen extends Component{
 
-  //Handles whether or not to render an activity monitor
-  state = {loggingIn: false};
+  //Handles whether or not to render an activity monitor and alert
+  state = {loggingIn: false, showAlert: false};
 
   //Logs in the user using firebase's authentication.
   //Also, handles turning off and on the activity monitor
   loginUser(email,password){
-    this.setState({loggingIn: true});
+    this.toggleLoggingInState();
     firebase.auth().signInWithEmailAndPassword('austinvigo@gmail.com', '123456')
     .then(()=>{
-      this.setState({loggingIn: false});
+      this.toggleLoggingInState();
       this.props.navigation.navigate('Home');
     })
-    .catch(function(error) {
-      this.setState({loggingIn: false});
-      console.log(error.message);
+    .catch((error)=>{
+      this.setState({loggingIn: false, showAlert: true})
     });
   }
 
@@ -35,6 +35,16 @@ class LoginScreen extends Component{
     }
   }
 
+  //Toggles the state of logginIn so I don't have to keep calling setState();
+  toggleLoggingInState(){
+    this.setState({loggingIn: !this.state.loggingIn});
+  }
+
+  //Toggles the state of showAlert so I don't have to keep calling setState();
+  toggleShowAlertState(){
+    this.setState({showAlert: !this.state.showAlert});
+  }
+
   render(){
     return(
       <View>
@@ -42,6 +52,13 @@ class LoginScreen extends Component{
           loginUser={this.loginUser.bind(this)}
         />
         {this.renderActivityMonitor()}
+        <Dialog.Container visible={this.state.showAlert}>
+          <Dialog.Title>Invalid Login Credentials</Dialog.Title>
+          <Dialog.Button
+            label="Close"
+            onPress={this.toggleShowAlertState.bind(this)}
+          />
+        </Dialog.Container>
       </View>
     );
   }
