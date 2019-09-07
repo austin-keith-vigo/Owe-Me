@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text
+  Text,
+  FlatList
 } from 'react-native';
 
 class HomeScreen extends Component{
   render(){
     return(
       <View>
-        <Text>HomeScreen</Text>
+        <FlatList
+          data={[{key: 'a'}, {key: 'b'}]}
+          renderItem={({item}) => <Text>{item.key}</Text>}
+          horizontalMode="true"
+        />
       </View>
     );
   }
