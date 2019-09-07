@@ -46,7 +46,6 @@ class LoginScreen extends Component{
     this.setState({showAlert: !this.state.showAlert});
   }
 
-
   render(){
     return(
       <View>
@@ -66,6 +65,12 @@ class LoginScreen extends Component{
           title="Create Account"
           onPress={()=>{
             this.props.navigation.navigate('CreateAccount');
+          }}
+        />
+        <Button
+          title="Forgot Password"
+          onPress={()=>{
+            this.props.navigation.navigate('ForgotPassword');
           }}
         />
       </View>
