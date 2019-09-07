@@ -29,8 +29,8 @@ class EmailPasswordForm extends Component {
           autoCorrect={false}
         />
         <Button
-          title='Submit'
-          onPress={()=>{this.props.loginUser(this.state.email, this.state.password)}}
+          title={this.props.buttonTitle}
+          onPress={()=>{this.props.buttonPressed(this.state.email, this.state.password)}}
         />
       </View>
     );
