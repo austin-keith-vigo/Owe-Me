@@ -10,13 +10,17 @@ import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import CreateAccountScreen from './src/screens/CreateAccountScreen';
+import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
+import CheckEmailScreen from './src/screens/CheckEmailScreen';
 
 //Main App Navigator for all the screens
 const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
     Login: LoginScreen,
-    CreateAccount: CreateAccountScreen
+    CreateAccount: CreateAccountScreen,
+    ForgotPassword: ForgotPasswordScreen,
+    CheckEmail: CheckEmailScreen
   },
   {
     initialRouteName: 'Login',
