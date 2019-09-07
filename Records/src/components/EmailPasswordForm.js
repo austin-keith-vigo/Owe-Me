@@ -17,10 +17,16 @@ class EmailPasswordForm extends Component {
         <InputField
           placeholder='email'
           onChangeText={text => this.setState({ email: text })}
+          secureTextEntry={false}
+          autoCapitalize={"none"}
+          autoCorrect={false}
         />
         <InputField
           placeholder='password'
           onChangeText={text => this.setState({ password: text })}
+          secureTextEntry={true}
+          autoCapitalize={"none"}
+          autoCorrect={false}
         />
         <Button
           title='Submit'

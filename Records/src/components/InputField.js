@@ -14,6 +14,9 @@ class InputField extends Component{
           style={styles.textInputStyle}
           placeholder={this.props.placeholder}
           onChangeText={this.props.onChangeText}
+          secureTextEntry={this.props.secureTextEntry}
+          autoCapitalize={this.props.autoCapitalize}
+          autoCorrect={this.props.autoCorrect}
         />
       </View>
     );
@@ -22,8 +25,10 @@ class InputField extends Component{
 
 const styles = StyleSheet.create({
   textInputStyle:{
-    width: 200,
-    height: 20
+    width: "100%",
+    height: 40,
+    fontSize: 12,
+    lineHeight: 12
   }
 });
 

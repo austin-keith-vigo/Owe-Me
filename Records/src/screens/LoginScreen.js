@@ -17,7 +17,7 @@ class LoginScreen extends Component{
   //Also, handles turning off and on the activity monitor
   loginUser(email,password){
     this.toggleLoggingInState();
-    firebase.auth().signInWithEmailAndPassword('austinvigo@gmail.com', '123456')
+    firebase.auth().signInWithEmailAndPassword(email, password)
     .then(()=>{
       this.toggleLoggingInState();
       this.props.navigation.navigate('Home');
