@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
+  Button
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import EmailPasswordForm from './../components/EmailPasswordForm';
@@ -45,11 +46,13 @@ class LoginScreen extends Component{
     this.setState({showAlert: !this.state.showAlert});
   }
 
+
   render(){
     return(
       <View>
         <EmailPasswordForm
-          loginUser={this.loginUser.bind(this)}
+          buttonPressed={this.loginUser.bind(this)}
+          buttonTitle="Login"
         />
         {this.renderActivityMonitor()}
         <Dialog.Container visible={this.state.showAlert}>
@@ -59,6 +62,12 @@ class LoginScreen extends Component{
             onPress={this.toggleShowAlertState.bind(this)}
           />
         </Dialog.Container>
+        <Button
+          title="Create Account"
+          onPress={()=>{
+            this.props.navigation.navigate('CreateAccount');
+          }}
+        />
       </View>
     );
   }
