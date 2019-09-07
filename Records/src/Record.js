@@ -11,7 +11,11 @@ export default class Record{
   getAmountForPerson(person){
       return(this._data[person]);
   }
-  
+
+  getData(){
+    return this._data;
+  }
+
   getTitle(){
     return this._title;
   }

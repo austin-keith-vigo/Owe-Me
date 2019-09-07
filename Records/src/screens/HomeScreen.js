@@ -42,7 +42,7 @@ class HomeScreen extends Component{
             <Button
               title={item.getTitle()}
               onPress={()=>{
-                console.log(item.getTitle());
+                this.props.navigation.navigate("Record", { record: item });
               }}
             />
           )}
