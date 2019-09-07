@@ -8,6 +8,7 @@ import {
 import firebase from 'react-native-firebase';
 import EmailPasswordForm from './../components/EmailPasswordForm';
 import Dialog from "react-native-dialog";
+import SingletonClass from './../SingletonClass';
 
 class LoginScreen extends Component{
 
@@ -21,6 +22,7 @@ class LoginScreen extends Component{
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(()=>{
       this.toggleLoggingInState();
+      SingletonClass.getInstance().setUserUID(firebase.auth().currentUser.uid);
       this.props.navigation.navigate('Home');
     })
     .catch((error)=>{
