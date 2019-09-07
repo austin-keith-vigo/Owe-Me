@@ -5,6 +5,7 @@ export default class SingletonClass {
 
     //Variables
     _userUID = "";
+    _username = "";
     _records = [];
 
     //Gets called whenever the Singleton is being written or read from
@@ -23,6 +24,14 @@ export default class SingletonClass {
 
     setUserUID(uid) {
         this._userUID = uid;
+    }
+
+    setUsername(username){
+      this._username = username;
+    }
+
+    getUsername(){
+      return this._username;
     }
 
     addRecord(record){

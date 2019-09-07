@@ -19,10 +19,34 @@ class HomeScreen extends Component{
   constructor(props){
     super(props);
 
+    var filepath = SingletonClass.getInstance().getUserUID();
+    var databaseRef = firebase.database().ref(filepath);
+
+    databaseRef.once('value')
+    .then((snapshot)=>{
+
+      //Set singleton username
+      SingletonClass.getInstance().setUsername(snapshot.val()['username']);
+
+      //Set SingletonRecords
+      const recordsData = snapshot.val()['records'];
+      for (var key in recordsData){
+        var newRecord = new Record(key, recordsData[key]);
+        SingletonClass.getInstance().addRecord(newRecord);
+      }
+      this.flatListData = SingletonClass.getInstance().getRecords();
+      this.setState({ gotData: true });
+    });
+  }
+
+  getRecordsData(){
     var filepath = SingletonClass.getInstance().getUserUID() + '/records';
     var databaseRef = firebase.database().ref(filepath);
 
     databaseRef.once('value').then((snapshot)=>{
+      SingletonClass.getInstance().setUsername(snapshot.val()['username']);
+      console.log(SingletonClass.getInstance().getUsername());
+
       snapshot.forEach((record)=>{
         var newRecord = new Record(record);
         SingletonClass.getInstance().addRecord(newRecord);
@@ -47,6 +71,12 @@ class HomeScreen extends Component{
             />
           )}
           horizontalMode="true"
+        />
+        <Button
+          title="Add Record"
+          onPress={()=>{
+            this.props.navigation.navigate("AddRecord");
+          }}
         />
       </View>
     );

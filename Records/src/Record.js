@@ -3,9 +3,9 @@ export default class Record{
   _data = {};
   _title = "";
 
-  constructor(dataSnapshot){
-    this._data = dataSnapshot.val();
-    this._title = dataSnapshot.key;
+  constructor(title, data){
+    this._data = data;
+    this._title = title;
   }
 
   getAmountForPerson(person){
