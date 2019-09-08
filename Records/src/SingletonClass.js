@@ -7,6 +7,7 @@ export default class SingletonClass {
     _userUID = "";
     _username = "";
     _records = [];
+    _friends = {};
 
     //Gets called whenever the Singleton is being written or read from
     static getInstance() {
@@ -40,6 +41,18 @@ export default class SingletonClass {
 
     getRecords(){
       return this._records;
+    }
+
+    addFriend(uid, username){
+      this._friends[uid] = username;
+    }
+
+    getFriends(){
+      return this._friends;
+    }
+
+    getFriendUsername(uid){
+      return this._friends[uid];
     }
 
 }

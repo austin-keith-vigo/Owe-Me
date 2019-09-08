@@ -4,6 +4,7 @@ import {
   Text,
   FlatList
 } from 'react-native';
+import SingletonClass from './../SingletonClass';
 
 class RecordScreen extends Component{
 
@@ -27,7 +28,9 @@ class RecordScreen extends Component{
         <FlatList
           data={this.flatListDataProp}
           renderItem={({item}) => (
-            <Text>{item.key} : {item.value}</Text>
+            <Text>
+              {SingletonClass.getInstance().getFriendUsername(item.key)} : {item.value}
+            </Text>
           )}
         />
       </View>

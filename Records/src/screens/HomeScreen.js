@@ -35,6 +35,12 @@ class HomeScreen extends Component{
         SingletonClass.getInstance().addRecord(newRecord);
       }
       this.flatListData = SingletonClass.getInstance().getRecords();
+
+      //Set Singleton friends
+      const friendsData = snapshot.val()['friends'];
+      for (var key in friendsData){
+        SingletonClass.getInstance().addFriend(key, friendsData[key]);
+      }
       this.setState({ gotData: true });
     });
   }
