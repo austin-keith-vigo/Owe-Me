@@ -51,8 +51,4 @@ export default class SingletonClass {
       return this._friends;
     }
 
-    getFriendUsername(uid){
-      return this._friends[uid];
-    }
-
 }

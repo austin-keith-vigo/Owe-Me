@@ -45,22 +45,6 @@ class HomeScreen extends Component{
     });
   }
 
-  getRecordsData(){
-    var filepath = SingletonClass.getInstance().getUserUID() + '/records';
-    var databaseRef = firebase.database().ref(filepath);
-
-    databaseRef.once('value').then((snapshot)=>{
-      SingletonClass.getInstance().setUsername(snapshot.val()['username']);
-      console.log(SingletonClass.getInstance().getUsername());
-
-      snapshot.forEach((record)=>{
-        var newRecord = new Record(record);
-        SingletonClass.getInstance().addRecord(newRecord);
-      })
-      this.flatListData = SingletonClass.getInstance().getRecords();
-      this.setState({ gotData: true });
-    })
-  }
 
   render(){
     return(

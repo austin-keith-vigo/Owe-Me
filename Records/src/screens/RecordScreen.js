@@ -29,7 +29,7 @@ class RecordScreen extends Component{
           data={this.flatListDataProp}
           renderItem={({item}) => (
             <Text>
-              {SingletonClass.getInstance().getFriendUsername(item.key)} : {item.value}
+              {item.key} : {item.value}
             </Text>
           )}
         />
