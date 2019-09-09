@@ -4,12 +4,18 @@ import {
   Text
 } from 'react-native';
 import SingletonClass from './../SingletonClass';
+import MoneyInputField from './../components/MoneyInputField';
 
 class AddRecordScreen extends Component{
+
+  state={ value: ""} 
+
   render(){
     return(
       <View>
-        <Text>Add Record</Text>
+        <MoneyInputField
+          onChangeText={text => this.setState({value: text})}
+        />
       </View>
     );
   }
