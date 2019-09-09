@@ -3,6 +3,7 @@ import {
   View,
   Text
 } from 'react-native';
+import SingletonClass from './../SingletonClass';
 
 class AddRecordScreen extends Component{
   render(){

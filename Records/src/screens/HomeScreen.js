@@ -68,6 +68,12 @@ class HomeScreen extends Component{
             this.props.navigation.navigate("AddRecord");
           }}
         />
+        <Button
+          title="To Friends Screen"
+          onPress={()=>{
+            this.props.navigation.navigate("Friends");
+          }}
+        />
       </View>
     );
   }

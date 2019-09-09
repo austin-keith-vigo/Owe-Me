@@ -14,7 +14,6 @@ export default class SingletonClass {
         if (SingletonClass.sharedInstance == null) {
             SingletonClass.sharedInstance = new SingletonClass();
         }
-
         return this.sharedInstance;
     }
 
@@ -49,6 +48,14 @@ export default class SingletonClass {
 
     getFriends(){
       return this._friends;
+    }
+
+    //Clears the Singleton when the user logs out
+    clearSingleton(){
+      this._userUID = "";
+      this._username = "";
+      this._records = [];
+      this._friends = {};
     }
 
 }
