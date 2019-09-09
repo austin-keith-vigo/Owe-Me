@@ -58,4 +58,13 @@ export default class SingletonClass {
       this._friends = {};
     }
 
+    //Check if all fields are initialized
+    isInitialized(){
+      if (this._userUID != "" && this._username != ""){
+        return true;
+      } else {
+        return false;
+      }
+    }
+
 }
