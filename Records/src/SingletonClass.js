@@ -38,6 +38,26 @@ export default class SingletonClass {
       this._records.push(record);
     }
 
+    //Gets called to add a new record to the SingletonClass
+    //Update how much each friend in the record owes the user
+    addNewRecord(record){
+      // return new Promise((resolve)=> {
+      //   this._records.push(record);
+      //
+      //   recordData = record.getData();
+      //   for(key in recordData){
+      //     this._friends[key] += record.getAmountForPerson(key);
+      //   }
+      //   resolve('Sucess');
+      // });
+      this._records.push(record);
+
+      recordData = record.getData();
+      for(key in recordData){
+        this._friends[key] += record.getAmountForPerson(key);
+      }
+    }
+
     getRecords(){
       return this._records;
     }

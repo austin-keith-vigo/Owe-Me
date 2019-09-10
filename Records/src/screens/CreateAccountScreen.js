@@ -27,7 +27,7 @@ class CreateAccountScreen extends Component{
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(()=>{
       this.toggleCreateAccountState();
-      this.props.navigation.navigate('Home');
+      this.props.navigation.dispatch(resetAction);
     })
     .catch((error)=>{
       this.toggleCreateAccountState();
