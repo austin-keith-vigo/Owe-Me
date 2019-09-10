@@ -6,20 +6,20 @@ import {
   Button
 } from 'react-native';
 import firebase from 'react-native-firebase';
+import { NavigationEvents } from 'react-navigation';
 import SingletonClass from './../SingletonClass';
 import Record from './../Record';
 
 class HomeScreen extends Component{
 
+  state = {gotData: false}
   flatListData = []
 
   //Grab the user's data and update the Singleton with the records
-  constructor(props){
-    super(props);
-
+  componentDidMount(){
     this.flatListData = SingletonClass.getInstance().getRecords();
+    this.setState({gotData: true});
   }
-
 
   render(){
     return(
@@ -27,12 +27,14 @@ class HomeScreen extends Component{
         <FlatList
           data={this.flatListData}
           renderItem={({item}) => (
-            <Button
-              title={item.getTitle()}
-              onPress={()=>{
-                this.props.navigation.navigate("Record", { record: item });
-              }}
-            />
+            <View>
+              <Button
+                title={item.getTitle()}
+                onPress={()=>{
+                  this.props.navigation.navigate("Record", { record: item });
+                }}
+              />
+            </View>
           )}
           horizontalMode="true"
         />

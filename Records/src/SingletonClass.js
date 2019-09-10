@@ -38,6 +38,15 @@ export default class SingletonClass {
       this._records.push(record);
     }
 
+    //Gets called to add a new record to the SingletonClass
+    //Update how much each friend in the record owes the user
+    willAddNewRecord(record){
+      return new Promise((resolve)=> {
+        this._records.push(record);
+        resolve('Sucess');
+      });
+    }
+
     getRecords(){
       return this._records;
     }
