@@ -6,12 +6,7 @@ import {
   FlatList
 } from 'react-native';
 import SingletonClass from './../SingletonClass';
-import { StackActions, NavigationActions } from 'react-navigation';
-
-const resetAction = StackActions.reset({
-  index: 0,
-  actions: [NavigationActions.navigate({ routeName: 'Home' })],
-});
+import {resetAction} from './../../App';
 
 class SelectFriendsScreen extends Component{
 
@@ -37,7 +32,8 @@ class SelectFriendsScreen extends Component{
     }
   }
 
-  //Distributes the bill and finishes the record
+  //Distributes the bill and finishes the record by updating data
+  //To singleton and Firebase
   finishedSelecting(){
     const numberOfPeople = this.selectedFriends.length + 1;
     const totalOfBill = this.props.navigation.getParam('totalAmount')
@@ -52,7 +48,6 @@ class SelectFriendsScreen extends Component{
     SingletonClass.getInstance().willAddNewRecord(record).then(()=>{
       this.props.navigation.dispatch(resetAction);
     });
-
   }
 
   render(){

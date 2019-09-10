@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 //Screens
 import LoginScreen from './src/screens/LoginScreen';
@@ -37,5 +38,11 @@ const AppNavigator = createStackNavigator(
   }
 );
 
+//Resets Navigator back to Home Screen
+const resetAction = StackActions.reset({
+  index: 0,
+  actions: [NavigationActions.navigate({ routeName: 'Home' })],
+});
+
 const App = createAppContainer(AppNavigator);
-export default App;
+export {App, resetAction};
