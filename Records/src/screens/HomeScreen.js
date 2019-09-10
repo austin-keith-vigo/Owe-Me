@@ -12,13 +12,12 @@ import Record from './../Record';
 
 class HomeScreen extends Component{
 
-  state = {gotData: false}
   flatListData = []
 
   //Grab the user's data and update the Singleton with the records
-  componentDidMount(){
+  constructor(props){
+    super(props);
     this.flatListData = SingletonClass.getInstance().getRecords();
-    this.setState({gotData: true});
   }
 
   render(){

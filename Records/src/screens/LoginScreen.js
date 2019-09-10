@@ -10,7 +10,7 @@ import EmailPasswordForm from './../components/EmailPasswordForm';
 import Dialog from "react-native-dialog";
 import SingletonClass from './../SingletonClass';
 import Record from './../Record';
-
+import {resetAction} from './../../App';
 class LoginScreen extends Component{
 
   //Handles whether or not to render an activity monitor and alert
@@ -24,7 +24,8 @@ class LoginScreen extends Component{
     firebase.auth().signInWithEmailAndPassword(email, password).then(()=>{
       this.toggleLoggingInState();
       this.willInitializeSingleton().then(()=>{
-        this.props.navigation.navigate('Home');
+        //this.props.navigation.navigate('Home');
+        this.props.navigation.dispatch(resetAction);
       })
       .catch((message)=>{
         this.errorMessage = message;

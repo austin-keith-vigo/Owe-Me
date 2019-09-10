@@ -46,12 +46,15 @@ class SelectFriendsScreen extends Component{
     })
     var record = this.props.navigation.getParam('record');
     record.setData(recordData)
-    SingletonClass.getInstance().willAddNewRecord(record).then(()=>{
+
+    //Update the Singleton with new record
+    SingletonClass.getInstance().addNewRecord(record);
+
+    //Update Firebase with new record
+    willUpdateWithNewRecord(record).then(()=>{
       this.props.navigation.dispatch(resetAction);
     });
   }
-
-
 
   render(){
     return(
