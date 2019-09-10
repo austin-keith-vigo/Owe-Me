@@ -43,6 +43,11 @@ export default class SingletonClass {
     willAddNewRecord(record){
       return new Promise((resolve)=> {
         this._records.push(record);
+
+        recordData = record.getData();
+        for(key in recordData){
+          this._friends[key] += record.getAmountForPerson(key);
+        }
         resolve('Sucess');
       });
     }

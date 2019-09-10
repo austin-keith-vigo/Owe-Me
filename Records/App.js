@@ -45,4 +45,7 @@ const resetAction = StackActions.reset({
 });
 
 const App = createAppContainer(AppNavigator);
-export {App, resetAction};
+export {
+  App,
+  resetAction
+};

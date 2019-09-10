@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import SingletonClass from './../SingletonClass';
 import {resetAction} from './../../App';
+import {willUpdateWithNewRecord} from './../FirebaseActions';
 
 class SelectFriendsScreen extends Component{
 
@@ -49,6 +50,8 @@ class SelectFriendsScreen extends Component{
       this.props.navigation.dispatch(resetAction);
     });
   }
+
+
 
   render(){
     return(
