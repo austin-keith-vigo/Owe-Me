@@ -16,6 +16,7 @@ import RecordScreen from './src/screens/RecordScreen';
 import AddRecordScreen from './src/screens/AddRecordScreen';
 import AddFriendScreen from './src/screens/AddFriendScreen';
 import FriendsScreen from './src/screens/FriendsScreen';
+import SelectFriendsScreen from './src/screens/SelectFriendsScreen';
 
 //Main App Navigator for all the screens
 const AppNavigator = createStackNavigator(
@@ -28,7 +29,8 @@ const AppNavigator = createStackNavigator(
     Record: RecordScreen,
     AddRecord: AddRecordScreen,
     AddFriend: AddFriendScreen,
-    Friends: FriendsScreen
+    Friends: FriendsScreen,
+    SelectFriends: SelectFriendsScreen
   },
   {
     initialRouteName: 'Login',

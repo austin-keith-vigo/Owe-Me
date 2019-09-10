@@ -3,6 +3,7 @@ export default class Record{
   _data = {};
   _title = "";
 
+  //If given a dictionary, for instance given it from firebase
   constructor(title, data){
     this._data = data;
     this._title = title;
@@ -12,6 +13,10 @@ export default class Record{
       return(this._data[person]);
   }
 
+  setData(data){
+    this._data = data;
+  }
+  
   getData(){
     return this._data;
   }

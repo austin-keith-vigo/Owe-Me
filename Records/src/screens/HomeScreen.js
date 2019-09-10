@@ -27,7 +27,6 @@ class HomeScreen extends Component{
         <FlatList
           data={this.flatListData}
           renderItem={({item}) => (
-            // <Text>{item.getTitle()}</Text>
             <Button
               title={item.getTitle()}
               onPress={()=>{
