@@ -25,10 +25,16 @@ class InputField extends Component{
 
 const styles = StyleSheet.create({
   textInputStyle:{
-    width: "100%",
+    width: 300,
     height: 40,
-    fontSize: 12,
-    lineHeight: 12
+    fontSize: 16,
+    lineHeight: 16,
+    backgroundColor: 'white',
+    borderColor: 'gray',
+    borderRadius: 5,
+    marginBottom: 20,
+    paddingLeft: 15,
+    paddingRight: 15
   }
 });
 

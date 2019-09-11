@@ -4,7 +4,8 @@ import {
   Text,
   ActivityIndicator,
   Button,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import EmailPasswordForm from './../components/EmailPasswordForm';
@@ -12,7 +13,18 @@ import Dialog from "react-native-dialog";
 import SingletonClass from './../SingletonClass';
 import Record from './../Record';
 import {resetAction} from './../../App';
+
 class LoginScreen extends Component{
+
+  //Configure header
+  static navigationOptions = {
+    title: 'Home',
+    headerStyle: {
+      height: 0,
+      backgroundColor: "#237a3b",
+      borderBottomWidth: 0
+    }
+  };
 
   //Handles whether or not to render an activity monitor and alert
   state = {loggingIn: false, showAlert: false};
@@ -100,7 +112,8 @@ class LoginScreen extends Component{
 
   render(){
     return(
-      <View>
+      <View style={styles.viewStyle}>
+        <Text style={styles.title}>Records</Text>
         <EmailPasswordForm
           buttonPressed={this.loginUser.bind(this)}
           buttonTitle="Login"
@@ -112,24 +125,38 @@ class LoginScreen extends Component{
             onPress={this.toggleShowAlertState.bind(this)}
           />
         </Dialog.Container>
-        <Button
-          title="Create Account"
-          onPress={()=>{
-            this.props.navigation.navigate('CreateAccount');
-          }}
-        />
-        <Button
-          title="Forgot Password"
-          onPress={()=>{
-            this.props.navigation.navigate('ForgotPassword');
-          }}
-        />
         {this.renderActivityMonitor()}
+        <TouchableOpacity onPress={()=>{
+          this.props.navigation.navigate('ForgotPassword');
+        }}>
+          <Text style={styles.buttonStyle}>Forgot Password</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{
+          this.props.navigation.navigate('CreateAccount');
+        }}>
+          <Text style={styles.buttonStyle}>Create Account</Text>
+        </TouchableOpacity>
+
       </View>
     );
   }
 }
 
-
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 40,
+    fontWeight: "bold",
+    padding: 40
+  },
+  viewStyle: {
+    flex: 1,
+    backgroundColor: "#237a3b",
+    alignItems: 'center'
+  },
+  buttonStyle: {
+    paddingTop: 15,
+    fontSize: 20
+  }
+});
 
 export default LoginScreen;
