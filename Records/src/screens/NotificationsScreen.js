@@ -5,11 +5,14 @@ import {
   FlatList
 } from 'react-native';
 import SingletonClass from './../SingletonClass';
+import Notification from './../components/Notification';
 
 class NotificationsScreen extends Component{
 
+  //List to hold all the notifications for the flat list
   notifications = [];
 
+  //Get all notifications from the singleton
   constructor(props){
     super(props);
 
@@ -21,7 +24,10 @@ class NotificationsScreen extends Component{
       <View>
       <FlatList
         data={this.notifications}
-        renderItem={({item})=> <Text>{item.id}</Text>}
+        renderItem={({item})=>
+          <Notification
+            notification={item.data}
+          />}
         keyExtractor={item => item.id}
       />
       </View>

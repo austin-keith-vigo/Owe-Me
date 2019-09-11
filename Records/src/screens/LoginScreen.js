@@ -3,7 +3,8 @@ import {
   View,
   Text,
   ActivityIndicator,
-  Button
+  Button,
+  StyleSheet
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import EmailPasswordForm from './../components/EmailPasswordForm';
@@ -104,7 +105,6 @@ class LoginScreen extends Component{
           buttonPressed={this.loginUser.bind(this)}
           buttonTitle="Login"
         />
-        {this.renderActivityMonitor()}
         <Dialog.Container visible={this.state.showAlert}>
           <Dialog.Title>{this.errorMessage}</Dialog.Title>
           <Dialog.Button
@@ -124,9 +124,12 @@ class LoginScreen extends Component{
             this.props.navigation.navigate('ForgotPassword');
           }}
         />
+        {this.renderActivityMonitor()}
       </View>
     );
   }
 }
+
+
 
 export default LoginScreen;
