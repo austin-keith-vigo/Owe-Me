@@ -3,7 +3,8 @@ import {
   View,
   Text,
   Button,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity
 } from 'react-native';
 import InputField from './InputField';
 
@@ -28,10 +29,13 @@ class EmailPasswordForm extends Component {
           autoCapitalize={"none"}
           autoCorrect={false}
         />
-        <Button
-          title={this.props.buttonTitle}
-          onPress={()=>{this.props.buttonPressed(this.state.email, this.state.password)}}
-        />
+        <TouchableOpacity onPress={()=>{
+          this.props.buttonPressed(this.state.email, this.state.password)
+        }}>
+          <View style={styles.buttonViewStyle}>
+            <Text style={styles.buttonTextStyle}>Login</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -39,7 +43,20 @@ class EmailPasswordForm extends Component {
 
 const styles = StyleSheet.create({
   viewStyle:{
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonViewStyle: {
+    height: 40,
+    width: 100,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    borderWidth: 2,
+  },
+  buttonTextStyle:{
+    fontSize: 20
   }
 })
 
