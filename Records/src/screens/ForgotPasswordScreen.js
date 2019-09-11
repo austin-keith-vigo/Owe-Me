@@ -2,13 +2,24 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  Button
+  Button,
+  TouchableOpacity,
+  StyleSheet
 } from 'react-native';
 import InputField from './../components/InputField';
 import firebase from 'react-native-firebase';
 import Dialog from "react-native-dialog";
 
 class ForgotPasswordScreen extends Component{
+
+  //Configure header
+  static navigationOptions = {
+    title: 'Forgot Password',
+    headerStyle: {
+      backgroundColor: "#237a3b",
+      borderBottomWidth: 0
+    }
+  };
 
   //keeps track of what is in the input field, and the alert attributes
   state={email: '', showAlert: false}
@@ -41,7 +52,8 @@ class ForgotPasswordScreen extends Component{
 
   render(){
     return(
-      <View>
+      <View style={styles.viewStyle}>
+        <View style={styles.bufferView}></View>
         <InputField
           placeholder='email'
           onChangeText={text => this.setState({ email: text })}
@@ -49,10 +61,12 @@ class ForgotPasswordScreen extends Component{
           autoCapitalize={"none"}
           autoCorrect={false}
         />
-        <Button
-          title='Send Email'
-          onPress={this.sendPasswordResetEmail.bind(this)}
-        />
+        <TouchableOpacity onPress={this.sendPasswordResetEmail.bind(this)}>
+          <View style={styles.buttonViewStyle}>
+            <Text style={styles.buttonTextStyle}>Send Email</Text>
+          </View>
+
+        </TouchableOpacity>
         <Dialog.Container visible={this.state.showAlert}>
           <Dialog.Title>{this.errorMessage}</Dialog.Title>
           <Dialog.Button
@@ -64,5 +78,29 @@ class ForgotPasswordScreen extends Component{
     );
   }
 }
+
+const styles = StyleSheet.create({
+  viewStyle:{
+    alignItems: 'center',
+    flex: 1,
+    backgroundColor: "#237a3b"
+  },
+  buttonViewStyle: {
+    height: 40,
+    width: 120,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    borderWidth: 2,
+  },
+  buttonTextStyle:{
+    fontSize: 20
+  },
+  bufferView: {
+    height: 80,
+    backgroundColor: "#237a3b"
+  }
+});
 
 export default ForgotPasswordScreen;

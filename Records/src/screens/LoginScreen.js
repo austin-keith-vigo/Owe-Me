@@ -113,7 +113,7 @@ class LoginScreen extends Component{
   render(){
     return(
       <View style={styles.viewStyle}>
-        <Text style={styles.title}>Records</Text>
+        <Text style={styles.title}>RECORDS</Text>
         <EmailPasswordForm
           buttonPressed={this.loginUser.bind(this)}
           buttonTitle="Login"
@@ -144,7 +144,7 @@ class LoginScreen extends Component{
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 40,
+    fontSize: 45,
     fontWeight: "bold",
     padding: 40
   },
