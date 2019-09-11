@@ -65,6 +65,12 @@ class LoginScreen extends Component{
           SingletonClass.getInstance().addFriend(key, friendsData[key]);
         }
 
+        //Set Notifications
+        const notificationsData = snapshot.val()['notifications'];
+        for(var key in notificationsData){
+          SingletonClass.getInstance().addNotification(key, notificationsData[key]);
+        }
+
         resolve('Completed');
       })
       .catch((error)=>{
