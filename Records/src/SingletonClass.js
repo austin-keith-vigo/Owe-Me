@@ -8,6 +8,7 @@ export default class SingletonClass {
     _username = "";
     _records = [];
     _friends = {};
+    _notifications = [];
 
     //Gets called whenever the Singleton is being written or read from
     static getInstance() {
@@ -62,12 +63,28 @@ export default class SingletonClass {
       return this._records;
     }
 
+    setRecords(records){
+      this._records = records;
+    }
+
     addFriend(uid, username){
       this._friends[uid] = username;
     }
 
     getFriends(){
       return this._friends;
+    }
+
+    getNotifications(){
+      return this._notifications
+    }
+
+    setNotifications(notifications){
+      this._notifications = notifications;
+    }
+
+    addNotification(key, notification){
+      this._notifications.push({id: key, data: notification});
     }
 
     //Clears the Singleton when the user logs out

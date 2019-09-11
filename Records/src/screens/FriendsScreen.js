@@ -24,14 +24,14 @@ class FriendsScreen extends Component{
   render(){
     return(
       <View>
-      <FlatList
-        data={this.friends}
-        renderItem={({item}) => (
-          <Text>
-            {item.key} : {item.value}
-          </Text>
-        )}
-      />
+        <FlatList
+          data={this.friends}
+          renderItem={({item}) => (
+            <Text>
+              {item.key} : {item.value}
+            </Text>
+          )}
+        />
       </View>
     );
   }

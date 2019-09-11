@@ -49,6 +49,12 @@ class HomeScreen extends Component{
             this.props.navigation.navigate("Friends");
           }}
         />
+        <Button
+          title="To Notifications Screen"
+          onPress={()=>{
+            this.props.navigation.navigate("Notifications");
+          }}
+        />
       </View>
     );
   }
