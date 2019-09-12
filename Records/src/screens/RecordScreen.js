@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import SingletonClass from './../SingletonClass';
 import RecordFlatListItem from './../components/RecordFlatListItem';
+import GLOBALS from './../Globals';
 
 class RecordScreen extends Component{
 
@@ -14,7 +15,7 @@ class RecordScreen extends Component{
   static navigationOptions = {
     title: "Record",
     headerStyle: {
-      backgroundColor: "#237a3b",
+      backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 1,
       borderBottomColor: 'black'
     }

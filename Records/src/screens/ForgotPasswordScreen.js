@@ -9,6 +9,7 @@ import {
 import InputField from './../components/InputField';
 import firebase from 'react-native-firebase';
 import Dialog from "react-native-dialog";
+import GLOBALS from './../Globals';
 
 class ForgotPasswordScreen extends Component{
 
@@ -16,7 +17,7 @@ class ForgotPasswordScreen extends Component{
   static navigationOptions = {
     title: 'Forgot Password',
     headerStyle: {
-      backgroundColor: "#237a3b",
+      backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 0
     }
   };
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
   viewStyle:{
     alignItems: 'center',
     flex: 1,
-    backgroundColor: "#237a3b"
+    backgroundColor: GLOBALS.COLORS.GREEN
   },
   buttonViewStyle: {
     height: 40,
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
   },
   bufferView: {
     height: 80,
-    backgroundColor: "#237a3b"
+    backgroundColor: GLOBALS.COLORS.GREEN
   }
 });
 

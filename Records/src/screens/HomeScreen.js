@@ -12,6 +12,7 @@ import { NavigationEvents } from 'react-navigation';
 import SingletonClass from './../SingletonClass';
 import Record from './../Record';
 import HomeFlatListTile from './../components/HomeFlatListTile';
+import GLOBALS from './../Globals';
 
 class HomeScreen extends Component{
 
@@ -20,7 +21,7 @@ class HomeScreen extends Component{
     title: '',
     headerStyle: {
       height: 0,
-      backgroundColor: "#237a3b",
+      backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 0
     }
   };
@@ -84,7 +85,7 @@ class HomeScreen extends Component{
 const styles = StyleSheet.create({
   viewStyle: {
     flex: 1,
-    backgroundColor: "#237a3b",
+    backgroundColor: GLOBALS.COLORS.GREEN,
     alignItems: 'center'
   },
   flatListStyle: {
