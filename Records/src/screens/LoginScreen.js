@@ -18,7 +18,7 @@ class LoginScreen extends Component{
 
   //Configure header
   static navigationOptions = {
-    title: 'Home',
+    title: '',
     headerStyle: {
       height: 0,
       backgroundColor: "#237a3b",

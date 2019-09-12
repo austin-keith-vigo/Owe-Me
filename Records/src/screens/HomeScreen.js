@@ -17,7 +17,7 @@ class HomeScreen extends Component{
 
   //Configure header
   static navigationOptions = {
-    title: 'Home',
+    title: '',
     headerStyle: {
       height: 0,
       backgroundColor: "#237a3b",
@@ -32,7 +32,7 @@ class HomeScreen extends Component{
   //A add record button
   constructor(props){
     super(props);
-    
+
     this.flatListData = SingletonClass.getInstance().getRecords();
 
     //Create the flatlist tiles
