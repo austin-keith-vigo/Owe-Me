@@ -7,15 +7,32 @@ import {
 } from 'react-native';
 
 class HomeFlatListTile extends Component{
+
+  //conditional rendering to determine whether to render an renderImage
+  // or text
+  renderImage(){
+    if(this.props.isImage == true){
+      return (
+        <View style={styles.recordTileStyle}>
+          <Text>Image</Text>
+        </View>
+      );
+    }
+    else{
+      return(
+        <View style={styles.recordTileStyle}>
+          <Text style={styles.recordTextTitleStyle}>
+            {this.props.title}
+          </Text>
+          <Text>${this.props.amount}</Text>
+        </View>
+      );
+    }
+  }
   render(){
     return(
       <TouchableOpacity onPress={this.props.onPress}>
-        <View style={styles.recordTileStyle}>
-          <Text style={styles.recordTextTitleStyle}>
-            {this.props.record.getTitle()}
-          </Text>
-          <Text>${this.props.record.getTotalAmount()}</Text>
-        </View>
+          {this.renderImage()}
       </TouchableOpacity>
     );
   }

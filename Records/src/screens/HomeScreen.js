@@ -31,6 +31,32 @@ class HomeScreen extends Component{
   constructor(props){
     super(props);
     this.flatListData = SingletonClass.getInstance().getRecords();
+
+    //Create the flatlist tiles
+    for(index = 0; index < this.flatListData.length; ++index){
+      const currentRecord = this.flatListData[index];
+
+      //Convert each index to a component to be rendered by flat list
+      this.flatListData[index] =
+        <HomeFlatListTile
+          isImage = {false}
+          title = {currentRecord.getTitle()}
+          amount = {currentRecord.getTotalAmount()}
+          onPress={()=>{
+           this.props.navigation.navigate("Record", { record: currentRecord })
+         }}
+        />;
+    }
+
+    //Make the last index of the list into an add record button
+    this.flatListData.push(
+      <HomeFlatListTile
+        isImage = {true}
+        onPress={()=>{
+         this.props.navigation.navigate("AddRecord")
+       }}
+      />
+    );
   }
 
   render(){
@@ -38,14 +64,10 @@ class HomeScreen extends Component{
       <View style={styles.viewStyle}>
       <FlatList
         data={this.flatListData}
-        renderItem={({item}) => (
-          <HomeFlatListTile
-            record={item}
-            onPress={()=>{
-             this.props.navigation.navigate("Record", { record: item })
-           }}
-          />
+        renderItem={(item) => (
+          <View>{item.item}</View>
         )}
+        keyExtractor={(item) => item.index}
         numColumns = {2}
       />
       </View>
@@ -64,5 +86,18 @@ const styles = StyleSheet.create({
     width: "100%"
   }
 })
+
+// <Button
+//   title="To Friends Screen"
+//   onPress={()=>{
+//     this.props.navigation.navigate("Friends");
+//   }}
+// />
+// <Button
+//   title="To Notifications Screen"
+//   onPress={()=>{
+//     this.props.navigation.navigate("Notifications");
+//   }}
+// />
 
 export default HomeScreen;
