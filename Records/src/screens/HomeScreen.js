@@ -28,8 +28,11 @@ class HomeScreen extends Component{
   flatListData = [];
 
   //Grab the user's data and update the Singleton with the records
+  //Populate the flatListData array with the records and at the end
+  //A add record button
   constructor(props){
     super(props);
+    
     this.flatListData = SingletonClass.getInstance().getRecords();
 
     //Create the flatlist tiles
@@ -65,10 +68,13 @@ class HomeScreen extends Component{
       <FlatList
         data={this.flatListData}
         renderItem={(item) => (
-          <View>{item.item}</View>
+          <View>
+            {item.item}
+            {console.log(item.index)}
+          </View>
         )}
-        keyExtractor={(item) => item.index}
         numColumns = {2}
+        keyExtractor={(item,index)=>index.toString()}
       />
       </View>
     );

@@ -42,8 +42,10 @@ const styles = StyleSheet.create({
   recordTileStyle:{
     width: 150,
     height: 150,
-    backgroundColor: 'gray',
     borderRadius: 25,
+    borderWidth: 2,
+    borderColor: 'black',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     margin: 10
