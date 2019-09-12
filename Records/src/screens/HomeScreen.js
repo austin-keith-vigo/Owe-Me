@@ -11,6 +11,7 @@ import firebase from 'react-native-firebase';
 import { NavigationEvents } from 'react-navigation';
 import SingletonClass from './../SingletonClass';
 import Record from './../Record';
+import HomeFlatListTile from './../components/HomeFlatListTile';
 
 class HomeScreen extends Component{
 
@@ -24,58 +25,33 @@ class HomeScreen extends Component{
     }
   };
 
-  flatListData = []
+  flatListData = [];
 
   //Grab the user's data and update the Singleton with the records
   constructor(props){
     super(props);
     this.flatListData = SingletonClass.getInstance().getRecords();
-
-    //Put the Add Record button at the end of the flat list
   }
 
   render(){
     return(
       <View style={styles.viewStyle}>
-        <FlatList
-          data={this.flatListData}
-          renderItem={({item}) => (
-            <TouchableOpacity onPress={()=>{
-              this.props.navigation.navigate("Record", { record: item })
-            }}>
-              <View style={styles.recordTileStyle}>
-                <Text style={styles.recordTextTitleStyle}>
-                  {item.getTitle()}
-                </Text>
-                <Text>${item.getTotalAmount()}</Text>
-              </View>
-            </TouchableOpacity>
-          )}
-          numColumns = {2}
-        />
+      <FlatList
+        data={this.flatListData}
+        renderItem={({item}) => (
+          <HomeFlatListTile
+            record={item}
+            onPress={()=>{
+             this.props.navigation.navigate("Record", { record: item })
+           }}
+          />
+        )}
+        numColumns = {2}
+      />
       </View>
     );
   }
 }
-
-// <Button
-//   title="Add Record"
-//   onPress={()=>{
-//     this.props.navigation.navigate("AddRecord");
-//   }}
-// />
-// <Button
-//   title="To Friends Screen"
-//   onPress={()=>{
-//     this.props.navigation.navigate("Friends");
-//   }}
-// />
-// <Button
-//   title="To Notifications Screen"
-//   onPress={()=>{
-//     this.props.navigation.navigate("Notifications");
-//   }}
-// />
 
 const styles = StyleSheet.create({
   viewStyle: {
@@ -83,20 +59,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#237a3b",
     alignItems: 'center'
   },
-  recordTileStyle:{
-    width: 150,
-    height: 150,
-    backgroundColor: 'gray',
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10
-  },
-  recordTextTitleStyle: {
-    fontSize: 20
-  },
-  recordTotalStyle: {
-    fontSize: 18
+  flatListStyle: {
+    flex: 1,
+    width: "100%"
   }
 })
 
