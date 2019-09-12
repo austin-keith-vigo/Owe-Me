@@ -16,12 +16,20 @@ export default class Record{
   setData(data){
     this._data = data;
   }
-  
+
   getData(){
     return this._data;
   }
 
   getTitle(){
     return this._title;
+  }
+
+  getTotalAmount(){
+    var total = 0;
+    for (key in this._data){
+      total += this._data[key];
+    }
+    return total;
   }
 }
