@@ -37,11 +37,22 @@ class SelectFriendsScreen extends Component{
   }
 
   //Marks a friend as selected and includes them in the bill
-  friendSelected = (friend) => {
-    if(this.selectedFriends.includes(friend)){
-      console.log('they are already selected');
-    } else{
-      this.selectedFriends.push(friend);
+  friendSelected = (selectedFriend) => {
+
+    //Remove the selected friend from the list
+    if(this.selectedFriends.includes(selectedFriend)){
+      var replacementFriendList = [];
+      for (index = 0; index < this.selectedFriends.length; ++index){
+        if(this.selectedFriends[index] != selectedFriend){
+          replacementFriendList.push(this.selectedFriends[index]);
+        }
+      }
+      this.selectedFriends = replacementFriendList;
+    }
+
+    //Add the selected friend
+    else{
+      this.selectedFriends.push(selectedFriend);
     }
   }
 

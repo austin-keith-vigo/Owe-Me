@@ -7,20 +7,41 @@ import {
   Image
 } from 'react-native';
 
-const FriendFlatListItem = (props) => {
-  return(
-    <TouchableOpacity
-      onPress={props.onPress}
-    >
-      <View style={styles.viewStyle}>
-        <Text>{props.friend}</Text>
+class FriendFlatListItem extends Component {
+
+  state={selected:false}
+
+  //Conditional rendering for the checkmard
+  renderChecmark(){
+    if(this.state.selected == true){
+      return(
         <Image
           source={require('./../assets/checkmark-for-verification.png')}
           style={styles.imageStyle}
         />
-      </View>
-    </TouchableOpacity>
-  );
+      );
+    }
+  }
+
+  toggleSelectedState(){
+    this.setState({selected:!this.state.selected});
+  }
+
+  render(){
+    return(
+      <TouchableOpacity
+        onPress={()=>{
+          this.toggleSelectedState();
+          this.props.onPress();
+        }}
+      >
+        <View style={styles.viewStyle}>
+          <Text style={styles.textStyle}>{this.props.friend}</Text>
+          {this.renderChecmark()}
+        </View>
+      </TouchableOpacity>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -37,6 +58,11 @@ const styles = StyleSheet.create({
     resizeMode:'contain',
     position: 'absolute',
     right: 0
+  },
+  textStyle:{
+    fontSize: 16,
+    fontWeight: 'bold',
+    paddingLeft: 5
   }
 });
 
