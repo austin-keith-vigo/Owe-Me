@@ -17,6 +17,14 @@ class SelectFriendsScreen extends Component{
   //Configure header
   static navigationOptions = {
     title: 'Select Friends',
+    headerRight: (
+      <Button
+        onPress={()=>{
+          console.log("finished selecting");
+        }}
+        title="Finish"
+      />
+    ),
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 0
