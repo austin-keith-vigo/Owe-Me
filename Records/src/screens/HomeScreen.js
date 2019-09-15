@@ -34,14 +34,14 @@ class HomeScreen extends Component{
   constructor(props){
     super(props);
 
-    this.flatListData = SingletonClass.getInstance().getRecords();
+    const recordsData = SingletonClass.getInstance().getRecords();
 
     //Create the flatlist tiles
-    for(index = 0; index < this.flatListData.length; ++index){
-      const currentRecord = this.flatListData[index];
+    for(index = 0; index < recordsData.length; ++index){
+      const currentRecord = recordsData[index];
 
       //Convert each index to a component to be rendered by flat list
-      this.flatListData[index] =
+      this.flatListData.push(
         <HomeFlatListTile
           isImage = {false}
           title = {currentRecord.getTitle()}
@@ -49,7 +49,8 @@ class HomeScreen extends Component{
           onPress={()=>{
            this.props.navigation.navigate("Record", { record: currentRecord })
          }}
-        />;
+        />
+      );
     }
 
     //Make the last index of the list into an add record button
@@ -71,7 +72,6 @@ class HomeScreen extends Component{
         renderItem={(item) => (
           <View>
             {item.item}
-            {console.log(item.index)}
           </View>
         )}
         numColumns = {2}

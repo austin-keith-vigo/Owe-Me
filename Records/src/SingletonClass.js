@@ -63,6 +63,10 @@ export default class SingletonClass {
       return this._records;
     }
 
+    copyRecords(){
+  
+    }
+
     setRecords(records){
       this._records = records;
     }
@@ -94,4 +98,6 @@ export default class SingletonClass {
       this._records = [];
       this._friends = {};
     }
+
+
 }

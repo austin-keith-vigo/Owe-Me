@@ -8,8 +8,18 @@ import SingletonClass from './../SingletonClass';
 import MoneyInputField from './../components/MoneyInputField';
 import InputField from './../components/InputField';
 import Record from './../Record';
-
+import GLOBALS from './../Globals';
+import TextMoneyForm from './../components/TextMoneyForm';
 class AddRecordScreen extends Component{
+
+  //Configure header
+  static navigationOptions = {
+    title: 'Add Record',
+    headerStyle: {
+      backgroundColor: GLOBALS.COLORS.GREEN,
+      borderBottomWidth: 0
+    }
+  };
 
   state={ value: "", title:""}
 
@@ -27,15 +37,9 @@ class AddRecordScreen extends Component{
     return(
       <View>
         <Text>Enter the title and bill amount</Text>
-        <InputField
-          placeholder="Title"
-          onChangeText={text => this.setState({title: text})}
-          secureTextEntry={false}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <MoneyInputField
-          onChangeText={text => this.setState({value: text})}
+        <TextMoneyForm
+          onChangeTextTitle={(text)=>this.setState({title: text})}
+          onChangeTextValue={(text)=>this.setState({value: text})}
         />
         <Button
           title="Next"
@@ -45,5 +49,16 @@ class AddRecordScreen extends Component{
     );
   }
 }
+
+// <InputField
+//   placeholder="Title"
+//   onChangeText={text => this.setState({title: text})}
+//   secureTextEntry={false}
+//   autoCapitalize="none"
+//   autoCorrect={false}
+// />
+// <MoneyInputField
+//   onChangeText={text => this.setState({value: text})}
+// />
 
 export default AddRecordScreen;

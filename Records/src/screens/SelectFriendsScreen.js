@@ -3,13 +3,25 @@ import {
   View,
   Text,
   Button,
-  FlatList
+  FlatList,
+  StyleSheet
 } from 'react-native';
 import SingletonClass from './../SingletonClass';
 import {resetAction} from './../../App';
 import {willUpdateWithNewRecord} from './../FirebaseActions';
+import GLOBALS from './../Globals';
+import FriendFlatListItem from './../components/FriendFlatListItem';
 
 class SelectFriendsScreen extends Component{
+
+  //Configure header
+  static navigationOptions = {
+    title: 'Select Friends',
+    headerStyle: {
+      backgroundColor: GLOBALS.COLORS.GREEN,
+      borderBottomWidth: 0
+    }
+  };
 
   friends = [];         //For FlatList
   selectedFriends = []; //Friends part of the bill
@@ -59,24 +71,27 @@ class SelectFriendsScreen extends Component{
   render(){
     return(
       <View>
-      <FlatList
-        data={this.friends}
-        renderItem={({item}) => (
-          <Button
-            title = {item.key}
-            onPress={()=>{
-              this.friendSelected(item.key);
-            }}
-          />
-        )}
-      />
-      <Button
-        title="Next"
-        onPress={this.finishedSelecting.bind(this)}
-      />
+        <FlatList
+          data={this.friends}
+          renderItem={({item}) => (
+            <FriendFlatListItem
+              friend={item.key}
+              onPress={this.friendSelected.bind(this,item.key)}
+            />
+          )}
+        />
+        <Button
+          title="Next"
+          onPress={this.finishedSelecting.bind(this)}
+        />
       </View>
     );
   }
 }
 
+const styles = StyleSheet.create({
+  viewStyle:{
+
+  }
+});
 export default SelectFriendsScreen;
