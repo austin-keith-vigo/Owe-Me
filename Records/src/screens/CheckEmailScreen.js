@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
+import GLOBALS from './../Globals';
 
 class CheckEmailScreen extends Component{
 
@@ -12,7 +13,7 @@ class CheckEmailScreen extends Component{
   static navigationOptions = {
     title: 'Forgot Password',
     headerStyle: {
-      backgroundColor: "#237a3b",
+      backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 0
     }
   };
@@ -36,7 +37,7 @@ class CheckEmailScreen extends Component{
 const styles = StyleSheet.create({
   viewStyle:{
     flex: 1,
-    backgroundColor: "#237a3b",
+    backgroundColor: GLOBALS.COLORS.GREEN,
     alignItems: 'center',
     justifyContent: 'center'
   },

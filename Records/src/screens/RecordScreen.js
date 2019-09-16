@@ -2,11 +2,24 @@ import React,{Component} from 'react';
 import {
   View,
   Text,
-  FlatList
+  FlatList,
+  StyleSheet
 } from 'react-native';
 import SingletonClass from './../SingletonClass';
+import RecordFlatListItem from './../components/RecordFlatListItem';
+import GLOBALS from './../Globals';
 
 class RecordScreen extends Component{
+
+  //Configure header
+  static navigationOptions = {
+    title: "Record",
+    headerStyle: {
+      backgroundColor: GLOBALS.COLORS.GREEN,
+      borderBottomWidth: 1,
+      borderBottomColor: 'black'
+    }
+  };
 
   flatListDataProp = [];
 
@@ -18,24 +31,34 @@ class RecordScreen extends Component{
     //as the data prop for the flatList
     var recordData = this.props.navigation.getParam('record').getData();
     for(var key in recordData){
-      this.flatListDataProp.push({"key": key, "value":recordData[key]})
+      const newRecordFlatListItem =
+        <RecordFlatListItem
+          title={key}
+          amount={recordData[key]}
+        />;
+      this.flatListDataProp.push({"key": key, "value":newRecordFlatListItem})
     }
   }
 
   render(){
     return(
-      <View>
+      <View style = {styles.viewStyle}>
         <FlatList
           data={this.flatListDataProp}
           renderItem={({item}) => (
-            <Text>
-              {item.key} : {item.value}
-            </Text>
+            <View>{item.value}</View>
           )}
         />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  viewStyle:{
+    flex: 1,
+    backgroundColor: "white"
+  }
+})
 
 export default RecordScreen;

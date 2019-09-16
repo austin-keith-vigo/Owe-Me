@@ -3,16 +3,42 @@ import {
   View,
   Text,
   Button,
-  FlatList
+  FlatList,
+  StyleSheet
 } from 'react-native';
 import SingletonClass from './../SingletonClass';
 import {resetAction} from './../../App';
 import {willUpdateWithNewRecord} from './../FirebaseActions';
+import GLOBALS from './../Globals';
+import FriendFlatListItem from './../components/FriendFlatListItem';
 
 class SelectFriendsScreen extends Component{
 
+  //Configure header
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: 'Select Friends',
+      headerRight: (
+        <Button
+          onPress={()=>{ //Go to confirmation screen
+            navigation.navigate('Confirmation',{
+              selectedFriends: SelectFriendsScreen.selectedFriends,
+              totalAmount: navigation.getParam("totalAmount"),
+              record: navigation.getParam("record")
+            })
+          }}
+          title="Next"
+        />
+      ),
+      headerStyle: {
+        backgroundColor: GLOBALS.COLORS.GREEN,
+        borderBottomWidth: 0
+      }
+    };
+  };
+
   friends = [];         //For FlatList
-  selectedFriends = []; //Friends part of the bill
+  static selectedFriends = []; //Friends part of the bill
 
   //Initialize friends attribute for data prop of FlatList
   constructor(props){
@@ -25,55 +51,37 @@ class SelectFriendsScreen extends Component{
   }
 
   //Marks a friend as selected and includes them in the bill
-  friendSelected = (friend) => {
-    if(this.selectedFriends.includes(friend)){
-      console.log('they are already selected');
-    } else{
-      this.selectedFriends.push(friend);
+  friendSelected = (selectedFriend) => {
+
+    //Remove the selected friend from the list
+    if(SelectFriendsScreen.selectedFriends.includes(selectedFriend)){
+      var replacementFriendList = [];
+      for (index = 0; index < SelectFriendsScreen.selectedFriends.length; ++index){
+        if(SelectFriendsScreen.selectedFriends[index] != selectedFriend){
+          replacementFriendList.push(SelectFriendsScreen.selectedFriends[index]);
+        }
+      }
+      SelectFriendsScreen.selectedFriends = replacementFriendList;
     }
-  }
 
-  //Distributes the bill and finishes the record by updating data
-  //To singleton and Firebase
-  finishedSelecting(){
-    const numberOfPeople = this.selectedFriends.length + 1;
-    const totalOfBill = this.props.navigation.getParam('totalAmount')
-    const amountPerPerson = totalOfBill / numberOfPeople;
-
-    const recordData = {};
-    this.selectedFriends.forEach((friend)=>{
-      recordData[friend] = amountPerPerson;
-    })
-    var record = this.props.navigation.getParam('record');
-    record.setData(recordData)
-
-    //Update the Singleton with new record
-    SingletonClass.getInstance().addNewRecord(record);
-
-    //Update Firebase with new record
-    willUpdateWithNewRecord(record).then(()=>{
-      this.props.navigation.dispatch(resetAction);
-    });
+    //Add the selected friend
+    else{
+      SelectFriendsScreen.selectedFriends.push(selectedFriend);
+    }
   }
 
   render(){
     return(
       <View>
-      <FlatList
-        data={this.friends}
-        renderItem={({item}) => (
-          <Button
-            title = {item.key}
-            onPress={()=>{
-              this.friendSelected(item.key);
-            }}
-          />
-        )}
-      />
-      <Button
-        title="Next"
-        onPress={this.finishedSelecting.bind(this)}
-      />
+        <FlatList
+          data={this.friends}
+          renderItem={({item}) => (
+            <FriendFlatListItem
+              friend={item.key}
+              onPress={this.friendSelected.bind(this,item.key)}
+            />
+          )}
+        />
       </View>
     );
   }

@@ -13,15 +13,16 @@ import Dialog from "react-native-dialog";
 import SingletonClass from './../SingletonClass';
 import Record from './../Record';
 import {resetAction} from './../../App';
+import GLOBALS from './../Globals';
 
 class LoginScreen extends Component{
 
   //Configure header
   static navigationOptions = {
-    title: 'Home',
+    title: '',
     headerStyle: {
       height: 0,
-      backgroundColor: "#237a3b",
+      backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 0
     }
   };
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
   },
   viewStyle: {
     flex: 1,
-    backgroundColor: "#237a3b",
+    backgroundColor: GLOBALS.COLORS.GREEN,
     alignItems: 'center'
   },
   buttonStyle: {
