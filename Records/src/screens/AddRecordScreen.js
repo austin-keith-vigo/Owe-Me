@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  Button
+  Button,
+  StyleSheet
 } from 'react-native';
 import SingletonClass from './../SingletonClass';
 import MoneyInputField from './../components/MoneyInputField';
@@ -11,6 +12,7 @@ import Record from './../Record';
 import GLOBALS from './../Globals';
 import TextMoneyForm from './../components/TextMoneyForm';
 import Dialog from "react-native-dialog";
+import CommonButton from './../components/CommonButton';
 
 class AddRecordScreen extends Component{
 
@@ -48,7 +50,7 @@ class AddRecordScreen extends Component{
 
   render(){
     return(
-      <View>
+      <View style = {styles.viewStyle}>
         <Dialog.Container visible={this.state.showAlert}>
           <Dialog.Title>{this.errorMessage}</Dialog.Title>
           <Dialog.Button
@@ -56,29 +58,32 @@ class AddRecordScreen extends Component{
             onPress={this.toggleShowAlertState.bind(this)}
           />
         </Dialog.Container>
-        <Text>Enter the title and bill amount</Text>
         <TextMoneyForm
           onChangeTextTitle={(text)=>this.setState({title: text})}
           onChangeTextValue={(text)=>this.setState({value: text})}
         />
-        <Button
+        <CommonButton
           title="Next"
-          onPress={this.createRecord.bind(this)}
+          onPress={()=>{this.createRecord()}}
         />
       </View>
     );
   }
 }
 
-// <InputField
-//   placeholder="Title"
-//   onChangeText={text => this.setState({title: text})}
-//   secureTextEntry={false}
-//   autoCapitalize="none"
-//   autoCorrect={false}
+// <Button
+//   title="Next"
+//   onPress={this.createRecord.bind(this)}
 // />
-// <MoneyInputField
-//   onChangeText={text => this.setState({value: text})}
-// />
+
+const styles = StyleSheet.create({
+  viewStyle: {
+    flex: 1,
+    backgroundColor: GLOBALS.COLORS.GREEN,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
+
 
 export default AddRecordScreen;

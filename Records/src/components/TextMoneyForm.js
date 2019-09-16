@@ -10,14 +10,17 @@ class TextMoneyForm extends Component{
   render(){
     return(
       <View>
-        <TextInput style={styles.titleTextInputField}
+        <TextInput
+          style={styles.titleTextInputField}
           onChangeText={this.props.onChangeTextTitle}
+          placeholder="Title"
         />
         <View style={styles.moneyInputFieldViewStyle}>
           <Text>$</Text>
           <TextInput
             style={styles.moneyInputField}
             onChangeText={this.props.onChangeTextValue}
+            placeholder="0.00"
           />
         </View>
       </View>
@@ -32,7 +35,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 2,
     borderRadius: 5,
-    borderColor: 'gray'
+    borderColor: 'gray',
+    backgroundColor: 'white',
+    width: 300,
+    marginBottom: 50
   },
   moneyInputField:{
     flex: 1,
@@ -45,7 +51,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderWidth: 2,
     borderRadius: 5,
-    borderColor: 'gray'
+    borderColor: 'gray',
+    backgroundColor: 'white',
+    width: 300,
+    marginBottom: 15
   }
 })
 
