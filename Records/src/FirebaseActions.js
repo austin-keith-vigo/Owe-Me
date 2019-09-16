@@ -53,6 +53,20 @@ const willUpateFriendsRecordData = (record) => {
   });
 }
 
+const getAllUsernames = () => {
+  return new Promise(function(resolve, reject) {
+    firebase.database().ref('usernames').once('value').then((snapshot)=>{
+      var usersData = [];
+      for(key in snapshot.val()){
+        usersData.push({username: key, uid: snapshot.val()[key]});
+      }
+      resolve({users: usersData});
+    });
+
+  });
+}
+
 export {
-  willUpdateWithNewRecord
+  willUpdateWithNewRecord,
+  getAllUsernames
 }
