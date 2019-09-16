@@ -2,11 +2,15 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
+  StyleSheet
 } from 'react-native';
 import EmailPasswordForm from './../components/EmailPasswordForm';
+import EmailUsernamePasswordForm from './../components/EmailUsernamePasswordForm';
 import firebase from 'react-native-firebase';
 import Dialog from "react-native-dialog";
+import GLOBALS from './../Globals';
+import SingletonClass from './../SingletonClass';
 
 class CreateAccountScreen extends Component{
   //Handles whether or not to render an activity monitor and alert
@@ -22,16 +26,50 @@ class CreateAccountScreen extends Component{
   }
 
   //Will create an account in the firebase database
-  createAccount(email, password){
+  createAccount(email, password, username){
     this.toggleCreateAccountState();
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(()=>{
-      this.toggleCreateAccountState();
-      this.props.navigation.dispatch(resetAction);
-    })
-    .catch((error)=>{
-      this.toggleCreateAccountState();
-      this.showAlert(error.message);
+
+    //Check that the username is available
+    firebase.database().ref('usernames').once('value').then((snapshot)=>{
+      var index = 0;
+      const usernames = Object.keys(snapshot.val());
+      while(index < usernames.length && usernames[index] != username.toString()){
+        ++index;
+      }
+
+      //The username was found
+      if (index < usernames.length){
+        this.toggleCreateAccountState();
+        this.showAlert("Username already exists");
+      } else {
+
+        //Create an account for the user
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(()=>{
+
+          //Default the user's database data
+          const userData ={
+            username: {username},
+            friends: "",
+            notifications: "",
+            records: ""
+          };
+          const uid = firebase.auth().currentUser.uid;
+          firebase.database().ref(uid).set(userData);
+          firebase.database().ref('usernames/' + username).set(uid);
+
+          //Set Singleton Data
+          SingletonClass.getInstance().setUserUID(uid);
+          SingletonClass.getInstance().setUsername(username);
+
+          this.toggleCreateAccountState();
+          this.props.navigation.navigate('App');
+        })
+        .catch((error)=>{
+          this.toggleCreateAccountState();
+          this.showAlert(error.message);
+        });
+      }
     });
   }
 
@@ -52,10 +90,10 @@ class CreateAccountScreen extends Component{
 
   render(){
     return(
-      <View>
-        <EmailPasswordForm
-          buttonPressed={this.createAccount.bind(this)}
-          buttonTitle="Create Account"
+      <View style={styles.viewStyle}>
+        <EmailUsernamePasswordForm
+          onPress={this.createAccount.bind(this)}
+          buttonTitle="Finish"
         />
         {this.renderActivityMonitor()}
         <Dialog.Container visible={this.state.showAlert}>
@@ -69,5 +107,13 @@ class CreateAccountScreen extends Component{
     );
   }
 }
+
+const styles = StyleSheet.create({
+  viewStyle: {
+    flex: 1,
+    backgroundColor: GLOBALS.COLORS.GREEN,
+    alignItems: 'center'
+  }
+});
 
 export default CreateAccountScreen;
