@@ -26,20 +26,29 @@ class AddRecordScreen extends Component{
   };
 
   state={ value: "", title:"", showAlert: false};
-  errorMessage="Please fill out all fields";
+  errorMessage="";
 
   //Will Create a new record and pass it to next screen to complete
   createRecord(){
     if (this.state.value == 0 || this.state.title == ""){
+      this.errorMessage = "Please fill out all fields";
       this.toggleShowAlertState();
     }
     else{
-      var newRecord = new Record(this.state.title, {});
-      var parameters = {
-        totalAmount: this.state.value,
-        record: newRecord
-      };
-      this.props.navigation.navigate("SelectFriends",parameters);
+      var amount = Number(this.state.value);
+
+      if (Number.isNaN(amount)){
+        this.toggleShowAlertState();
+        this.errorMessage = "Invalid money input value. Do not use commas";
+      }
+      else{
+        var newRecord = new Record(this.state.title, {});
+        var parameters = {
+          totalAmount: amount,
+          record: newRecord
+        };
+        this.props.navigation.navigate("SelectFriends",parameters);
+      }
     }
   }
 
