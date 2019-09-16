@@ -11,7 +11,6 @@ import {resetAction} from './../../App';
 import {willUpdateWithNewRecord} from './../FirebaseActions';
 import GLOBALS from './../Globals';
 import FriendFlatListItem from './../components/FriendFlatListItem';
-import Dialog from "react-native-dialog";
 
 class SelectFriendsScreen extends Component{
 
@@ -21,7 +20,7 @@ class SelectFriendsScreen extends Component{
       title: 'Select Friends',
       headerRight: (
         <Button
-          onPress={()=>{
+          onPress={()=>{ //Go to confirmation screen
             navigation.navigate('Confirmation',{
               selectedFriends: SelectFriendsScreen.selectedFriends,
               totalAmount: navigation.getParam("totalAmount"),
@@ -38,8 +37,6 @@ class SelectFriendsScreen extends Component{
     };
   };
 
-  state={showAlert: false};
-  errorMessage = "Please select a friend";
   friends = [];         //For FlatList
   static selectedFriends = []; //Friends part of the bill
 
@@ -73,51 +70,9 @@ class SelectFriendsScreen extends Component{
     }
   }
 
-  //Distributes the bill and finishes the record by updating data
-  //To singleton and Firebase
-  finishedSelecting(){
-
-    //Show alert
-    if (SelectFriendsScreen.selectedFriends.length == 0) {
-      this.toggleShowAlertState();
-    }
-    else {
-      const numberOfPeople = SelectFriendsScreen.selectedFriends.length + 1;
-      const totalOfBill = this.props.navigation.getParam('totalAmount')
-      const amountPerPerson = totalOfBill / numberOfPeople;
-
-      const recordData = {};
-      SelectFriendsScreen.selectedFriends.forEach((friend)=>{
-        recordData[friend] = amountPerPerson;
-      })
-      var record = this.props.navigation.getParam('record');
-      record.setData(recordData)
-
-      //Update the Singleton with new record
-      SingletonClass.getInstance().addNewRecord(record);
-
-      //Update Firebase with new record
-      willUpdateWithNewRecord(record).then(()=>{
-        this.props.navigation.dispatch(resetAction);
-      });
-    }
-  }
-
-  //Controls whether or not to present alert
-  toggleShowAlertState(){
-    this.setState({showAlert: !this.state.showAlert});
-  }
-
   render(){
     return(
       <View>
-        <Dialog.Container visible={this.state.showAlert}>
-          <Dialog.Title>{this.errorMessage}</Dialog.Title>
-          <Dialog.Button
-            label="Close"
-            onPress={this.toggleShowAlertState.bind(this)}
-          />
-        </Dialog.Container>
         <FlatList
           data={this.friends}
           renderItem={({item}) => (
@@ -127,18 +82,9 @@ class SelectFriendsScreen extends Component{
             />
           )}
         />
-        <Button
-          title="Next"
-          onPress={this.finishedSelecting.bind(this)}
-        />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  viewStyle:{
-
-  }
-});
 export default SelectFriendsScreen;
