@@ -38,8 +38,8 @@ class LoginScreen extends Component{
     firebase.auth().signInWithEmailAndPassword(email, password).then(()=>{
       this.toggleLoggingInState();
       this.willInitializeSingleton().then(()=>{
-        //this.props.navigation.navigate('Home');
-        this.props.navigation.dispatch(resetAction);
+        this.props.navigation.navigate('App');
+        // this.props.navigation.dispatch(resetAction);
       })
       .catch((message)=>{
         this.errorMessage = message;

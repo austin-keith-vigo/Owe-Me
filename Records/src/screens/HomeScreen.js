@@ -18,7 +18,7 @@ class HomeScreen extends Component{
 
   //Configure header
   static navigationOptions = {
-    title: '',
+    title: 'Home',
     headerStyle: {
       height: 0,
       backgroundColor: GLOBALS.COLORS.GREEN,
@@ -93,18 +93,5 @@ const styles = StyleSheet.create({
     width: "100%"
   }
 })
-
-// <Button
-//   title="To Friends Screen"
-//   onPress={()=>{
-//     this.props.navigation.navigate("Friends");
-//   }}
-// />
-// <Button
-//   title="To Notifications Screen"
-//   onPress={()=>{
-//     this.props.navigation.navigate("Notifications");
-//   }}
-// />
 
 export default HomeScreen;

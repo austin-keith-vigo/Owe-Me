@@ -3,9 +3,11 @@ import {
   View,
   Text
 } from 'react-native';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer,createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { StackActions, NavigationActions } from 'react-navigation';
+import GLOBALS from './src/Globals';
 
 //Screens
 import LoginScreen from './src/screens/LoginScreen';
@@ -20,27 +22,82 @@ import FriendsScreen from './src/screens/FriendsScreen';
 import SelectFriendsScreen from './src/screens/SelectFriendsScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
 import ConfirmationScreen from './src/screens/ConfirmationScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
 
 //Main App Navigator for all the screens
-const AppNavigator = createStackNavigator(
+const AuthStack = createStackNavigator(
   {
-    Home: HomeScreen,
     Login: LoginScreen,
-    CreateAccount: CreateAccountScreen,
     ForgotPassword: ForgotPasswordScreen,
     CheckEmail: CheckEmailScreen,
-    Record: RecordScreen,
+    CreateAccount: CreateAccountScreen
+  },
+  {
+    initialRouteName: "Login"
+  }
+);
+const HomeStack = createStackNavigator(
+  {
+    Home: HomeScreen,
     AddRecord: AddRecordScreen,
-    AddFriend: AddFriendScreen,
-    Friends: FriendsScreen,
     SelectFriends: SelectFriendsScreen,
-    Notifications: NotificationsScreen,
     Confirmation: ConfirmationScreen
   },
   {
-    initialRouteName: 'Login',
+    initailRouteName: "Home"
   }
 );
+
+const SettingsStack = createStackNavigator(
+  {
+    Settings: SettingsScreen
+  },
+  {
+    initialRouteName: "Settings"
+  }
+);
+const FriendsStack = createStackNavigator(
+  {
+    Friends: FriendsScreen,
+    AddFriends: AddFriendScreen
+  },
+  {
+    initialRouteName: "AddFriends"
+  }
+);
+const NotificationsStack = createStackNavigator(
+  {
+    Notifications: NotificationsScreen
+  },
+  {
+    initialRouteName: "Notifications"
+  }
+);
+const AppNavigator = createBottomTabNavigator(
+  {
+    Home: HomeStack,
+    Friends: FriendsStack,
+    Notifications: NotificationsStack,
+    Settings:SettingsStack
+  },
+  {
+    tabBarOptions: {
+      initialRouteName: "Home"
+    }
+  }
+
+);
+const App = createAppContainer(
+  createSwitchNavigator(
+    {
+      App: AppNavigator,
+      Auth: AuthStack
+    },
+    {
+      initialRouteName: "Auth"
+    }
+  )
+)
 
 //Resets Navigator back to Home Screen
 const resetAction = StackActions.reset({
@@ -48,7 +105,7 @@ const resetAction = StackActions.reset({
   actions: [NavigationActions.navigate({ routeName: 'Home' })],
 });
 
-const App = createAppContainer(AppNavigator);
+// const App = createAppContainer(AppNavigator);
 export {
   App,
   resetAction
