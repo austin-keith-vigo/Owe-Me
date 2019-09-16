@@ -19,6 +19,7 @@ import AddFriendScreen from './src/screens/AddFriendScreen';
 import FriendsScreen from './src/screens/FriendsScreen';
 import SelectFriendsScreen from './src/screens/SelectFriendsScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
+import ConfirmationScreen from './src/screens/ConfirmationScreen';
 
 //Main App Navigator for all the screens
 const AppNavigator = createStackNavigator(
@@ -33,7 +34,8 @@ const AppNavigator = createStackNavigator(
     AddFriend: AddFriendScreen,
     Friends: FriendsScreen,
     SelectFriends: SelectFriendsScreen,
-    Notifications: NotificationsScreen
+    Notifications: NotificationsScreen,
+    Confirmation: ConfirmationScreen
   },
   {
     initialRouteName: 'Login',

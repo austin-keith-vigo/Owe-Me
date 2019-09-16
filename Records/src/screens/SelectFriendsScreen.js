@@ -16,26 +16,32 @@ import Dialog from "react-native-dialog";
 class SelectFriendsScreen extends Component{
 
   //Configure header
-  static navigationOptions = {
-    title: 'Select Friends',
-    headerRight: (
-      <Button
-        onPress={()=>{
-          console.log("finished selecting");
-        }}
-        title="Finish"
-      />
-    ),
-    headerStyle: {
-      backgroundColor: GLOBALS.COLORS.GREEN,
-      borderBottomWidth: 0
-    }
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: 'Select Friends',
+      headerRight: (
+        <Button
+          onPress={()=>{
+            navigation.navigate('Confirmation',{
+              selectedFriends: SelectFriendsScreen.selectedFriends,
+              totalAmount: navigation.getParam("totalAmount"),
+              record: navigation.getParam("record")
+            })
+          }}
+          title="Next"
+        />
+      ),
+      headerStyle: {
+        backgroundColor: GLOBALS.COLORS.GREEN,
+        borderBottomWidth: 0
+      }
+    };
   };
 
   state={showAlert: false};
   errorMessage = "Please select a friend";
   friends = [];         //For FlatList
-  selectedFriends = []; //Friends part of the bill
+  static selectedFriends = []; //Friends part of the bill
 
   //Initialize friends attribute for data prop of FlatList
   constructor(props){
@@ -51,19 +57,19 @@ class SelectFriendsScreen extends Component{
   friendSelected = (selectedFriend) => {
 
     //Remove the selected friend from the list
-    if(this.selectedFriends.includes(selectedFriend)){
+    if(SelectFriendsScreen.selectedFriends.includes(selectedFriend)){
       var replacementFriendList = [];
-      for (index = 0; index < this.selectedFriends.length; ++index){
-        if(this.selectedFriends[index] != selectedFriend){
-          replacementFriendList.push(this.selectedFriends[index]);
+      for (index = 0; index < SelectFriendsScreen.selectedFriends.length; ++index){
+        if(SelectFriendsScreen.selectedFriends[index] != selectedFriend){
+          replacementFriendList.push(SelectFriendsScreen.selectedFriends[index]);
         }
       }
-      this.selectedFriends = replacementFriendList;
+      SelectFriendsScreen.selectedFriends = replacementFriendList;
     }
 
     //Add the selected friend
     else{
-      this.selectedFriends.push(selectedFriend);
+      SelectFriendsScreen.selectedFriends.push(selectedFriend);
     }
   }
 
@@ -72,16 +78,16 @@ class SelectFriendsScreen extends Component{
   finishedSelecting(){
 
     //Show alert
-    if (this.selectedFriends.length == 0) {
+    if (SelectFriendsScreen.selectedFriends.length == 0) {
       this.toggleShowAlertState();
     }
     else {
-      const numberOfPeople = this.selectedFriends.length + 1;
+      const numberOfPeople = SelectFriendsScreen.selectedFriends.length + 1;
       const totalOfBill = this.props.navigation.getParam('totalAmount')
       const amountPerPerson = totalOfBill / numberOfPeople;
 
       const recordData = {};
-      this.selectedFriends.forEach((friend)=>{
+      SelectFriendsScreen.selectedFriends.forEach((friend)=>{
         recordData[friend] = amountPerPerson;
       })
       var record = this.props.navigation.getParam('record');
