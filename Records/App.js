@@ -24,7 +24,7 @@ import NotificationsScreen from './src/screens/NotificationsScreen';
 import ConfirmationScreen from './src/screens/ConfirmationScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 
-//Main App Navigator for all the screens
+//Different Stack navigators used within the main switch and tab navigators
 const AuthStack = createStackNavigator(
   {
     Login: LoginScreen,
@@ -41,7 +41,8 @@ const HomeStack = createStackNavigator(
     Home: HomeScreen,
     AddRecord: AddRecordScreen,
     SelectFriends: SelectFriendsScreen,
-    Confirmation: ConfirmationScreen
+    Confirmation: ConfirmationScreen,
+    Record: RecordScreen
   },
   {
     initailRouteName: "Home"
@@ -62,7 +63,7 @@ const FriendsStack = createStackNavigator(
     AddFriends: AddFriendScreen
   },
   {
-    initialRouteName: "AddFriends"
+    initialRouteName: "Friends"
   }
 );
 const NotificationsStack = createStackNavigator(
@@ -73,6 +74,8 @@ const NotificationsStack = createStackNavigator(
     initialRouteName: "Notifications"
   }
 );
+
+//Tab Navigator
 const AppNavigator = createBottomTabNavigator(
   {
     Home: HomeStack,
@@ -82,11 +85,14 @@ const AppNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      initialRouteName: "Home"
+      initialRouteName: "Home",
+      activeTintColor: GLOBALS.COLORS.GREEN,
+      inactiveTintColor: 'gray',
     }
   }
-
 );
+
+//Main App navigation container
 const App = createAppContainer(
   createSwitchNavigator(
     {
