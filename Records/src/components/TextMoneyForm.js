@@ -14,6 +14,7 @@ class TextMoneyForm extends Component{
           style={styles.titleTextInputField}
           onChangeText={this.props.onChangeTextTitle}
           placeholder="Title"
+          returnKeyType='done'
         />
         <View style={styles.moneyInputFieldViewStyle}>
           <Text>$</Text>
@@ -21,6 +22,7 @@ class TextMoneyForm extends Component{
             style={styles.moneyInputField}
             onChangeText={this.props.onChangeTextValue}
             placeholder="0.00"
+            returnKeyType='done'
           />
         </View>
       </View>

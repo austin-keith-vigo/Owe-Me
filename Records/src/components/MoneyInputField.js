@@ -19,6 +19,7 @@ class MoneyInputField extends Component{
           keyboardType="number-pad"
           placeholder="0"
           onChangeText={this.props.onChangeText}
+          returnKeyType='done'
         />
       </View>
     );
