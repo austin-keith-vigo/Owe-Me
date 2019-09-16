@@ -42,7 +42,7 @@ class EmailUsernamePasswordForm extends Component{
           this.props.onPress(this.state.email, this.state.password, this.state.username)
         }}>
           <View style={styles.buttonViewStyle}>
-            <Text style={styles.buttonTextStyle}>Login</Text>
+            <Text style={styles.buttonTextStyle}>Create</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -53,6 +53,18 @@ class EmailUsernamePasswordForm extends Component{
 const styles = StyleSheet.create({
   viewStyle: {
     alignItems: 'center'
+  },
+  buttonViewStyle: {
+    height: 40,
+    width: 100,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    borderWidth: 2,
+  },
+  buttonTextStyle:{
+    fontSize: 20
   }
 });
 

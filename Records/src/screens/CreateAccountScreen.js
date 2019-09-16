@@ -13,6 +13,16 @@ import GLOBALS from './../Globals';
 import SingletonClass from './../SingletonClass';
 
 class CreateAccountScreen extends Component{
+
+  //Configure header
+  static navigationOptions = {
+    title: 'Create Account',
+    headerStyle: {
+      backgroundColor: GLOBALS.COLORS.GREEN,
+      borderBottomWidth: 0
+    }
+  };
+
   //Handles whether or not to render an activity monitor and alert
   state = {creatingAccount: false, showAlert: false};
   errorMessage="";
@@ -110,6 +120,7 @@ class CreateAccountScreen extends Component{
 
 const styles = StyleSheet.create({
   viewStyle: {
+    paddingTop: 50,
     flex: 1,
     backgroundColor: GLOBALS.COLORS.GREEN,
     alignItems: 'center'
