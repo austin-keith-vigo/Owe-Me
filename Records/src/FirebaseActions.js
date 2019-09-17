@@ -77,8 +77,17 @@ const sendNotification = (userUID, notification) => {
   });
 }
 
+//When the user accepts the friend Request
+const acceptFriendRequest = (notification) => {
+  return new Promise(function(resolve, reject) {
+    console.log(notification);
+    resolve();
+  });
+}
+
 export {
   willUpdateWithNewRecord,
   getAllUsernames,
-  sendNotification
+  sendNotification,
+  acceptFriendRequest
 }

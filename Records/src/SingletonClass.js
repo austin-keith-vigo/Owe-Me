@@ -64,15 +64,15 @@ export default class SingletonClass {
     }
 
     copyRecords(){
-  
+
     }
 
     setRecords(records){
       this._records = records;
     }
 
-    addFriend(uid, username){
-      this._friends[uid] = username;
+    addFriend(username, amount){
+      this._friends[username] = amount;
     }
 
     getFriends(){
@@ -98,6 +98,8 @@ export default class SingletonClass {
       this._records = [];
       this._friends = {};
     }
+
+
 
 
 }
