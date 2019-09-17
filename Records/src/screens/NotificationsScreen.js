@@ -9,10 +9,13 @@ import SingletonClass from './../SingletonClass';
 import Notification from './../components/Notification';
 import FriendNotification from './../components/FriendNotification';
 import RecordNotification from './../components/RecordNotification';
+import PaidNotification from './../components/PaidNotification';
+
 import GLOBALS from './../Globals';
 import {acceptFriendRequest} from './../FirebaseActions';
 import {resetNavigationStack} from './../../App';
 import firebase from 'react-native-firebase';
+import {sendNotification} from './../FirebaseActions';
 
 class NotificationsScreen extends Component{
 
@@ -62,6 +65,15 @@ class NotificationsScreen extends Component{
             }}
           />
         );
+      case 'payed':
+        return(
+          <PaidNotification
+            notification={notification}
+            dismissButtonPressed={()=>{
+              this.dismissButtonPressed(notification);
+            }}
+          />
+        );
     }
   }
 
@@ -95,8 +107,20 @@ class NotificationsScreen extends Component{
       const newAmount = snapshot.val() - notification['data']['amount'];
       firebase.database().ref(filepath).set(newAmount);
 
-      //Go back to the home screen
-      this.props.navigation.dispatch(resetNavigationStack);
+      //Send a notification to the sender saying the user has payed
+      const newNotification = {
+        type: 'payed',
+        senderUsername: SingletonClass.getInstance().getUsername(),
+        senderUID: SingletonClass.getInstance().getUserUID(),
+        title: notification['data']['title'],
+        amount: notification['data']['amount']
+
+      }
+      sendNotification(notification['data']['senderUID'],newNotification).then(()=>{
+
+        //Go back to the home screen
+        this.props.navigation.dispatch(resetNavigationStack);
+      });
     });
   }
 
@@ -112,6 +136,22 @@ class NotificationsScreen extends Component{
     acceptFriendRequest(notification).then(()=>{
       this.props.navigation.dispatch(resetNavigationStack);
     })
+  }
+
+  //Dismisses the notification that someone payed you
+  dismissButtonPressed = (notification) => {
+
+    //Remove from singleton
+    SingletonClass.getInstance().removeNotification(notification);
+
+    //Remove from firebase
+    const filepath =  SingletonClass.getInstance().getUserUID() +
+                      '/notifications/' +
+                      notification['id'];
+    firebase.database().ref(filepath).set(null);
+
+    //Go back to home screen
+    this.props.navigation.dispatch(resetNavigationStack);
   }
 
   //Controls what each list item looks like
