@@ -40,6 +40,7 @@ const willUpateFriendsRecordData = (record) => {
       //Create and send a notification to each friend
       for(key in record.getData()){
         const notification = {
+          type: "record",
           sender: SingletonClass.getInstance().getUsername(),
           title: record.getTitle(),
           amount: record.getAmountForPerson(key)
@@ -66,7 +67,18 @@ const getAllUsernames = () => {
   });
 }
 
+//Sends a notification to the given UserUID
+const sendNotification = (userUID, notification) => {
+  return new Promise(function(resolve, reject) {
+    const filepath = userUID + '/notifications';
+    const newPostKey = firebase.database().ref(filepath).push().key;
+    firebase.database().ref(filepath +'/' + newPostKey).set(notification);
+    resolve();
+  });
+}
+
 export {
   willUpdateWithNewRecord,
-  getAllUsernames
+  getAllUsernames,
+  sendNotification
 }

@@ -7,6 +7,8 @@ import {
   StyleSheet
 } from 'react-native';
 import {getAllUsernames} from './../FirebaseActions';
+import GLOBALS from './../Globals';
+import SingletonClass from './../SingletonClass';
 
 class AddFriendScreen extends Component{
 
@@ -29,11 +31,16 @@ class AddFriendScreen extends Component{
     getAllUsernames().then((value)=>{
       const usersData = value['users'];
       for(index = 0; index < usersData.length; ++index){
-        this.flatListData.push({
-          key:index.toString(),
-          username: usersData[index]["username"],
-          uid: usersData[index]['uid']
-        });
+
+        // if the username is already in the user's friend list do not display it.
+        const friends = SingletonClass.getInstance().getFriends();
+        if(!(usersData[index]['username'] in friends)){
+          this.flatListData.push({
+            key:index.toString(),
+            username: usersData[index]["username"],
+            uid: usersData[index]['uid']
+          });
+        }
       }
       this.setState({gotUsernames: true});
     })
@@ -41,6 +48,10 @@ class AddFriendScreen extends Component{
 
   listItemPressed(username,uid){
     console.log(username,uid);
+    this.props.navigation.navigate("SendFriendRequest",{
+      username: username,
+      uid: uid
+    });
   }
   //Controls how to render the flatlist item
   _renderListItem = ({item}) => (
