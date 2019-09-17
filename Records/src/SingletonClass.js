@@ -99,6 +99,7 @@ export default class SingletonClass {
       this._username = "";
       this._records = [];
       this._friends = {};
+      this._notifications = [];
     }
 
 
