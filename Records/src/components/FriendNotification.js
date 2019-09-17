@@ -8,13 +8,6 @@ import {
 import {acceptFriendRequest} from './../FirebaseActions';
 import SingletonClass from './../SingletonClass';
 
-//The user accepts the friend request so it updates firebase
-
-
-const declineButtonPressed = () => {
-  console.log('decline');
-}
-
 const FriendNotification = (props) => {
   return(
     <View style={styles.mainViewStyle}>
@@ -29,10 +22,6 @@ const FriendNotification = (props) => {
       <Button
         title='Accept'
         onPress={props.acceptButtonPressed}
-      />
-      <Button
-        title='Decline'
-        onPress={declineButtonPressed}
       />
     </View>
   );

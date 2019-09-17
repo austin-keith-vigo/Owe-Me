@@ -33,8 +33,12 @@ class AddFriendScreen extends Component{
       for(index = 0; index < usersData.length; ++index){
 
         // if the username is already in the user's friend list do not display it.
+        //and is not the person's own name
+        const username = SingletonClass.getInstance().getUsername();
         const friends = SingletonClass.getInstance().getFriends();
-        if(!(usersData[index]['username'] in friends)){
+        if(!(usersData[index]['username'] in friends) &&
+            usersData[index]['username'] != username)
+        {
           this.flatListData.push({
             key:index.toString(),
             username: usersData[index]["username"],
