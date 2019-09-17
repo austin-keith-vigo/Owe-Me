@@ -40,6 +40,7 @@ const willUpateFriendsRecordData = (record) => {
       //Create and send a notification to each friend
       for(key in record.getData()){
         const notification = {
+          type: "record",
           sender: SingletonClass.getInstance().getUsername(),
           title: record.getTitle(),
           amount: record.getAmountForPerson(key)
@@ -53,6 +54,61 @@ const willUpateFriendsRecordData = (record) => {
   });
 }
 
+const getAllUsernames = () => {
+  return new Promise(function(resolve, reject) {
+    firebase.database().ref('usernames').once('value').then((snapshot)=>{
+      var usersData = [];
+      for(key in snapshot.val()){
+        usersData.push({username: key, uid: snapshot.val()[key]});
+      }
+      resolve({users: usersData});
+    });
+
+  });
+}
+
+//Sends a notification to the given UserUID
+const sendNotification = (userUID, notification) => {
+  return new Promise(function(resolve, reject) {
+    const filepath = userUID + '/notifications';
+    const newPostKey = firebase.database().ref(filepath).push().key;
+    firebase.database().ref(filepath +'/' + newPostKey).set(notification);
+    resolve();
+  });
+}
+
+//When the user accepts the friend Request
+const acceptFriendRequest = (notification) => {
+  return new Promise(function(resolve, reject) {
+
+    //Go to the user's database and add the sender as a friends
+    var filepath = SingletonClass.getInstance().getUserUID() +
+                  "/friends/" +
+                  notification['data']['senderUsername'];
+    firebase.database().ref(filepath).set(0);
+
+    //Go to the sender's data and add this user to their database
+    filepath =  notification['data']['senderUID'] +
+                "/friends/" +
+                SingletonClass.getInstance().getUsername();
+    firebase.database().ref(filepath).set(0);
+
+    //Delete the notification from the Singleton
+    SingletonClass.getInstance().removeNotification(notification);
+
+    //Delete the notification from the user's database
+    filepath =  SingletonClass.getInstance().getUserUID() +
+                "/notifications/" +
+                notification['id'];
+    firebase.database().ref(filepath).set(null);
+
+    resolve();
+  });
+}
+
 export {
-  willUpdateWithNewRecord
+  willUpdateWithNewRecord,
+  getAllUsernames,
+  sendNotification,
+  acceptFriendRequest
 }

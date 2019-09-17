@@ -42,15 +42,6 @@ export default class SingletonClass {
     //Gets called to add a new record to the SingletonClass
     //Update how much each friend in the record owes the user
     addNewRecord(record){
-      // return new Promise((resolve)=> {
-      //   this._records.push(record);
-      //
-      //   recordData = record.getData();
-      //   for(key in recordData){
-      //     this._friends[key] += record.getAmountForPerson(key);
-      //   }
-      //   resolve('Sucess');
-      // });
       this._records.push(record);
 
       recordData = record.getData();
@@ -64,15 +55,15 @@ export default class SingletonClass {
     }
 
     copyRecords(){
-  
+
     }
 
     setRecords(records){
       this._records = records;
     }
 
-    addFriend(uid, username){
-      this._friends[uid] = username;
+    addFriend(username, amount){
+      this._friends[username] = amount;
     }
 
     getFriends(){
@@ -91,6 +82,18 @@ export default class SingletonClass {
       this._notifications.push({id: key, data: notification});
     }
 
+    removeNotification(notification){
+      console.log(this._notifications);
+      var newNotificationsData = []
+      for(index = 0; index < this._notifications.length; ++index){
+        if(this._notifications[index]['id'] != notification['id']){
+          newNotificationsData.push(this._notifications[index]);
+        }
+      }
+      this._notifications = newNotificationsData;
+      console.log(this._notifications);
+    }
+
     //Clears the Singleton when the user logs out
     clearSingleton(){
       this._userUID = "";
@@ -98,6 +101,8 @@ export default class SingletonClass {
       this._records = [];
       this._friends = {};
     }
+
+
 
 
 }

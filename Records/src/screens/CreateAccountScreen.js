@@ -59,7 +59,7 @@ class CreateAccountScreen extends Component{
 
           //Default the user's database data
           const userData ={
-            username: {username},
+            username: username,
             friends: "",
             notifications: "",
             records: ""

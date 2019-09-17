@@ -23,6 +23,7 @@ import SelectFriendsScreen from './src/screens/SelectFriendsScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
 import ConfirmationScreen from './src/screens/ConfirmationScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
+import SendFriendRequestScreen from './src/screens/SendFriendRequestScreen';
 
 //Different Stack navigators used within the main switch and tab navigators
 const AuthStack = createStackNavigator(
@@ -60,7 +61,8 @@ const SettingsStack = createStackNavigator(
 const FriendsStack = createStackNavigator(
   {
     Friends: FriendsScreen,
-    AddFriends: AddFriendScreen
+    AddFriends: AddFriendScreen,
+    SendFriendRequest: SendFriendRequestScreen
   },
   {
     initialRouteName: "Friends"
@@ -81,7 +83,7 @@ const AppNavigator = createBottomTabNavigator(
     Home: HomeStack,
     Friends: FriendsStack,
     Notifications: NotificationsStack,
-    Settings:SettingsStack
+    Settings: SettingsStack
   },
   {
     tabBarOptions: {
@@ -111,8 +113,13 @@ const resetAction = StackActions.reset({
   actions: [NavigationActions.navigate({ routeName: 'Home' })],
 });
 
+const resetNavigationStack = StackActions.reset({
+  index: 0,
+  actions: [NavigationActions.navigate({routeName: 'Notifications'})]
+})
 // const App = createAppContainer(AppNavigator);
 export {
   App,
-  resetAction
+  resetAction,
+  resetNavigationStack
 };
