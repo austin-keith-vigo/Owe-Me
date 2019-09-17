@@ -9,19 +9,7 @@ import {acceptFriendRequest} from './../FirebaseActions';
 import SingletonClass from './../SingletonClass';
 
 //The user accepts the friend request so it updates firebase
-const acceptButtonPressed = (notification) => {
 
-  //Add the friend to the SinglenClass
-  const senderUsername = notification['data']['senderUsername']
-  const senderUID = notification['data']['senderUID'];
-  SingletonClass.getInstance().addFriend(senderUsername, 0);
-  console.log(SingletonClass.getInstance().getFriends());
-
-  //Update the user's database
-  acceptFriendRequest().then(()=>{
-    console.log("firebase updated");
-  })
-}
 
 const declineButtonPressed = () => {
   console.log('decline');
@@ -40,9 +28,7 @@ const FriendNotification = (props) => {
       </View>
       <Button
         title='Accept'
-        onPress={()=>{
-          acceptButtonPressed(props.notification);
-        }}
+        onPress={props.acceptButtonPressed}
       />
       <Button
         title='Decline'

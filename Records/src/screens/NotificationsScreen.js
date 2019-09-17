@@ -9,8 +9,12 @@ import SingletonClass from './../SingletonClass';
 import Notification from './../components/Notification';
 import FriendNotification from './../components/FriendNotification';
 import GLOBALS from './../Globals';
+import {acceptFriendRequest} from './../FirebaseActions';
+import {resetNavigationStack} from './../../App';
 
 class NotificationsScreen extends Component{
+
+  state={resetData: false};
 
   //Configure header
   static navigationOptions = {
@@ -32,7 +36,6 @@ class NotificationsScreen extends Component{
     for(index = 0; index < notificationsData.length; ++index){
       this.flatListData.push({key: index.toString(), notification: notificationsData[index]});
     }
-
   }
 
   //Conditional rendering to choose which type of notification to render
@@ -43,6 +46,9 @@ class NotificationsScreen extends Component{
         return(
           <FriendNotification
             notification={notification}
+            acceptButtonPressed={()=>{
+              this.acceptButtonPressed(notification);
+            }}
           />
         );
     }
@@ -54,6 +60,21 @@ class NotificationsScreen extends Component{
       {this.renderNotificationType(item['notification'])}
     </View>
   );
+
+  //The user accepts the friend request so it updates firebase
+  acceptButtonPressed = (notification) => {
+
+    //Add the friend to the SinglenClass
+    const senderUsername = notification['data']['senderUsername']
+    const senderUID = notification['data']['senderUID'];
+    SingletonClass.getInstance().addFriend(senderUsername, 0);
+
+    //Update the user's database and then re-render the screen
+    acceptFriendRequest(notification).then(()=>{
+      this.props.navigation.dispatch(resetNavigationStack);
+    })
+  }
+
 
   render(){
     return(

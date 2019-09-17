@@ -80,7 +80,28 @@ const sendNotification = (userUID, notification) => {
 //When the user accepts the friend Request
 const acceptFriendRequest = (notification) => {
   return new Promise(function(resolve, reject) {
-    console.log(notification);
+
+    //Go to the user's database and add the sender as a friends
+    var filepath = SingletonClass.getInstance().getUserUID() +
+                  "/friends/" +
+                  notification['data']['senderUsername'];
+    firebase.database().ref(filepath).set(0);
+
+    //Go to the sender's data and add this user to their database
+    filepath =  notification['data']['senderUID'] +
+                "/friends/" +
+                SingletonClass.getInstance().getUsername();
+    firebase.database().ref(filepath).set(0);
+
+    //Delete the notification from the Singleton
+    SingletonClass.getInstance().removeNotification(notification);
+
+    //Delete the notification from the user's database
+    filepath =  SingletonClass.getInstance().getUserUID() +
+                "/notifications/" +
+                notification['id'];
+    firebase.database().ref(filepath).set(null);
+
     resolve();
   });
 }
