@@ -91,7 +91,6 @@ export default class SingletonClass {
         }
       }
       this._notifications = newNotificationsData;
-      console.log(this._notifications);
     }
 
     //Clears the Singleton when the user logs out

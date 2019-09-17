@@ -8,9 +8,11 @@ import {
 import SingletonClass from './../SingletonClass';
 import Notification from './../components/Notification';
 import FriendNotification from './../components/FriendNotification';
+import RecordNotification from './../components/RecordNotification';
 import GLOBALS from './../Globals';
 import {acceptFriendRequest} from './../FirebaseActions';
 import {resetNavigationStack} from './../../App';
+import firebase from 'react-native-firebase';
 
 class NotificationsScreen extends Component{
 
@@ -51,15 +53,52 @@ class NotificationsScreen extends Component{
             }}
           />
         );
+      case 'record':
+        return(
+          <RecordNotification
+            notification={notification}
+            paidButtonPressed={()=>{
+              this.paidButtonPressed(notification);
+            }}
+          />
+        );
     }
   }
 
-  //Controls what each list item looks like
-  _renderListItem = ({item}) => (
-    <View>
-      {this.renderNotificationType(item['notification'])}
-    </View>
-  );
+  //The users pays the notifications, so it deletes the notifications,
+  //And it goes into that record from the senders data and turns it into paid,
+  //And it reduces the amount the friend owes the sender by the same amount
+  paidButtonPressed(notification){
+
+    //Delete the Notification from the user's database
+    var filepath =  SingletonClass.getInstance().getUserUID() +
+                    "/notifications/" +
+                    notification['id'];
+    firebase.database().ref(filepath).set(null);
+
+    //Delete the notification from the SingletonClass
+    SingletonClass.getInstance().removeNotification(notification);
+
+    //Go to the sender's database and change the record for the user to null
+    filepath =  notification['data']['senderUID'] +
+                '/records/' +
+                notification['data']['title'] +
+                '/' +
+                SingletonClass.getInstance().getUsername();
+    firebase.database().ref(filepath).set(null);
+
+    //Go to the sender's database and change the friends data for the user's amount owed
+    filepath =  notification['data']['senderUID'] +
+                '/friends/' +
+                SingletonClass.getInstance().getUsername();
+    firebase.database().ref(filepath).once('value').then((snapshot)=>{
+      const newAmount = snapshot.val() - notification['data']['amount'];
+      firebase.database().ref(filepath).set(newAmount);
+
+      //Go back to the home screen
+      this.props.navigation.dispatch(resetNavigationStack);
+    });
+  }
 
   //The user accepts the friend request so it updates firebase
   acceptButtonPressed = (notification) => {
@@ -75,10 +114,16 @@ class NotificationsScreen extends Component{
     })
   }
 
+  //Controls what each list item looks like
+  _renderListItem = ({item}) => (
+    <View>
+      {this.renderNotificationType(item['notification'])}
+    </View>
+  );
 
   render(){
     return(
-      <View>
+      <View style={styles.viewStyle}>
         <FlatList
           data={this.flatListData}
           renderItem={this._renderListItem}
@@ -87,5 +132,11 @@ class NotificationsScreen extends Component{
     );
   }
 }
+
+const styles = StyleSheet.create({
+  viewStyle: {
+    flex: 1
+  }
+});
 
 export default NotificationsScreen;

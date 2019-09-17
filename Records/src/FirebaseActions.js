@@ -41,7 +41,8 @@ const willUpateFriendsRecordData = (record) => {
       for(key in record.getData()){
         const notification = {
           type: "record",
-          sender: SingletonClass.getInstance().getUsername(),
+          senderUsername: SingletonClass.getInstance().getUsername(),
+          senderUID: SingletonClass.getInstance().getUserUID(),
           title: record.getTitle(),
           amount: record.getAmountForPerson(key)
         };
