@@ -24,7 +24,7 @@ class RecordFlatListItem extends Component{
 
 const styles = StyleSheet.create({
   viewStyle:{
-    height: 40,
+    height: 60,
     width: "100%",
     borderBottomWidth: 1,
     borderBottomColor: 'black',

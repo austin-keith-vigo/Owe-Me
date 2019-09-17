@@ -28,14 +28,14 @@ const PaidNotification = (props) => {
 
 const styles = StyleSheet.create({
   mainViewStyle: {
-    height: 40,
+    height: 60,
     width: "100%",
     flexDirection: 'row',
     borderBottomColor: 'black',
     borderBottomWidth: 2
   },
   textViewStyle: {
-    height: 40,
+    height: 60,
     flex: 1
   },
   titleTextStyle: {
