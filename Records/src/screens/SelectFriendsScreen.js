@@ -18,18 +18,6 @@ class SelectFriendsScreen extends Component{
   static navigationOptions = ({navigation}) => {
     return {
       title: 'Select Friends',
-      headerRight: (
-        <Button
-          onPress={()=>{ //Go to confirmation screen
-            navigation.navigate('Confirmation',{
-              selectedFriends: SelectFriendsScreen.selectedFriends,
-              totalAmount: navigation.getParam("totalAmount"),
-              record: navigation.getParam("record")
-            })
-          }}
-          title="Next"
-        />
-      ),
       headerStyle: {
         backgroundColor: GLOBALS.COLORS.GREEN,
         borderBottomWidth: 0
@@ -38,7 +26,7 @@ class SelectFriendsScreen extends Component{
   };
 
   friends = [];         //For FlatList
-  static selectedFriends = []; //Friends part of the bill
+  selectedFriends = []; //Friends part of the bill
 
   //Initialize friends attribute for data prop of FlatList
   constructor(props){
@@ -54,19 +42,19 @@ class SelectFriendsScreen extends Component{
   friendSelected = (selectedFriend) => {
 
     //Remove the selected friend from the list
-    if(SelectFriendsScreen.selectedFriends.includes(selectedFriend)){
+    if(this.selectedFriends.includes(selectedFriend)){
       var replacementFriendList = [];
-      for (index = 0; index < SelectFriendsScreen.selectedFriends.length; ++index){
-        if(SelectFriendsScreen.selectedFriends[index] != selectedFriend){
-          replacementFriendList.push(SelectFriendsScreen.selectedFriends[index]);
+      for (index = 0; index < this.selectedFriends.length; ++index){
+        if(this.selectedFriends[index] != selectedFriend){
+          replacementFriendList.push(this.selectedFriends[index]);
         }
       }
-      SelectFriendsScreen.selectedFriends = replacementFriendList;
+      this.selectedFriends = replacementFriendList;
     }
 
     //Add the selected friend
     else{
-      SelectFriendsScreen.selectedFriends.push(selectedFriend);
+      this.selectedFriends.push(selectedFriend);
     }
   }
 
@@ -81,6 +69,19 @@ class SelectFriendsScreen extends Component{
               onPress={this.friendSelected.bind(this,item.key)}
             />
           )}
+        />
+        <Button
+          title="Next"
+          onPress={()=>{
+
+            //Set the parameters for the next screen
+            const parameters = {
+              selectedFriends: this.selectedFriends,
+              totalAmount: this.props.navigation.getParam("totalAmount"),
+              record: this.props.navigation.getParam("record")
+            };
+            this.props.navigation.navigate('Confirmation', parameters);
+          }}
         />
       </View>
     );

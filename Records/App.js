@@ -110,14 +110,15 @@ const App = createAppContainer(
 //Resets Navigator back to Home Screen
 const resetAction = StackActions.reset({
   index: 0,
-  actions: [NavigationActions.navigate({ routeName: 'Home' })],
+  actions: [NavigationActions.navigate({ routeName: 'Home' })]
 });
+
 
 const resetNavigationStack = StackActions.reset({
   index: 0,
   actions: [NavigationActions.navigate({routeName: 'Notifications'})]
 })
-// const App = createAppContainer(AppNavigator);
+
 export {
   App,
   resetAction,

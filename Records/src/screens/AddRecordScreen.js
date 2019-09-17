@@ -80,11 +80,6 @@ class AddRecordScreen extends Component{
   }
 }
 
-// <Button
-//   title="Next"
-//   onPress={this.createRecord.bind(this)}
-// />
-
 const styles = StyleSheet.create({
   viewStyle: {
     flex: 1,
