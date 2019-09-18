@@ -41,7 +41,8 @@ const willUpateFriendsRecordData = (record) => {
       for(key in record.getData()){
         const notification = {
           type: "record",
-          sender: SingletonClass.getInstance().getUsername(),
+          senderUsername: SingletonClass.getInstance().getUsername(),
+          senderUID: SingletonClass.getInstance().getUserUID(),
           title: record.getTitle(),
           amount: record.getAmountForPerson(key)
         };
@@ -106,9 +107,23 @@ const acceptFriendRequest = (notification) => {
   });
 }
 
+//Signs the user out of the App
+const firebaseSignOut = () => {
+  return new Promise(function(resolve, reject) {
+    firebase.auth().signOut().then(function() {
+      //Sign out succesful
+      resolve();
+    }).catch(function(error) {
+      //Sign out unsuccesfult
+      reject(error.message);
+    });
+  });
+}
+
 export {
   willUpdateWithNewRecord,
   getAllUsernames,
   sendNotification,
-  acceptFriendRequest
+  acceptFriendRequest,
+  firebaseSignOut
 }

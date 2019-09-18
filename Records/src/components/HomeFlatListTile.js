@@ -14,7 +14,7 @@ class HomeFlatListTile extends Component{
     if(this.props.isImage == true){
       return (
         <View style={styles.recordTileStyle}>
-          <Text>Image</Text>
+          <Text>Add Record</Text>
         </View>
       );
     }

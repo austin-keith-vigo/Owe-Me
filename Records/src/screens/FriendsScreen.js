@@ -8,9 +8,12 @@ import {
 import SingletonClass from './../SingletonClass';
 import GLOBALS from './../Globals';
 import RecordFlatListItem from './../components/RecordFlatListItem';
+import { NavigationEvents } from "react-navigation";
 
 class FriendsScreen extends Component{
 
+  state={gotFlatListData: false};
+  
   //Configure header
   static navigationOptions = ({navigation}) => {
     return {
@@ -35,9 +38,7 @@ class FriendsScreen extends Component{
   flatListDataProp = [];
 
   //Initialize the friends attribute from Singleton
-  constructor(props){
-    super(props);
-
+  setFlatListDataProp(){
     const friendsData = SingletonClass.getInstance().getFriends();
     for(key in friendsData){
       var newFlatListRow =
@@ -50,15 +51,34 @@ class FriendsScreen extends Component{
     };
   }
 
-  render(){
-    return(
-      <View>
+  //Conditional rendering to render flatList
+  renderFlatList(){
+    if(this.state.gotFlatListData == true){
+      return(
         <FlatList
           data={this.flatListDataProp}
           renderItem={({item}) => (
             <View>{item.value}</View>
           )}
         />
+      );
+    }
+  }
+
+  render(){
+    return(
+      <View>
+      <NavigationEvents
+        onWillFocus={payload => {
+          this.setFlatListDataProp();
+          this.setState({gotFlatListData: true});
+        }}
+        onDidBlur={payload => {
+          this.flatListDataProp = [];
+          this.setState({gotFlatListData: false});
+        }}
+      />
+        {this.renderFlatList()}
       </View>
     );
   }
