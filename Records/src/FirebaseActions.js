@@ -120,10 +120,58 @@ const firebaseSignOut = () => {
   });
 }
 
+//Creates an account with firebase
+const createAccount = (email, password, username) => {
+  return new Promise(function(resolve, reject) {
+
+    //Check if the username has any invalid characters
+    let re = new RegExp("^[0-9A-Za-z]*$");
+    if(re.test(username) == false){
+      reject("invalid character(s) in username. Only letters and numbers are valid");
+    }
+
+    //Check if the username is taken
+    firebase.database().ref('usernames').once('value').then((snapshot)=>{
+      var index = 0;
+      const usernames = Object.keys(snapshot.val());
+      while(index < usernames.length && usernames[index] != username.toString()){
+        ++index;
+      }
+
+      //The username was found
+      if (index < usernames.length){
+        reject("Username already exists")
+      }
+
+      //Create an account for the user
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(()=>{
+
+        //Default the user's database data
+        const userData ={
+          username: username,
+          friends: "",
+          notifications: "",
+          records: ""
+        };
+        const uid = firebase.auth().currentUser.uid;
+        firebase.database().ref(uid).set(userData);
+        firebase.database().ref('usernames/' + username).set(uid);
+
+        //Account created
+        resolve();
+      })
+      .catch((error)=>{
+        reject(error.message);
+      });
+    });
+  });
+}
 export {
   willUpdateWithNewRecord,
   getAllUsernames,
   sendNotification,
   acceptFriendRequest,
-  firebaseSignOut
+  firebaseSignOut,
+  createAccount
 }

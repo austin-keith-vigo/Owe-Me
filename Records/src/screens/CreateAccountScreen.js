@@ -11,6 +11,7 @@ import firebase from 'react-native-firebase';
 import Dialog from "react-native-dialog";
 import GLOBALS from './../Globals';
 import SingletonClass from './../SingletonClass';
+import { createAccount } from './../FirebaseActions';
 
 class CreateAccountScreen extends Component{
 
@@ -36,50 +37,24 @@ class CreateAccountScreen extends Component{
   }
 
   //Will create an account in the firebase database
-  createAccount(email, password, username){
+  createAccountButtonPressed(email, password, username){
     this.toggleCreateAccountState();
 
-    //Check that the username is available
-    firebase.database().ref('usernames').once('value').then((snapshot)=>{
-      var index = 0;
-      const usernames = Object.keys(snapshot.val());
-      while(index < usernames.length && usernames[index] != username.toString()){
-        ++index;
-      }
+    //Create the account with firebase
+    createAccount(email, password, username).then(()=>{
+      //Get the user's uid
+      const uid = firebase.auth().currentUser.uid;
+      
+      //Set Singleton Data
+      SingletonClass.getInstance().setUserUID(uid);
+      SingletonClass.getInstance().setUsername(username);
 
-      //The username was found
-      if (index < usernames.length){
-        this.toggleCreateAccountState();
-        this.showAlert("Username already exists");
-      } else {
-
-        //Create an account for the user
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(()=>{
-
-          //Default the user's database data
-          const userData ={
-            username: username,
-            friends: "",
-            notifications: "",
-            records: ""
-          };
-          const uid = firebase.auth().currentUser.uid;
-          firebase.database().ref(uid).set(userData);
-          firebase.database().ref('usernames/' + username).set(uid);
-
-          //Set Singleton Data
-          SingletonClass.getInstance().setUserUID(uid);
-          SingletonClass.getInstance().setUsername(username);
-
-          this.toggleCreateAccountState();
-          this.props.navigation.navigate('App');
-        })
-        .catch((error)=>{
-          this.toggleCreateAccountState();
-          this.showAlert(error.message);
-        });
-      }
+      this.toggleCreateAccountState();
+      this.props.navigation.navigate('App');
+    })
+    .catch((error) => {
+      this.toggleCreateAccountState();
+      this.showAlert(error);
     });
   }
 
@@ -102,7 +77,7 @@ class CreateAccountScreen extends Component{
     return(
       <View style={styles.viewStyle}>
         <EmailUsernamePasswordForm
-          onPress={this.createAccount.bind(this)}
+          onPress={this.createAccountButtonPressed.bind(this)}
           buttonTitle="Finish"
         />
         {this.renderActivityMonitor()}
