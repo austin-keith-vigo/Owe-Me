@@ -5,14 +5,9 @@ import {
   Button,
   StyleSheet
 } from 'react-native';
-import SingletonClass from './../SingletonClass';
-import MoneyInputField from './../components/MoneyInputField';
-import InputField from './../components/InputField';
-import Record from './../Record';
 import GLOBALS from './../Globals';
-import TextMoneyForm from './../components/TextMoneyForm';
-import Dialog from "react-native-dialog";
-import CommonButton from './../components/CommonButton';
+
+import { Alert, TextMoneyForm, CommonButton } from './../components';
 
 import { connect } from 'react-redux';
 import {
@@ -21,8 +16,6 @@ import {
   createRecord,
   closeAlertAddRecord
 } from './../actions';
-
-import { Alert } from './../components';
 
 class AddRecordScreen extends Component{
 
@@ -35,20 +28,24 @@ class AddRecordScreen extends Component{
     }
   };
 
+  //Change the stores title state
   onTitleTextChange(text) {
     this.props.onTitleTextChanged(text);
   }
 
+  //Change the stores amount state
   onAmountTextChange(text) {
     this.props.onAmountTextChanged(text);
   }
 
+  //creates a new record for the next screen to finish
   onButtonPressed () {
     const { title, amount, navigation, records } = this.props;
 
     this.props.createRecord(title, amount, navigation, records);
   }
 
+  //closes the alert
   closeAlert() {
     this.props.closeAlertAddRecord();
   }
@@ -67,7 +64,7 @@ class AddRecordScreen extends Component{
           onChangeTextTitle={(text)=>this.onTitleTextChange(text)}
           onChangeTextValue={(text)=>this.onAmountTextChange(text)}
         />
-        
+
         <CommonButton
           title="Next"
           onPress={this.onButtonPressed.bind(this)}
