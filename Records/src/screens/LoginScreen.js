@@ -2,20 +2,12 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  ActivityIndicator,
-  Button,
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
-import firebase from 'react-native-firebase';
-import EmailPasswordForm from './../components/EmailPasswordForm';
-import Dialog from "react-native-dialog";
-import SingletonClass from './../SingletonClass';
-import Record from './../Record';
-import {resetAction} from './../../App';
 import GLOBALS from './../Globals';
 
-import { Alert } from './../components';
+import { Alert, EmailPasswordForm } from './../components';
 
 import { connect } from 'react-redux';
 import { loginUser, closeErrorMessage } from './../actions';
