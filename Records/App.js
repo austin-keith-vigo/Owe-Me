@@ -8,7 +8,10 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { StackActions, NavigationActions } from 'react-navigation';
 import GLOBALS from './src/Globals';
-
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import reducers from './src/reducers';
 //Screens
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
@@ -95,7 +98,7 @@ const AppNavigator = createBottomTabNavigator(
 );
 
 //Main App navigation container
-const App = createAppContainer(
+const Navigator = createAppContainer(
   createSwitchNavigator(
     {
       App: AppNavigator,
@@ -105,7 +108,15 @@ const App = createAppContainer(
       initialRouteName: "Auth"
     }
   )
-)
+);
+
+const App = () => {
+  return(
+    <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
+      <Navigator/>
+    </Provider>
+  );
+};
 
 //Resets Navigator back to Home Screen
 const resetAction = StackActions.reset({

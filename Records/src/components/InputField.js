@@ -17,6 +17,7 @@ class InputField extends Component{
           secureTextEntry={this.props.secureTextEntry}
           autoCapitalize={this.props.autoCapitalize}
           autoCorrect={this.props.autoCorrect}
+          value={this.props.value}
         />
       </View>
     );
