@@ -15,6 +15,8 @@ import Record from './../Record';
 import {resetAction} from './../../App';
 import GLOBALS from './../Globals';
 
+import { Alert } from './../components';
+
 import { connect } from 'react-redux';
 import { loginUser, closeErrorMessage } from './../actions';
 
@@ -46,29 +48,31 @@ class LoginScreen extends Component{
   render(){
     return(
       <View style={styles.viewStyle}>
+
         <Text style={styles.title}>RECORDS</Text>
+
         <EmailPasswordForm
           buttonTitle="Login"
           loginButtonPressed={this.loginButtonPressed.bind(this)}
         />
-        <Dialog.Container visible={this.props.error}>
-          <Dialog.Title>{this.props.errorMessage}</Dialog.Title>
-          <Dialog.Button
-            label="Close"
-            onPress={this.closeAlert.bind(this)}
-          />
-        </Dialog.Container>
+
+        <Alert
+          isVisible={this.props.error}
+          errorMessage={this.props.errorMessage}
+          closeAlert={this.closeAlert.bind(this)}
+        />
+
         <TouchableOpacity onPress={()=>{
           this.props.navigation.navigate('ForgotPassword');
         }}>
           <Text style={styles.buttonStyle}>Forgot Password</Text>
         </TouchableOpacity>
+
         <TouchableOpacity onPress={()=>{
           this.props.navigation.navigate('CreateAccount');
         }}>
           <Text style={styles.buttonStyle}>Create Account</Text>
         </TouchableOpacity>
-
       </View>
     );
   }
