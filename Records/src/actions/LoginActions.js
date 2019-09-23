@@ -5,6 +5,7 @@ import {
   LOGIN_USER_FAILURE,
   CLOSE_ERROR_MESSAGE
 } from './types';
+
 import Record from './../Record';
 import firebase from 'react-native-firebase';
 import SingletonClass from './../SingletonClass';

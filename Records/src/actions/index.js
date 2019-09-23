@@ -10,3 +10,11 @@ export {
   sendForgotPasswordEmail,
   closeAlertForgotPassword
 } from './ForgotPasswordActions';
+
+export {
+  onEmailChangedCreateAccount,
+  onUsernameChangedCreateAccount,
+  onPasswordChangedCreateAccount,
+  onCreateAccountButtonPressed,
+  createAccountCloseAlert
+} from './CreateAccountActions';
