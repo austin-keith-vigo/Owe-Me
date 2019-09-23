@@ -45,10 +45,7 @@ class EmailPasswordForm extends Component {
           autoCorrect={false}
           value={this.props.password}
         />
-        <TouchableOpacity onPress={()=>{
-          // this.props.buttonPressed(this.state.email, this.state.password)
-          this.props.loginUser(this.props.email, this.props.password);
-        }}>
+        <TouchableOpacity onPress={this.props.loginButtonPressed}>
           <View style={styles.buttonViewStyle}>
             <Text style={styles.buttonTextStyle}>Login</Text>
           </View>

@@ -1,5 +1,6 @@
 export {
   emailChanged,
   passwordChanged,
-  loginUser 
+  loginUser,
+  closeErrorMessage 
 } from './LoginActions';

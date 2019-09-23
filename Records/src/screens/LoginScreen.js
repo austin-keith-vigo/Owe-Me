@@ -15,6 +15,9 @@ import Record from './../Record';
 import {resetAction} from './../../App';
 import GLOBALS from './../Globals';
 
+import { connect } from 'react-redux';
+import { loginUser, closeErrorMessage } from './../actions';
+
 class LoginScreen extends Component{
 
   //Configure header
@@ -111,6 +114,17 @@ class LoginScreen extends Component{
     this.setState({showAlert: !this.state.showAlert});
   }
 
+  //Users an action to handle user login
+  loginButtonPressed(){
+    const { email, password, navigation } = this.props;
+
+    this.props.loginUser(email, password, navigation);
+  }
+
+  closeAlert() {
+    this.props.closeErrorMessage();
+  }
+
   render(){
     return(
       <View style={styles.viewStyle}>
@@ -118,12 +132,13 @@ class LoginScreen extends Component{
         <EmailPasswordForm
           buttonPressed={this.loginUser.bind(this)}
           buttonTitle="Login"
+          loginButtonPressed={this.loginButtonPressed.bind(this)}
         />
-        <Dialog.Container visible={this.state.showAlert}>
-          <Dialog.Title>{this.errorMessage}</Dialog.Title>
+        <Dialog.Container visible={this.props.error}>
+          <Dialog.Title>{this.props.errorMessage}</Dialog.Title>
           <Dialog.Button
             label="Close"
-            onPress={this.toggleShowAlertState.bind(this)}
+            onPress={this.closeAlert.bind(this)}
           />
         </Dialog.Container>
         {this.renderActivityMonitor()}
@@ -160,4 +175,18 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
+const mapStateToProps = state => {
+  return {
+    email: state.login.email,
+    password: state.login.password,
+    error: state.login.error,
+    errorMessage: state.login.errorMessage
+  };
+};
+
+const actions = {
+  loginUser,
+  closeErrorMessage
+};
+
+export default connect(mapStateToProps, actions)(LoginScreen);
