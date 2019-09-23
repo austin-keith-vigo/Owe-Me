@@ -2,13 +2,10 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  Button,
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
-import InputField from './../components/InputField';
-import firebase from 'react-native-firebase';
-import Dialog from "react-native-dialog";
+
 import GLOBALS from './../Globals';
 
 import { connect } from 'react-redux';
@@ -18,7 +15,7 @@ import {
   closeAlertForgotPassword
 } from './../actions';
 
-import { Alert } from './../components';
+import { Alert, InputField } from './../components';
 
 class ForgotPasswordScreen extends Component{
 
@@ -31,42 +28,16 @@ class ForgotPasswordScreen extends Component{
     }
   };
 
-  //keeps track of what is in the input field, and the alert attributes
-  state={email: '', showAlert: false}
-  errorMessage="";
-
-  //Sends an email to the user's email to reset their password
-  sendPasswordResetEmail(){
-    firebase.auth().sendPasswordResetEmail(this.state.email)
-    .then(()=>{
-      this.props.navigation.navigate('CheckEmail');
-    }).catch((error)=>{
-      this.toggleShowAlertState();
-      this.showAlert(error.message);
-    });
-  }
-
-  //Functions to handle rendering of the alert and the message
-  showAlert(message){
-    this.errorMessage = message;
-    this.setState({showAlert: true});
-  }
-  handleCloseAlert(){
-    this.setState({showAlert: false});
-  }
-
-  //Toggles the state of showAlert so I don't have to keep calling setState();
-  toggleShowAlertState(){
-    this.setState({showAlert: !this.state.showAlert});
-  }
 
   //Updates the email state
   onEmailChanged(text) {
     this.props.emailChangedForgotPassword(text);
   }
 
+  //Sends the email to the user
   onSendEmailButtonPressed() {
     const { email, navigation} = this.props;
+
     this.props.sendForgotPasswordEmail(email, navigation);
   }
 
@@ -78,8 +49,9 @@ class ForgotPasswordScreen extends Component{
   render(){
     return(
       <View style={styles.viewStyle}>
-        {console.log(this.props)}
+
         <View style={styles.bufferView}></View>
+
         <InputField
           placeholder='email'
           onChangeText={text => this.onEmailChanged(text)}
@@ -88,12 +60,14 @@ class ForgotPasswordScreen extends Component{
           autoCorrect={false}
           value={this.props.email}
         />
+
         <TouchableOpacity onPress={this.onSendEmailButtonPressed.bind(this)}>
           <View style={styles.buttonViewStyle}>
             <Text style={styles.buttonTextStyle}>Send Email</Text>
           </View>
 
         </TouchableOpacity>
+
         <Alert
           isVisible={this.props.error}
           errorMessage={this.props.errorMessage}
