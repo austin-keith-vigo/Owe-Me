@@ -10,37 +10,55 @@ import InputField from './InputField';
 import GLOBALS from './../Globals';
 import CommonButton from './CommonButton';
 
+import { connect } from 'react-redux';
+import {
+  onEmailChangedCreateAccount,
+  onUsernameChangedCreateAccount,
+  onPasswordChangedCreateAccount
+} from './../actions';
+
 class EmailUsernamePasswordForm extends Component{
 
-  state={email: "", username: "", password: ""};
+  onEmailChanged(text) {
+    this.props.onEmailChangedCreateAccount(text);
+  }
+
+  onUsernameChanged(text) {
+    this.props.onUsernameChangedCreateAccount(text);
+  }
+
+  onPasswordChanged(text) {
+    this.props.onPasswordChangedCreateAccount(text);
+  }
 
   render(){
     return(
       <View style={styles.viewStyle}>
         <InputField
           placeholder='email'
-          onChangeText={text => this.setState({ email: text })}
+          onChangeText={text => this.onEmailChanged(text)}
           secureTextEntry={false}
           autoCapitalize={"none"}
           autoCorrect={false}
+          value={this.props.email}
         />
         <InputField
           placeholder='username'
-          onChangeText={text => this.setState({ username: text })}
+          onChangeText={text => this.onUsernameChanged(text)}
           secureTextEntry={false}
           autoCapitalize={"none"}
           autoCorrect={false}
+          value={this.props.username}
         />
         <InputField
           placeholder='password'
-          onChangeText={text => this.setState({ password: text })}
+          onChangeText={text => this.onPasswordChanged(text)}
           secureTextEntry={true}
           autoCapitalize={"none"}
           autoCorrect={false}
+          value={this.props.password}
         />
-        <TouchableOpacity onPress={()=>{
-          this.props.onPress(this.state.email, this.state.password, this.state.username)
-        }}>
+        <TouchableOpacity onPress={this.props.onPress}>
           <View style={styles.buttonViewStyle}>
             <Text style={styles.buttonTextStyle}>Create</Text>
           </View>
@@ -68,4 +86,18 @@ const styles = StyleSheet.create({
   }
 });
 
-export default EmailUsernamePasswordForm;
+const mapStateToProps = state => {
+  return {
+    email: state.createAccount.email,
+    username: state.createAccount.username,
+    password: state.createAccount.password
+  };
+};
+
+const actions = {
+  onEmailChangedCreateAccount,
+  onUsernameChangedCreateAccount,
+  onPasswordChangedCreateAccount
+};
+
+export default connect(mapStateToProps, actions)(EmailUsernamePasswordForm);

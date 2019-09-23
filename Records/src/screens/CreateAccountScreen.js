@@ -5,13 +5,19 @@ import {
   ActivityIndicator,
   StyleSheet
 } from 'react-native';
-import EmailPasswordForm from './../components/EmailPasswordForm';
-import EmailUsernamePasswordForm from './../components/EmailUsernamePasswordForm';
 import firebase from 'react-native-firebase';
 import Dialog from "react-native-dialog";
 import GLOBALS from './../Globals';
 import SingletonClass from './../SingletonClass';
 import { createAccount } from './../FirebaseActions';
+
+import { connect } from 'react-redux';
+import {
+  onCreateAccountButtonPressed,
+  createAccountCloseAlert
+} from './../actions';
+
+import { Alert, EmailUsernamePasswordForm } from './../components';
 
 class CreateAccountScreen extends Component{
 
@@ -44,7 +50,7 @@ class CreateAccountScreen extends Component{
     createAccount(email, password, username).then(()=>{
       //Get the user's uid
       const uid = firebase.auth().currentUser.uid;
-      
+
       //Set Singleton Data
       SingletonClass.getInstance().setUserUID(uid);
       SingletonClass.getInstance().setUsername(username);
@@ -73,21 +79,29 @@ class CreateAccountScreen extends Component{
     this.setState({showAlert: false});
   }
 
+  onCreateAccountButtonPressed(){
+    const { email, password, username, navigation } = this.props;
+    this.props.onCreateAccountButtonPressed(email, username, password, navigation);
+  }
+
+  closeAlert() {
+    this.props.createAccountCloseAlert();
+  }
+
   render(){
     return(
       <View style={styles.viewStyle}>
+
         <EmailUsernamePasswordForm
-          onPress={this.createAccountButtonPressed.bind(this)}
+          onPress={this.onCreateAccountButtonPressed.bind(this)}
           buttonTitle="Finish"
         />
         {this.renderActivityMonitor()}
-        <Dialog.Container visible={this.state.showAlert}>
-          <Dialog.Title>{this.errorMessage}</Dialog.Title>
-          <Dialog.Button
-            label="Close"
-            onPress={this.handleCloseAlert.bind(this)}
-          />
-        </Dialog.Container>
+        <Alert
+          isVisible={this.props.error}
+          errorMessage={this.props.errorMessage}
+          closeAlert={() => this.closeAlert()}
+        />
       </View>
     );
   }
@@ -102,4 +116,19 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CreateAccountScreen;
+const mapStateToProps = state => {
+  return {
+    email: state.createAccount.email,
+    username: state.createAccount.username,
+    password: state.createAccount.password,
+    error: state.createAccount.error,
+    errorMessage: state.createAccount.errorMessage
+  };
+};
+
+const actions = {
+  onCreateAccountButtonPressed,
+  createAccountCloseAlert
+};
+
+export default connect(mapStateToProps, actions)(CreateAccountScreen);
