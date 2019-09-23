@@ -10,11 +10,13 @@ class TextMoneyForm extends Component{
   render(){
     return(
       <View>
+        {console.log(this.props)}
         <TextInput
           style={styles.titleTextInputField}
           onChangeText={this.props.onChangeTextTitle}
           placeholder="Title"
           returnKeyType='done'
+          value={this.props.titleValue}
         />
         <View style={styles.moneyInputFieldViewStyle}>
           <Text>$</Text>
@@ -23,6 +25,7 @@ class TextMoneyForm extends Component{
             onChangeText={this.props.onChangeTextValue}
             placeholder="0.00"
             returnKeyType='done'
+            value={this.props.amountValue}
           />
         </View>
       </View>

@@ -18,3 +18,10 @@ export {
   onCreateAccountButtonPressed,
   createAccountCloseAlert
 } from './CreateAccountActions';
+
+export {
+  onTitleTextChanged,
+  onAmountTextChanged,
+  createRecord,
+  closeAlertAddRecord
+} from './HomeActions';

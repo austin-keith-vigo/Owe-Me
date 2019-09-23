@@ -36,11 +36,11 @@ class HomeScreen extends Component{
   constructor(props){
     super(props);
 
-    const recordsData = SingletonClass.getInstance().getRecords();
+    const recordsData = this.props.records;
 
     //Create the flatlist tiles
-    for(index = 0; index < recordsData.length; ++index){
-      const currentRecord = recordsData[index];
+    for(index = 0; index < this.props.records.length; ++index){
+      const currentRecord = this.props.records[index];
 
       //Convert each index to a component to be rendered by flat list
       this.flatListData.push(
@@ -69,6 +69,7 @@ class HomeScreen extends Component{
   render(){
     return(
       <View style={styles.viewStyle}>
+        {console.log(this.props)}
         <FlatList
           data={this.flatListData}
           renderItem={(item) => (

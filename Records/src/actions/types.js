@@ -18,3 +18,11 @@ export const ON_PASSWORD_CHANGED_CREATE_ACCOUNT = 'on_password_changed_create_ac
 export const CREATE_ACCOUNT_SUCCESS = 'create_account_success';
 export const CREATE_ACCOUNT_FAILURE = 'create_account_failure';
 export const CREATE_ACCOUNT_CLOSE_ALERT = 'create_account_close_alert';
+
+//Settings
+export const USER_LOGGED_OUT_SUCCESS = 'user_logged_out_success';
+export const TITLE_TEXT_CHANGED = 'title_text_changed';
+export const AMOUNT_TEXT_CHANGED = 'amount_text_changed';
+export const CREATE_RECORD_SUCCESS = 'create_record_success';
+export const CREATE_RECORD_FAILURE = 'create_record_failure';
+export const CLOSE_ALERT_ADD_RECORD = 'close_alert_add_record';

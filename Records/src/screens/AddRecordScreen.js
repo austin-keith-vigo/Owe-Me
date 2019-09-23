@@ -14,6 +14,16 @@ import TextMoneyForm from './../components/TextMoneyForm';
 import Dialog from "react-native-dialog";
 import CommonButton from './../components/CommonButton';
 
+import { connect } from 'react-redux';
+import {
+  onTitleTextChanged,
+  onAmountTextChanged,
+  createRecord,
+  closeAlertAddRecord
+} from './../actions';
+
+import { Alert } from './../components';
+
 class AddRecordScreen extends Component{
 
   //Configure header
@@ -25,60 +35,52 @@ class AddRecordScreen extends Component{
     }
   };
 
-  state={ value: "", title:"", showAlert: false};
-  errorMessage="";
-
-  //Will Create a new record and pass it to next screen to complete
-  createRecord(){
-    if (this.state.value == 0 || this.state.title == ""){
-      this.errorMessage = "Please fill out all fields";
-      this.toggleShowAlertState();
-    }
-    else{
-      var amount = Number(this.state.value);
-
-      if (Number.isNaN(amount)){
-        this.toggleShowAlertState();
-        this.errorMessage = "Invalid money input value. Do not use commas";
-      }
-      else{
-        var newRecord = new Record(this.state.title, {});
-        var parameters = {
-          totalAmount: amount,
-          record: newRecord
-        };
-        this.props.navigation.navigate("SelectFriends",parameters);
-      }
-    }
+  onTitleTextChange(text) {
+    this.props.onTitleTextChanged(text);
   }
 
-  //Controls whether to show alert
-  toggleShowAlertState(){
-    this.setState({showAlert: !this.state.showAlert});
+  onAmountTextChange(text) {
+    this.props.onAmountTextChanged(text);
+  }
+
+  onButtonPressed () {
+    const { title, amount, navigation } = this.props;
+
+    this.props.createRecord(title, amount, navigation);
+  }
+
+  closeAlert() {
+    this.props.closeAlertAddRecord();
   }
 
   render(){
     return(
       <View style = {styles.viewStyle}>
-        <Dialog.Container visible={this.state.showAlert}>
-          <Dialog.Title>{this.errorMessage}</Dialog.Title>
-          <Dialog.Button
-            label="Close"
-            onPress={this.toggleShowAlertState.bind(this)}
-          />
-        </Dialog.Container>
+
+        <Alert
+          isVisible={this.props.error}
+          errorMessage={this.props.errorMessage}
+          closeAlert={this.closeAlert.bind(this)}
+        />
+
+        {console.log(this.props)}
+
         <TextMoneyForm
-          onChangeTextTitle={(text)=>this.setState({title: text})}
-          onChangeTextValue={(text)=>this.setState({value: text})}
+          onChangeTextTitle={(text)=>this.onTitleTextChange(text)}
+          onChangeTextValue={(text)=>this.onAmountTextChange(text)}
+          titleValue={this.props.titleValue}
+          amountValue={this.props.amountValue}
         />
         <CommonButton
           title="Next"
-          onPress={()=>{this.createRecord()}}
+          onPress={this.onButtonPressed.bind(this)}
         />
       </View>
     );
   }
 }
+
+
 
 const styles = StyleSheet.create({
   viewStyle: {
@@ -89,5 +91,20 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = state => {
+  return {
+    title: state.home.title,
+    amount: state.home.amount,
+    error: state.home.error,
+    errorMessage: state.home.errorMessage
+  };
+};
 
-export default AddRecordScreen;
+const actions = {
+  onTitleTextChanged,
+  onAmountTextChanged,
+  createRecord,
+  closeAlertAddRecord
+};
+
+export default connect(mapStateToProps, actions)(AddRecordScreen);
