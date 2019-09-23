@@ -72,7 +72,10 @@ export const loginUser = (email, password, navigation) => {
         //Initialize the Singleton before moving on
         willInitializeSingleton()
           .then(()=> {
-            dispatch({type: LOGIN_USER_SUCCESS});
+            dispatch({
+              type: LOGIN_USER_SUCCESS,
+              payload: [...SingletonClass.getInstance().getRecords()]
+            });
             navigation.navigate('App');
           })
           .catch((error)=> {

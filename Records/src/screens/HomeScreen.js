@@ -14,6 +14,8 @@ import Record from './../Record';
 import HomeFlatListTile from './../components/HomeFlatListTile';
 import GLOBALS from './../Globals';
 
+import { connect } from 'react-redux';
+
 class HomeScreen extends Component{
 
   //Configure header
@@ -67,16 +69,16 @@ class HomeScreen extends Component{
   render(){
     return(
       <View style={styles.viewStyle}>
-      <FlatList
-        data={this.flatListData}
-        renderItem={(item) => (
-          <View>
-            {item.item}
-          </View>
-        )}
-        numColumns = {2}
-        keyExtractor={(item,index)=>index.toString()}
-      />
+        <FlatList
+          data={this.flatListData}
+          renderItem={(item) => (
+            <View>
+              {item.item}
+            </View>
+          )}
+          numColumns = {2}
+          keyExtractor={(item,index)=>index.toString()}
+        />
       </View>
     );
   }
@@ -94,4 +96,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export default HomeScreen;
+const mapStateToProps = state => {
+  return{
+    records: state.home.records
+  };
+};
+
+
+export default connect(mapStateToProps)(HomeScreen);
