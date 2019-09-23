@@ -2,5 +2,11 @@ export {
   emailChanged,
   passwordChanged,
   loginUser,
-  closeErrorMessage 
+  closeErrorMessage
 } from './LoginActions';
+
+export {
+  emailChangedForgotPassword,
+  sendForgotPasswordEmail,
+  closeAlertForgotPassword
+} from './ForgotPasswordActions';

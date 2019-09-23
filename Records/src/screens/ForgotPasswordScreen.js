@@ -11,6 +11,15 @@ import firebase from 'react-native-firebase';
 import Dialog from "react-native-dialog";
 import GLOBALS from './../Globals';
 
+import { connect } from 'react-redux';
+import {
+  emailChangedForgotPassword,
+  sendForgotPasswordEmail,
+  closeAlertForgotPassword
+} from './../actions';
+
+import { Alert } from './../components';
+
 class ForgotPasswordScreen extends Component{
 
   //Configure header
@@ -51,30 +60,45 @@ class ForgotPasswordScreen extends Component{
     this.setState({showAlert: !this.state.showAlert});
   }
 
+  //Updates the email state
+  onEmailChanged(text) {
+    this.props.emailChangedForgotPassword(text);
+  }
+
+  onSendEmailButtonPressed() {
+    const { email, navigation} = this.props;
+    this.props.sendForgotPasswordEmail(email, navigation);
+  }
+
+  //closes the dialog component
+  closeAlert() {
+    this.props.closeAlertForgotPassword();
+  }
+
   render(){
     return(
       <View style={styles.viewStyle}>
+        {console.log(this.props)}
         <View style={styles.bufferView}></View>
         <InputField
           placeholder='email'
-          onChangeText={text => this.setState({ email: text })}
+          onChangeText={text => this.onEmailChanged(text)}
           secureTextEntry={false}
           autoCapitalize={"none"}
           autoCorrect={false}
+          value={this.props.email}
         />
-        <TouchableOpacity onPress={this.sendPasswordResetEmail.bind(this)}>
+        <TouchableOpacity onPress={this.onSendEmailButtonPressed.bind(this)}>
           <View style={styles.buttonViewStyle}>
             <Text style={styles.buttonTextStyle}>Send Email</Text>
           </View>
 
         </TouchableOpacity>
-        <Dialog.Container visible={this.state.showAlert}>
-          <Dialog.Title>{this.errorMessage}</Dialog.Title>
-          <Dialog.Button
-            label="Close"
-            onPress={this.handleCloseAlert.bind(this)}
-          />
-        </Dialog.Container>
+        <Alert
+          isVisible={this.props.error}
+          errorMessage={this.props.errorMessage}
+          closeAlert={this.closeAlert.bind(this)}
+        />
       </View>
     );
   }
@@ -104,4 +128,18 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ForgotPasswordScreen;
+const mapStateToProps = state => {
+  return {
+    email: state.forgotPassword.email,
+    error: state.forgotPassword.error,
+    errorMessage: state.forgotPassword.errorMessage
+  };
+}
+
+const actions = {
+  emailChangedForgotPassword,
+  sendForgotPasswordEmail,
+  closeAlertForgotPassword
+};
+
+export default connect(mapStateToProps, actions)(ForgotPasswordScreen);
