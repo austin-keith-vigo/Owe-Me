@@ -44,9 +44,9 @@ class AddRecordScreen extends Component{
   }
 
   onButtonPressed () {
-    const { title, amount, navigation } = this.props;
+    const { title, amount, navigation, records } = this.props;
 
-    this.props.createRecord(title, amount, navigation);
+    this.props.createRecord(title, amount, navigation, records);
   }
 
   closeAlert() {
@@ -63,14 +63,11 @@ class AddRecordScreen extends Component{
           closeAlert={this.closeAlert.bind(this)}
         />
 
-        {console.log(this.props)}
-
         <TextMoneyForm
           onChangeTextTitle={(text)=>this.onTitleTextChange(text)}
           onChangeTextValue={(text)=>this.onAmountTextChange(text)}
-          titleValue={this.props.titleValue}
-          amountValue={this.props.amountValue}
         />
+        
         <CommonButton
           title="Next"
           onPress={this.onButtonPressed.bind(this)}
@@ -93,6 +90,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
+    records: state.home.records,
     title: state.home.title,
     amount: state.home.amount,
     error: state.home.error,

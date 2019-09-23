@@ -6,11 +6,12 @@ import {
   StyleSheet
 } from 'react-native';
 
+import { connect } from 'react-redux';
+
 class TextMoneyForm extends Component{
   render(){
     return(
       <View>
-        {console.log(this.props)}
         <TextInput
           style={styles.titleTextInputField}
           onChangeText={this.props.onChangeTextTitle}
@@ -63,5 +64,11 @@ const styles = StyleSheet.create({
   }
 })
 
+const mapStateToProps = state => {
+  return {
+    titleValue: state.home.title,
+    amountValue: state.home.amount
+  };
+};
 
-export default TextMoneyForm;
+export default connect(mapStateToProps)(TextMoneyForm);

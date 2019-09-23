@@ -1,3 +1,7 @@
+import React from 'react';
+import Record from './../Record';
+import SingletonClass from './../SingletonClass';
+
 import {
   TITLE_TEXT_CHANGED,
   AMOUNT_TEXT_CHANGED,
@@ -20,10 +24,21 @@ export const onAmountTextChanged = (text) => {
   };
 };
 
-export const createRecord = (title, amount, navigation) => {
+//Helper method for createRecord to check if the title is taken
+const titleIsTaken = (title, records) => {
+  for (index = 0; index < records.length; ++index){
+    if (title == records[index].getTitle()) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+//Creates a record to be passed to the next screen for completion
+export const createRecord = (title, amount, navigation, records) => {
   //All fields are not filled out
   if (amount == '' || title == ""){
-    console.log('fail');
     return {
       type: CREATE_RECORD_FAILURE,
       payload: 'Please fill out all fields.'
@@ -33,28 +48,26 @@ export const createRecord = (title, amount, navigation) => {
   //Check amount is a number
   var amount = Number(amount);
   if (Number.isNaN(amount)){
-    console.log('fail');
     return {
       type: CREATE_RECORD_FAILURE,
       payload: 'Amount must be a number.'
     }
   }
 
-  //Create the new record
-  // var newRecord = new Record(title, {});
-  // var parameters = {
-  //   totalAmount: amount,
-  //   record: newRecord
-  // };
-  // this.props.navigation.navigate("SelectFriends",parameters);
+  //Check if the title is already taken
+  if(titleIsTaken(title, records) == true){
+    return {
+      type: CREATE_RECORD_FAILURE,
+      payload: 'Title already in use.'
+    }
+  }
 
-
+  //Start the new record and move to next screen
+  navigation.navigate('SelectFriends');
+  var newRecord = new Record(title, {});
   return {
     type: CREATE_RECORD_SUCCESS,
-    payload: {
-      recordTitle: title,
-      recordAmount: amount
-    }
+    payload: newRecord
   };
 };
 
