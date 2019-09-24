@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,42 +7,32 @@ import {
   Image
 } from 'react-native';
 
-class FriendFlatListItem extends Component {
+import { connect } from 'react-redux';
 
-  state={selected:false}
-
-  //Conditional rendering for the checkmard
-  renderChecmark(){
-    if(this.state.selected == true){
-      return(
-        <Image
-          source={require('./../assets/checkmark-for-verification.png')}
-          style={styles.imageStyle}
-        />
-      );
-    }
-  }
-
-  toggleSelectedState(){
-    this.setState({selected:!this.state.selected});
-  }
-
-  render(){
+//Conditional rendering for the checkmark
+const _renderChecmark = (friend, selectedFriends) => {
+  if(selectedFriends.includes(friend)){
     return(
-      <TouchableOpacity
-        onPress={()=>{
-          this.toggleSelectedState();
-          this.props.onPress();
-        }}
-      >
-        <View style={styles.viewStyle}>
-          <Text style={styles.textStyle}>{this.props.friend}</Text>
-          {this.renderChecmark()}
-        </View>
-      </TouchableOpacity>
+      <Image
+        source={require('./../assets/checkmark-for-verification.png')}
+        style={styles.imageStyle}
+      />
     );
-  }
-}
+  };
+};
+
+const FriendFlatListItem = (props) => {
+  return(
+    <TouchableOpacity
+      onPress={props.onPress}
+    >
+      <View style={styles.viewStyle}>
+        <Text style={styles.textStyle}>{props.friend}</Text>
+        {_renderChecmark(props.friend, props.selectedFriends)}
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   viewStyle:{
@@ -66,4 +56,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FriendFlatListItem;
+const mapStateToProps = state => {
+  return {
+    selectedFriends: state.home.selectedFriends
+  };
+};
+
+export default connect(mapStateToProps)(FriendFlatListItem);

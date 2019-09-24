@@ -14,6 +14,8 @@ import Record from './../Record';
 import HomeFlatListTile from './../components/HomeFlatListTile';
 import GLOBALS from './../Globals';
 
+import { connect } from 'react-redux';
+
 class HomeScreen extends Component{
 
   //Configure header
@@ -34,11 +36,11 @@ class HomeScreen extends Component{
   constructor(props){
     super(props);
 
-    const recordsData = SingletonClass.getInstance().getRecords();
+    const recordsData = this.props.records;
 
     //Create the flatlist tiles
-    for(index = 0; index < recordsData.length; ++index){
-      const currentRecord = recordsData[index];
+    for(index = 0; index < this.props.records.length; ++index){
+      const currentRecord = this.props.records[index];
 
       //Convert each index to a component to be rendered by flat list
       this.flatListData.push(
@@ -67,16 +69,16 @@ class HomeScreen extends Component{
   render(){
     return(
       <View style={styles.viewStyle}>
-      <FlatList
-        data={this.flatListData}
-        renderItem={(item) => (
-          <View>
-            {item.item}
-          </View>
-        )}
-        numColumns = {2}
-        keyExtractor={(item,index)=>index.toString()}
-      />
+        <FlatList
+          data={this.flatListData}
+          renderItem={(item) => (
+            <View>
+              {item.item}
+            </View>
+          )}
+          numColumns = {2}
+          keyExtractor={(item,index)=>index.toString()}
+        />
       </View>
     );
   }
@@ -94,4 +96,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export default HomeScreen;
+const mapStateToProps = state => {
+  return{
+    records: state.home.records
+  };
+};
+
+
+export default connect(mapStateToProps)(HomeScreen);

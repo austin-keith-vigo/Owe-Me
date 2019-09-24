@@ -5,14 +5,23 @@ import {
   Button,
   StyleSheet
 } from 'react-native';
-import SingletonClass from './../SingletonClass';
-import MoneyInputField from './../components/MoneyInputField';
-import InputField from './../components/InputField';
-import Record from './../Record';
 import GLOBALS from './../Globals';
-import TextMoneyForm from './../components/TextMoneyForm';
-import Dialog from "react-native-dialog";
-import CommonButton from './../components/CommonButton';
+
+import {
+  Alert,
+  TextMoneyForm,
+  Header,
+  HeaderButton
+} from './../components';
+
+import { connect } from 'react-redux';
+import {
+  onTitleTextChanged,
+  onAmountTextChanged,
+  createRecord,
+  closeAlertAddRecord,
+  onBackButtonPressedAddRecord
+} from './../actions';
 
 class AddRecordScreen extends Component{
 
@@ -21,73 +30,93 @@ class AddRecordScreen extends Component{
     title: 'Add Record',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
+      height: 0
     }
   };
 
-  state={ value: "", title:"", showAlert: false};
-  errorMessage="";
-
-  //Will Create a new record and pass it to next screen to complete
-  createRecord(){
-    if (this.state.value == 0 || this.state.title == ""){
-      this.errorMessage = "Please fill out all fields";
-      this.toggleShowAlertState();
-    }
-    else{
-      var amount = Number(this.state.value);
-
-      if (Number.isNaN(amount)){
-        this.toggleShowAlertState();
-        this.errorMessage = "Invalid money input value. Do not use commas";
-      }
-      else{
-        var newRecord = new Record(this.state.title, {});
-        var parameters = {
-          totalAmount: amount,
-          record: newRecord
-        };
-        this.props.navigation.navigate("SelectFriends",parameters);
-      }
-    }
+  //Change the stores title state
+  onTitleTextChange(text) {
+    this.props.onTitleTextChanged(text);
   }
 
-  //Controls whether to show alert
-  toggleShowAlertState(){
-    this.setState({showAlert: !this.state.showAlert});
+  //Change the stores amount state
+  onAmountTextChange(text) {
+    this.props.onAmountTextChanged(text);
+  }
+
+  //creates a new record for the next screen to finish
+  onButtonPressed () {
+    const { title, amount, navigation, records } = this.props;
+
+    this.props.createRecord(title, amount, navigation, records);
+  }
+
+  //closes the alert
+  closeAlert() {
+    this.props.closeAlertAddRecord();
   }
 
   render(){
     return(
       <View style = {styles.viewStyle}>
-        <Dialog.Container visible={this.state.showAlert}>
-          <Dialog.Title>{this.errorMessage}</Dialog.Title>
-          <Dialog.Button
-            label="Close"
-            onPress={this.toggleShowAlertState.bind(this)}
-          />
-        </Dialog.Container>
-        <TextMoneyForm
-          onChangeTextTitle={(text)=>this.setState({title: text})}
-          onChangeTextValue={(text)=>this.setState({value: text})}
+        <Header
+          header='ADD RECORD'
+          leftButton={
+            <HeaderButton
+              title='BACK'
+              onPress={() => {
+                this.props.onBackButtonPressedAddRecord(this.props.navigation);
+              }}
+            />}
+          rightButton={
+            <HeaderButton
+              title='NEXT'
+              onPress={this.onButtonPressed.bind(this)}
+            />}
         />
-        <CommonButton
-          title="Next"
-          onPress={()=>{this.createRecord()}}
+
+        <Alert
+          isVisible={this.props.error}
+          errorMessage={this.props.errorMessage}
+          closeAlert={this.closeAlert.bind(this)}
+        />
+
+        <TextMoneyForm
+          onChangeTextTitle={(text)=>this.onTitleTextChange(text)}
+          onChangeTextValue={(text)=>this.onAmountTextChange(text)}
         />
       </View>
     );
   }
 }
 
+
+
 const styles = StyleSheet.create({
   viewStyle: {
     flex: 1,
     backgroundColor: GLOBALS.COLORS.GREEN,
-    justifyContent: 'center',
     alignItems: 'center'
   }
 });
 
+const mapStateToProps = state => {
+  return {
+    records: state.home.records,
+    title: state.home.title,
+    amount: state.home.amount,
+    error: state.home.error,
+    errorMessage: state.home.errorMessage
+  };
+};
 
-export default AddRecordScreen;
+const actions = {
+  onTitleTextChanged,
+  onAmountTextChanged,
+  createRecord,
+  closeAlertAddRecord,
+  onBackButtonPressedAddRecord
+};
+
+export default connect(mapStateToProps, actions)(AddRecordScreen);

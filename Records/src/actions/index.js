@@ -18,3 +18,17 @@ export {
   onCreateAccountButtonPressed,
   createAccountCloseAlert
 } from './CreateAccountActions';
+
+export {
+  onTitleTextChanged,
+  onAmountTextChanged,
+  createRecord,
+  closeAlertAddRecord,
+  addSelectedFriend,
+  removeSelectedFriend,
+  buttonPressedSelectFriends,
+  closeAlertSelectFriends,
+  confirmButtonPressed,
+  onBackButtonPressedAddRecord,
+  onBackButtonPressedSelectFriends
+} from './HomeActions';

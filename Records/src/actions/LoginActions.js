@@ -3,7 +3,8 @@ import {
   PASSWORD_CHANGED,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
-  CLOSE_ERROR_MESSAGE
+  CLOSE_ERROR_MESSAGE,
+  START_LOGGING_IN
 } from './types';
 
 import Record from './../Record';
@@ -67,12 +68,18 @@ const willInitializeSingleton = () => {
 
 export const loginUser = (email, password, navigation) => {
   return (dispatch) => {
+
+    dispatch({type: START_LOGGING_IN});
+
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
         //Initialize the Singleton before moving on
         willInitializeSingleton()
           .then(()=> {
-            dispatch({type: LOGIN_USER_SUCCESS});
+            dispatch({
+              type: LOGIN_USER_SUCCESS,
+              payload: [...SingletonClass.getInstance().getRecords()]
+            });
             navigation.navigate('App');
           })
           .catch((error)=> {

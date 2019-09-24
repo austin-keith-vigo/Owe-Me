@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import GLOBALS from './../Globals';
 
-import { Alert, EmailPasswordForm } from './../components';
+import { Alert, EmailPasswordForm, Spinner } from './../components';
 
 import { connect } from 'react-redux';
 import { loginUser, closeErrorMessage } from './../actions';
@@ -36,7 +36,11 @@ class LoginScreen extends Component{
     this.props.closeErrorMessage();
   }
 
-
+  renderSpinner() {
+    if(this.props.loading) {
+      return <Spinner/>;
+    }
+  }
   render(){
     return(
       <View style={styles.viewStyle}>
@@ -65,6 +69,8 @@ class LoginScreen extends Component{
         }}>
           <Text style={styles.buttonStyle}>Create Account</Text>
         </TouchableOpacity>
+
+        {this.renderSpinner()}
       </View>
     );
   }
@@ -92,7 +98,8 @@ const mapStateToProps = state => {
     email: state.login.email,
     password: state.login.password,
     error: state.login.error,
-    errorMessage: state.login.errorMessage
+    errorMessage: state.login.errorMessage,
+    loading: state.login.loading
   };
 };
 

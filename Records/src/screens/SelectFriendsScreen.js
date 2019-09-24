@@ -7,10 +7,24 @@ import {
   StyleSheet
 } from 'react-native';
 import SingletonClass from './../SingletonClass';
-import {resetAction} from './../../App';
-import {willUpdateWithNewRecord} from './../FirebaseActions';
 import GLOBALS from './../Globals';
-import FriendFlatListItem from './../components/FriendFlatListItem';
+
+import {
+  FriendFlatListItem,
+  Alert,
+  Header,
+  HeaderButton
+} from './../components';
+
+import { connect } from 'react-redux';
+import {
+  addSelectedFriend,
+  removeSelectedFriend,
+  buttonPressedSelectFriends,
+  closeAlertSelectFriends,
+  onBackButtonPressedSelectFriends
+} from './../actions';
+
 
 class SelectFriendsScreen extends Component{
 
@@ -20,13 +34,13 @@ class SelectFriendsScreen extends Component{
       title: 'Select Friends',
       headerStyle: {
         backgroundColor: GLOBALS.COLORS.GREEN,
-        borderBottomWidth: 0
+        borderBottomWidth: 0,
+        height: 0
       }
     };
   };
 
   friends = [];         //For FlatList
-  selectedFriends = []; //Friends part of the bill
 
   //Initialize friends attribute for data prop of FlatList
   constructor(props){
@@ -40,52 +54,79 @@ class SelectFriendsScreen extends Component{
 
   //Marks a friend as selected and includes them in the bill
   friendSelected = (selectedFriend) => {
-
-    //Remove the selected friend from the list
-    if(this.selectedFriends.includes(selectedFriend)){
-      var replacementFriendList = [];
-      for (index = 0; index < this.selectedFriends.length; ++index){
-        if(this.selectedFriends[index] != selectedFriend){
-          replacementFriendList.push(this.selectedFriends[index]);
-        }
-      }
-      this.selectedFriends = replacementFriendList;
+    if(this.props.selectedFriends.includes(selectedFriend)) {
+      this.props.removeSelectedFriend(selectedFriend, this.props.selectedFriends);
+    } else {
+      this.props.addSelectedFriend(selectedFriend, this.props.selectedFriends);
     }
+  }
 
-    //Add the selected friend
-    else{
-      this.selectedFriends.push(selectedFriend);
-    }
+  //Finalizes the record and sends to confirmation
+  onButtonPress() {
+    const { newRecord, selectedFriends, amount, navigation } = this.props;
+    this.props.buttonPressedSelectFriends(newRecord, selectedFriends, amount, navigation);
+  }
+
+  //Closes Alert
+  closeAlert() {
+    this.props.closeAlertSelectFriends();
   }
 
   render(){
     return(
       <View>
+        <Header
+          header={'SELECT FRIENDS'}
+          leftButton={
+            <HeaderButton
+              title='BACK'
+              onPress={() => {
+                this.props.onBackButtonPressedSelectFriends(this.props.navigation);
+              }}
+            />}
+          rightButton={
+            <HeaderButton
+              title='CONFIRM'
+              onPress={this.onButtonPress.bind(this)}
+            />}
+        />
+
         <FlatList
           data={this.friends}
           renderItem={({item}) => (
             <FriendFlatListItem
               friend={item.key}
-              onPress={this.friendSelected.bind(this,item.key)}
+              onPress={() => this.friendSelected(item.key)}
             />
           )}
         />
-        <Button
-          title="Next"
-          onPress={()=>{
 
-            //Set the parameters for the next screen
-            const parameters = {
-              selectedFriends: this.selectedFriends,
-              totalAmount: this.props.navigation.getParam("totalAmount"),
-              record: this.props.navigation.getParam("record")
-            };
-            this.props.navigation.navigate('Confirmation', parameters);
-          }}
+        <Alert
+          isVisible={this.props.errorSelectFriends}
+          errorMessage={this.props.errorMessageSelectFriends}
+          closeAlert={this.closeAlert.bind(this)}
         />
       </View>
     );
   }
 }
 
-export default SelectFriendsScreen;
+const mapStateToProps = state => {
+  return {
+    amount: state.home.amount,
+    newRecord: state.home.newRecord,
+    errorSelectFriends: state.home.errorSelectFriends,
+    errorMessageSelectFriends: state.home.errorMessageSelectFriends,
+    selectedFriends: state.home.selectedFriends
+  };
+};
+
+const actions = {
+  addSelectedFriend,
+  removeSelectedFriend,
+  buttonPressedSelectFriends,
+  closeAlertSelectFriends,
+  onBackButtonPressedSelectFriends
+};
+
+export default connect(mapStateToProps, actions)(SelectFriendsScreen);
