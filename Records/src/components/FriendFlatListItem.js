@@ -7,35 +7,29 @@ import {
   Image
 } from 'react-native';
 
-class FriendFlatListItem extends Component {
+import { connect } from 'react-redux';
 
-  state={selected:false}
+class FriendFlatListItem extends Component {
 
   //Conditional rendering for the checkmard
   renderChecmark(){
-    if(this.state.selected == true){
+    if(this.props.selectedFriends.includes(this.props.friend)){
       return(
         <Image
           source={require('./../assets/checkmark-for-verification.png')}
           style={styles.imageStyle}
         />
       );
-    }
-  }
-
-  toggleSelectedState(){
-    this.setState({selected:!this.state.selected});
+    };
   }
 
   render(){
     return(
       <TouchableOpacity
-        onPress={()=>{
-          this.toggleSelectedState();
-          this.props.onPress();
-        }}
+        onPress={this.props.onPress}
       >
         <View style={styles.viewStyle}>
+          {console.log(this.props)}
           <Text style={styles.textStyle}>{this.props.friend}</Text>
           {this.renderChecmark()}
         </View>
@@ -66,4 +60,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FriendFlatListItem;
+const mapStateToProps = state => {
+  return {
+    selectedFriends: state.home.selectedFriends
+  };
+};
+
+export default connect(mapStateToProps)(FriendFlatListItem);

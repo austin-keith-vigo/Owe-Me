@@ -8,7 +8,9 @@ import {
   AMOUNT_TEXT_CHANGED,
   CREATE_RECORD_SUCCESS,
   CREATE_RECORD_FAILURE,
-  CLOSE_ALERT_ADD_RECORD
+  CLOSE_ALERT_ADD_RECORD,
+  ADD_SELECTED_FRIEND,
+  REMOVE_SELECTED_FRIEND
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -17,7 +19,10 @@ const INITIAL_STATE = {
   amount: '',
   error: false,
   errorMessage: '',
-  newRecord: null
+  newRecord: null,
+  errorSelectFriends: false,
+  errorMessageSelectFriends: '',
+  selectedFriends: []
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -31,12 +36,16 @@ export default (state = INITIAL_STATE, action) => {
     case AMOUNT_TEXT_CHANGED:
       return {...state, amount: action.payload};
     case CREATE_RECORD_SUCCESS:
-      console.log(action.payload);
       return {...state, error:false, errorMessage:'', newRecord: action.payload};
     case CREATE_RECORD_FAILURE:
       return {...state, error: true, errorMessage: action.payload};
     case CLOSE_ALERT_ADD_RECORD:
       return {...state, error: false, errorMessage: ''};
+    case ADD_SELECTED_FRIEND:
+      return {...state, selectedFriends: action.payload};
+    case REMOVE_SELECTED_FRIEND:
+      console.log(action.payload);
+      return {...state, selectedFriends: action.payload};
     default:
       return {...state};
   };

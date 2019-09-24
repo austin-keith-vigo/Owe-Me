@@ -12,6 +12,9 @@ import {willUpdateWithNewRecord} from './../FirebaseActions';
 import GLOBALS from './../Globals';
 import FriendFlatListItem from './../components/FriendFlatListItem';
 
+import { connect } from 'react-redux';
+import { addSelectedFriend, removeSelectedFriend } from './../actions';
+
 class SelectFriendsScreen extends Component{
 
   //Configure header
@@ -40,21 +43,11 @@ class SelectFriendsScreen extends Component{
 
   //Marks a friend as selected and includes them in the bill
   friendSelected = (selectedFriend) => {
+    if(this.props.selectedFriends.includes(selectedFriend)) {
+      this.props.removeSelectedFriend(selectedFriend, this.props.selectedFriends);
+    } else {
+      this.props.addSelectedFriend(selectedFriend, this.props.selectedFriends);
 
-    //Remove the selected friend from the list
-    if(this.selectedFriends.includes(selectedFriend)){
-      var replacementFriendList = [];
-      for (index = 0; index < this.selectedFriends.length; ++index){
-        if(this.selectedFriends[index] != selectedFriend){
-          replacementFriendList.push(this.selectedFriends[index]);
-        }
-      }
-      this.selectedFriends = replacementFriendList;
-    }
-
-    //Add the selected friend
-    else{
-      this.selectedFriends.push(selectedFriend);
     }
   }
 
@@ -66,7 +59,9 @@ class SelectFriendsScreen extends Component{
           renderItem={({item}) => (
             <FriendFlatListItem
               friend={item.key}
-              onPress={this.friendSelected.bind(this,item.key)}
+              onPress={() => {
+                this.friendSelected(item.key)
+              }}
             />
           )}
         />
@@ -88,4 +83,19 @@ class SelectFriendsScreen extends Component{
   }
 }
 
-export default SelectFriendsScreen;
+const mapStateToProps = state => {
+  return {
+    amount: state.home.amount,
+    newRecord: state.home.newRecord,
+    errorSelectFriends: state.home.errorSelectFriends,
+    errorMessageSelectFriends: state.home.errorMessageSelectFriends,
+    selectedFriends: state.home.selectedFriends
+  };
+};
+
+const actions = {
+  addSelectedFriend,
+  removeSelectedFriend
+};
+
+export default connect(mapStateToProps, actions)(SelectFriendsScreen);

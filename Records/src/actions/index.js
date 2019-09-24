@@ -23,5 +23,7 @@ export {
   onTitleTextChanged,
   onAmountTextChanged,
   createRecord,
-  closeAlertAddRecord
+  closeAlertAddRecord,
+  addSelectedFriend,
+  removeSelectedFriend
 } from './HomeActions';

@@ -7,7 +7,9 @@ import {
   AMOUNT_TEXT_CHANGED,
   CREATE_RECORD_SUCCESS,
   CREATE_RECORD_FAILURE,
-  CLOSE_ALERT_ADD_RECORD
+  CLOSE_ALERT_ADD_RECORD,
+  ADD_SELECTED_FRIEND,
+  REMOVE_SELECTED_FRIEND
 } from './types';
 
 export const onTitleTextChanged = (text) => {
@@ -74,5 +76,41 @@ export const createRecord = (title, amount, navigation, records) => {
 export const closeAlertAddRecord = () => {
   return {
     type: CLOSE_ALERT_ADD_RECORD
+  };
+};
+
+export const addSelectedFriend = (selectedFriend, selectedFriends) => {
+  var newSelectedFriends = [...selectedFriends];
+  newSelectedFriends.push(selectedFriend);
+  return {
+    type: ADD_SELECTED_FRIEND,
+    payload: newSelectedFriends
+  };
+};
+
+export const removeSelectedFriend = (selectedFriend, selectedFriends) => {
+  // var newSelectedFriends = [];
+  // for(index = 0; index < selectedFriends.length; ++index) {
+  //   console.log(selectedFriend);
+  //   if (selectedFriend != selectedFriends[index]) {
+  //     newSelectedFriends.push(selectedFriend);
+  //   }
+  // }
+  //
+  // return {
+  //   type: REMOVE_SELECTED_FRIEND,
+  //   payload: newSelectedFriends
+  // };
+  console.log(selectedFriend, selectedFriends);
+  var newSelectedFriends = [];
+  for(index = 0; index < selectedFriends.length; ++index) {
+    if(selectedFriend != selectedFriends[index]) {
+      newSelectedFriends.push(selectedFriends[index]);
+    };
+  };
+
+  return {
+    type: REMOVE_SELECTED_FRIEND,
+    payload: newSelectedFriends
   };
 };
