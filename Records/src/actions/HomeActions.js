@@ -135,7 +135,8 @@ export const buttonPressedSelectFriends = (newRecord, selectedFriends, amount, n
   };
 
   //Make the record and update the states
-  const amountPerPerson = (amount / (selectedFriends.length + 1));
+  var amountPerPerson = (amount / (selectedFriends.length + 1));
+  amountPerPerson = Number(amountPerPerson.toFixed(2));
   const recordData = {};
   for (index = 0; index < selectedFriends.length; ++index){
     recordData[selectedFriends[index]] = amountPerPerson;

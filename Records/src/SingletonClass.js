@@ -47,6 +47,7 @@ export default class SingletonClass {
       recordData = record.getData();
       for(key in recordData){
         this._friends[key] += record.getAmountForPerson(key);
+        this._friends[key] = Number(this._friends[key].toFixed(2));
       }
     }
 

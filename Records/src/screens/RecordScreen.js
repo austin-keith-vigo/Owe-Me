@@ -6,8 +6,13 @@ import {
   StyleSheet
 } from 'react-native';
 import SingletonClass from './../SingletonClass';
-import RecordFlatListItem from './../components/RecordFlatListItem';
 import GLOBALS from './../Globals';
+
+import {
+  Header,
+  HeaderButton,
+  RecordFlatListItem
+} from './../components';
 
 class RecordScreen extends Component{
 
@@ -16,12 +21,13 @@ class RecordScreen extends Component{
     title: "Record",
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
-      borderBottomWidth: 1,
-      borderBottomColor: 'black'
+      borderBottomWidth: 0,
+      height: 0
     }
   };
 
   flatListDataProp = [];
+  recordTitle = '';
 
   //recordData = this.props.navigation.getParam('record');
   constructor(props){
@@ -38,11 +44,21 @@ class RecordScreen extends Component{
         />;
       this.flatListDataProp.push({"key": key, "value":newRecordFlatListItem})
     }
+    this.recordTitle = this.props.navigation.getParam('record').getTitle();
   }
 
   render(){
     return(
       <View style = {styles.viewStyle}>
+        <Header
+          header={this.recordTitle.toUpperCase()}
+          leftButton={
+            <HeaderButton
+              title='BACK'
+              onPress={() => this.props.navigation.pop()}
+            />}
+        />
+
         <FlatList
           data={this.flatListDataProp}
           renderItem={({item}) => (

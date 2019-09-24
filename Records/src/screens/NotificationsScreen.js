@@ -104,7 +104,8 @@ class NotificationsScreen extends Component{
                 '/friends/' +
                 SingletonClass.getInstance().getUsername();
     firebase.database().ref(filepath).once('value').then((snapshot)=>{
-      const newAmount = snapshot.val() - notification['data']['amount'];
+      var newAmount = snapshot.val() - notification['data']['amount'];
+      newAmount = Number(newAmount.toFixed(2))
       firebase.database().ref(filepath).set(newAmount);
 
       //Send a notification to the sender saying the user has payed
