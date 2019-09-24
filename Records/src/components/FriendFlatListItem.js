@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -9,33 +9,30 @@ import {
 
 import { connect } from 'react-redux';
 
-class FriendFlatListItem extends Component {
-
-  //Conditional rendering for the checkmard
-  renderChecmark(){
-    if(this.props.selectedFriends.includes(this.props.friend)){
-      return(
-        <Image
-          source={require('./../assets/checkmark-for-verification.png')}
-          style={styles.imageStyle}
-        />
-      );
-    };
-  }
-
-  render(){
+//Conditional rendering for the checkmark
+const _renderChecmark = (friend, selectedFriends) => {
+  if(selectedFriends.includes(friend)){
     return(
-      <TouchableOpacity
-        onPress={this.props.onPress}
-      >
-        <View style={styles.viewStyle}>
-          <Text style={styles.textStyle}>{this.props.friend}</Text>
-          {this.renderChecmark()}
-        </View>
-      </TouchableOpacity>
+      <Image
+        source={require('./../assets/checkmark-for-verification.png')}
+        style={styles.imageStyle}
+      />
     );
-  }
-}
+  };
+};
+
+const FriendFlatListItem = (props) => {
+  return(
+    <TouchableOpacity
+      onPress={props.onPress}
+    >
+      <View style={styles.viewStyle}>
+        <Text style={styles.textStyle}>{props.friend}</Text>
+        {_renderChecmark(props.friend, props.selectedFriends)}
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   viewStyle:{
