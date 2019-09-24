@@ -11,7 +11,9 @@ import GLOBALS from './../Globals';
 
 import {
   FriendFlatListItem,
-  Alert
+  Alert,
+  Header,
+  HeaderButton
 } from './../components';
 
 import { connect } from 'react-redux';
@@ -19,7 +21,8 @@ import {
   addSelectedFriend,
   removeSelectedFriend,
   buttonPressedSelectFriends,
-  closeAlertSelectFriends
+  closeAlertSelectFriends,
+  onBackButtonPressedSelectFriends
 } from './../actions';
 
 
@@ -31,7 +34,8 @@ class SelectFriendsScreen extends Component{
       title: 'Select Friends',
       headerStyle: {
         backgroundColor: GLOBALS.COLORS.GREEN,
-        borderBottomWidth: 0
+        borderBottomWidth: 0,
+        height: 0
       }
     };
   };
@@ -71,6 +75,21 @@ class SelectFriendsScreen extends Component{
   render(){
     return(
       <View>
+        <Header
+          header={'SELECT FRIENDS'}
+          leftButton={
+            <HeaderButton
+              title='BACK'
+              onPress={() => {
+                this.props.onBackButtonPressedSelectFriends(this.props.navigation);
+              }}
+            />}
+          rightButton={
+            <HeaderButton
+              title='CONFIRM'
+              onPress={this.onButtonPress.bind(this)}
+            />}
+        />
 
         <FlatList
           data={this.friends}
@@ -111,7 +130,8 @@ const actions = {
   addSelectedFriend,
   removeSelectedFriend,
   buttonPressedSelectFriends,
-  closeAlertSelectFriends
+  closeAlertSelectFriends,
+  onBackButtonPressedSelectFriends
 };
 
 export default connect(mapStateToProps, actions)(SelectFriendsScreen);

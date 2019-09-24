@@ -34,3 +34,4 @@ export const CLOSE_ERROR_SELECT_FRIENDS = 'close_error_select_friends';
 export const SELECT_FRIENDS_SUCCESS = 'select_friends_success';
 export const ADDED_NEW_RECORD_SUCCESS = 'added_new_record_succes';
 export const BACK_BUTTTON_PRESSED_ADD_RECORD = 'back_button_pressed_add_record';
+export const ON_BACK_BUTTON_PRESSED_SELECT_FRIENDS = 'on_back_button_pressed_select_friends';

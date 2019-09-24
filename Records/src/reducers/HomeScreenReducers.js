@@ -15,7 +15,8 @@ import {
   CLOSE_ERROR_SELECT_FRIENDS,
   SELECT_FRIENDS_SUCCESS,
   ADDED_NEW_RECORD_SUCCESS,
-  BACK_BUTTTON_PRESSED_ADD_RECORD
+  BACK_BUTTTON_PRESSED_ADD_RECORD,
+  ON_BACK_BUTTON_PRESSED_SELECT_FRIENDS
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -80,6 +81,12 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ...INITIAL_STATE,
         records: action.payload
+      };
+    case ON_BACK_BUTTON_PRESSED_SELECT_FRIENDS:
+      return {
+        ...state,
+        newRecord: null,
+        selectedFriends: []
       };
     default:
       return {...state};

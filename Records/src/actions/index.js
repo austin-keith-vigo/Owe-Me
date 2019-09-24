@@ -29,5 +29,6 @@ export {
   buttonPressedSelectFriends,
   closeAlertSelectFriends,
   confirmButtonPressed,
-  onBackButtonPressedAddRecord
+  onBackButtonPressedAddRecord,
+  onBackButtonPressedSelectFriends
 } from './HomeActions';

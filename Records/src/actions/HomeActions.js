@@ -17,7 +17,8 @@ import {
   CLOSE_ERROR_SELECT_FRIENDS,
   SELECT_FRIENDS_SUCCESS,
   ADDED_NEW_RECORD_SUCCESS,
-  BACK_BUTTTON_PRESSED_ADD_RECORD
+  BACK_BUTTTON_PRESSED_ADD_RECORD,
+  ON_BACK_BUTTON_PRESSED_SELECT_FRIENDS
 } from './types';
 
 export const onBackButtonPressedAddRecord = (navigation) => {
@@ -93,6 +94,13 @@ export const closeAlertAddRecord = () => {
     type: CLOSE_ALERT_ADD_RECORD
   };
 };
+
+export const onBackButtonPressedSelectFriends = (navigation) => {
+  navigation.pop();
+  return {
+    type: ON_BACK_BUTTON_PRESSED_SELECT_FRIENDS
+  };
+}
 
 export const addSelectedFriend = (selectedFriend, selectedFriends) => {
   var newSelectedFriends = [...selectedFriends];
