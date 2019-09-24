@@ -101,11 +101,6 @@ class SelectFriendsScreen extends Component{
           )}
         />
 
-        <Button
-          title="Next"
-          onPress={this.onButtonPress.bind(this)}
-        />
-
         <Alert
           isVisible={this.props.errorSelectFriends}
           errorMessage={this.props.errorMessageSelectFriends}
