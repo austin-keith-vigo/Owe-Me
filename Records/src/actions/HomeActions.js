@@ -16,8 +16,16 @@ import {
   ERROR_NO_SELECTED_FRIENDS,
   CLOSE_ERROR_SELECT_FRIENDS,
   SELECT_FRIENDS_SUCCESS,
-  ADDED_NEW_RECORD_SUCCESS
+  ADDED_NEW_RECORD_SUCCESS,
+  BACK_BUTTTON_PRESSED_ADD_RECORD
 } from './types';
+
+export const onBackButtonPressedAddRecord = (navigation) => {
+  navigation.pop();
+  return {
+    type: BACK_BUTTTON_PRESSED_ADD_RECORD
+  };
+};
 
 export const onTitleTextChanged = (text) => {
   return {

@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text,
   FlatList,
   StyleSheet,
-  Button
+  Text
 } from 'react-native';
 import GLOBALS from './../Globals';
-import SingletonClass from './../SingletonClass';
-import {resetAction} from './../../App';
-import {willUpdateWithNewRecord} from './../FirebaseActions';
 
 import { connect } from 'react-redux';
 import { confirmButtonPressed } from './../actions';

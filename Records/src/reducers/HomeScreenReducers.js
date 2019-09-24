@@ -14,7 +14,8 @@ import {
   ERROR_NO_SELECTED_FRIENDS,
   CLOSE_ERROR_SELECT_FRIENDS,
   SELECT_FRIENDS_SUCCESS,
-  ADDED_NEW_RECORD_SUCCESS
+  ADDED_NEW_RECORD_SUCCESS,
+  BACK_BUTTTON_PRESSED_ADD_RECORD
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -31,6 +32,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch(action.type){
+    case BACK_BUTTTON_PRESSED_ADD_RECORD:
+      return {...state, ...INITIAL_STATE};
     case LOGIN_USER_SUCCESS:
       return {...state, records: action.payload};
     case USER_LOGGED_OUT_SUCCESS:

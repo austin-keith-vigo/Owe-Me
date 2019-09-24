@@ -7,14 +7,20 @@ import {
 } from 'react-native';
 import GLOBALS from './../Globals';
 
-import { Alert, TextMoneyForm, CommonButton } from './../components';
+import {
+  Alert,
+  TextMoneyForm,
+  Header,
+  HeaderButton
+} from './../components';
 
 import { connect } from 'react-redux';
 import {
   onTitleTextChanged,
   onAmountTextChanged,
   createRecord,
-  closeAlertAddRecord
+  closeAlertAddRecord,
+  onBackButtonPressedAddRecord
 } from './../actions';
 
 class AddRecordScreen extends Component{
@@ -24,7 +30,8 @@ class AddRecordScreen extends Component{
     title: 'Add Record',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
+      height: 0
     }
   };
 
@@ -53,6 +60,21 @@ class AddRecordScreen extends Component{
   render(){
     return(
       <View style = {styles.viewStyle}>
+        <Header
+          header='ADD RECORD'
+          leftButton={
+            <HeaderButton
+              title='BACK'
+              onPress={() => {
+                this.props.onBackButtonPressedAddRecord(this.props.navigation);
+              }}
+            />}
+          rightButton={
+            <HeaderButton
+              title='NEXT'
+              onPress={this.onButtonPressed.bind(this)}
+            />}
+        />
 
         <Alert
           isVisible={this.props.error}
@@ -63,11 +85,6 @@ class AddRecordScreen extends Component{
         <TextMoneyForm
           onChangeTextTitle={(text)=>this.onTitleTextChange(text)}
           onChangeTextValue={(text)=>this.onAmountTextChange(text)}
-        />
-
-        <CommonButton
-          title="Next"
-          onPress={this.onButtonPressed.bind(this)}
         />
       </View>
     );
@@ -80,7 +97,6 @@ const styles = StyleSheet.create({
   viewStyle: {
     flex: 1,
     backgroundColor: GLOBALS.COLORS.GREEN,
-    justifyContent: 'center',
     alignItems: 'center'
   }
 });
@@ -99,7 +115,8 @@ const actions = {
   onTitleTextChanged,
   onAmountTextChanged,
   createRecord,
-  closeAlertAddRecord
+  closeAlertAddRecord,
+  onBackButtonPressedAddRecord
 };
 
 export default connect(mapStateToProps, actions)(AddRecordScreen);

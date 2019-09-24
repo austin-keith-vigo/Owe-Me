@@ -28,5 +28,6 @@ export {
   removeSelectedFriend,
   buttonPressedSelectFriends,
   closeAlertSelectFriends,
-  confirmButtonPressed
+  confirmButtonPressed,
+  onBackButtonPressedAddRecord
 } from './HomeActions';
