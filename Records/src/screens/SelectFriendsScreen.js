@@ -10,14 +10,16 @@ import SingletonClass from './../SingletonClass';
 import GLOBALS from './../Globals';
 
 import {
-  FriendFlatListItem
+  FriendFlatListItem,
+  Alert
 } from './../components';
 
 import { connect } from 'react-redux';
 import {
   addSelectedFriend,
   removeSelectedFriend,
-  buttonPressedSelectFriends
+  buttonPressedSelectFriends,
+  closeAlertSelectFriends
 } from './../actions';
 
 
@@ -61,9 +63,15 @@ class SelectFriendsScreen extends Component{
     this.props.buttonPressedSelectFriends(newRecord, selectedFriends, amount, navigation);
   }
 
+  //Closes Alert
+  closeAlert() {
+    this.props.closeAlertSelectFriends();
+  }
+
   render(){
     return(
       <View>
+
         <FlatList
           data={this.friends}
           renderItem={({item}) => (
@@ -73,9 +81,16 @@ class SelectFriendsScreen extends Component{
             />
           )}
         />
+
         <Button
           title="Next"
           onPress={this.onButtonPress.bind(this)}
+        />
+
+        <Alert
+          isVisible={this.props.errorSelectFriends}
+          errorMessage={this.props.errorMessageSelectFriends}
+          closeAlert={this.closeAlert.bind(this)}
         />
       </View>
     );
@@ -95,7 +110,8 @@ const mapStateToProps = state => {
 const actions = {
   addSelectedFriend,
   removeSelectedFriend,
-  buttonPressedSelectFriends
+  buttonPressedSelectFriends,
+  closeAlertSelectFriends
 };
 
 export default connect(mapStateToProps, actions)(SelectFriendsScreen);

@@ -9,7 +9,10 @@ import {
   CREATE_RECORD_FAILURE,
   CLOSE_ALERT_ADD_RECORD,
   ADD_SELECTED_FRIEND,
-  REMOVE_SELECTED_FRIEND
+  REMOVE_SELECTED_FRIEND,
+  ERROR_NO_SELECTED_FRIENDS,
+  CLOSE_ERROR_SELECT_FRIENDS,
+  SELECT_FRIENDS_SUCCESS
 } from './types';
 
 export const onTitleTextChanged = (text) => {
@@ -102,9 +105,34 @@ export const removeSelectedFriend = (selectedFriend, selectedFriends) => {
   };
 };
 
+//passes on the selected friends to next screen to finalize new record
 export const buttonPressedSelectFriends = (newRecord, selectedFriends, amount, navigation) => {
-  amountNumber = Number(amount);
-  return {
+  if(selectedFriends.length == 0) {
+    return {
+      type: ERROR_NO_SELECTED_FRIENDS,
+      payload: 'No friends selected.'
+    };
+  };
 
+  //Make the record and update the states
+  const amountPerPerson = (amount / selectedFriends.length + 1);
+  const recordData = {};
+  for (index = 0; index < selectedFriends.length; ++index){
+    recordData[selectedFriends[index]] = amountPerPerson;
+  };
+  newRecord.setData(recordData);
+
+  //Go to the next screen
+  navigation.navigate('Confirmation');
+
+  return {
+    type: SELECT_FRIENDS_SUCCESS,
+    payload: newRecord
+  };
+};
+
+export const closeAlertSelectFriends = () => {
+  return {
+    type: CLOSE_ERROR_SELECT_FRIENDS
   };
 };

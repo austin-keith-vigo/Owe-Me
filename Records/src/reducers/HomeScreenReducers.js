@@ -10,7 +10,10 @@ import {
   CREATE_RECORD_FAILURE,
   CLOSE_ALERT_ADD_RECORD,
   ADD_SELECTED_FRIEND,
-  REMOVE_SELECTED_FRIEND
+  REMOVE_SELECTED_FRIEND,
+  ERROR_NO_SELECTED_FRIENDS,
+  CLOSE_ERROR_SELECT_FRIENDS,
+  SELECT_FRIENDS_SUCCESS
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -50,6 +53,26 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, selectedFriends: action.payload};
     case REMOVE_SELECTED_FRIEND:
       return {...state, selectedFriends: action.payload};
+    case ERROR_NO_SELECTED_FRIENDS:
+      return {
+        ...state,
+        errorSelectFriends: true,
+        errorMessageSelectFriends: action.payload
+      };
+    case CLOSE_ERROR_SELECT_FRIENDS:
+      return {
+        ...state,
+        errorSelectFriends: false,
+        errorMessageSelectFriends: ''
+      };
+    case SELECT_FRIENDS_SUCCESS:
+      return {
+        ...state,
+        amount: '',
+        title: '',
+        selectedFriends: '',
+        newRecord: action.payload
+      };
     default:
       return {...state};
   };

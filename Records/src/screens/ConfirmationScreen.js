@@ -58,14 +58,14 @@ class ConfirmationScreen extends Component{
 
   constructor(props){
     super(props);
-
-    //Get FlatList data ready
-    const friendsData = this.props.navigation.getParam('selectedFriends');
-    index = 0;
-    friendsData.forEach((friend) => {
-      this.friends.push({key: index.toString() ,value: friend});
-      ++index;
-    })
+    //
+    // //Get FlatList data ready
+    // const friendsData = this.props.navigation.getParam('selectedFriends');
+    // index = 0;
+    // friendsData.forEach((friend) => {
+    //   this.friends.push({key: index.toString() ,value: friend});
+    //   ++index;
+    // })
   }
 
   //Controls how to render the flatlist item

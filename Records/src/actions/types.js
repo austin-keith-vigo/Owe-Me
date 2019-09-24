@@ -28,3 +28,6 @@ export const CREATE_RECORD_FAILURE = 'create_record_failure';
 export const CLOSE_ALERT_ADD_RECORD = 'close_alert_add_record';
 export const ADD_SELECTED_FRIEND = 'add_selected_friend';
 export const REMOVE_SELECTED_FRIEND = 'remove_selected_friend';
+export const ERROR_NO_SELECTED_FRIENDS = 'error_no_friends_selected';
+export const CLOSE_ERROR_SELECT_FRIENDS = 'close_error_select_friends';
+export const SELECT_FRIENDS_SUCCESS = 'select_friends_success';
