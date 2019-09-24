@@ -69,7 +69,6 @@ class HomeScreen extends Component{
   render(){
     return(
       <View style={styles.viewStyle}>
-        {console.log(this.props)}
         <FlatList
           data={this.flatListData}
           renderItem={(item) => (

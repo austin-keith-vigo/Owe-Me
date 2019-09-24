@@ -13,7 +13,8 @@ import {
   REMOVE_SELECTED_FRIEND,
   ERROR_NO_SELECTED_FRIENDS,
   CLOSE_ERROR_SELECT_FRIENDS,
-  SELECT_FRIENDS_SUCCESS
+  SELECT_FRIENDS_SUCCESS,
+  ADDED_NEW_RECORD_SUCCESS
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -70,6 +71,12 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         title: '',
         newRecord: action.payload
+      };
+    case ADDED_NEW_RECORD_SUCCESS:
+      return {
+        ...state,
+        ...INITIAL_STATE,
+        records: action.payload
       };
     default:
       return {...state};

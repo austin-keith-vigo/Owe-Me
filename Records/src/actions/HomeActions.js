@@ -1,6 +1,9 @@
 import React from 'react';
 import Record from './../Record';
+
 import SingletonClass from './../SingletonClass';
+import { willUpdateWithNewRecord } from './../FirebaseActions';
+import { resetAction } from './../../App';
 
 import {
   TITLE_TEXT_CHANGED,
@@ -12,7 +15,8 @@ import {
   REMOVE_SELECTED_FRIEND,
   ERROR_NO_SELECTED_FRIENDS,
   CLOSE_ERROR_SELECT_FRIENDS,
-  SELECT_FRIENDS_SUCCESS
+  SELECT_FRIENDS_SUCCESS,
+  ADDED_NEW_RECORD_SUCCESS
 } from './types';
 
 export const onTitleTextChanged = (text) => {
@@ -115,7 +119,7 @@ export const buttonPressedSelectFriends = (newRecord, selectedFriends, amount, n
   };
 
   //Make the record and update the states
-  const amountPerPerson = (amount / selectedFriends.length + 1);
+  const amountPerPerson = (amount / (selectedFriends.length + 1));
   const recordData = {};
   for (index = 0; index < selectedFriends.length; ++index){
     recordData[selectedFriends[index]] = amountPerPerson;
@@ -138,10 +142,19 @@ export const closeAlertSelectFriends = () => {
 };
 
 //Confirms the new record and updates singleton and firebase
-export const confirmButtonPressed = () => {
+export const confirmButtonPressed = (newRecord, navigation) => {
   return (dispatch) => {
     //Update the Singleton
+    SingletonClass.getInstance().addNewRecord(newRecord);
 
     //Update Firebase
+    willUpdateWithNewRecord(newRecord)
+      .then(()=>{
+        dispatch({
+          type: ADDED_NEW_RECORD_SUCCESS,
+          payload: [...SingletonClass.getInstance().getRecords()]
+        });
+        navigation.dispatch(resetAction);
+      });
   };
 };

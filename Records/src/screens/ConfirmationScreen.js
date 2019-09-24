@@ -22,35 +22,6 @@ class ConfirmationScreen extends Component{
     static navigationOptions = ({navigation}) => {
       return {
         title: 'Confirmation',
-        headerRight: (
-          <Button
-            onPress={()=>{
-              //Get navigation items
-              const selectedFriends = navigation.getParam('selectedFriends');
-              const totalAmount = navigation.getParam('totalAmount');
-
-              //Calculate the amount
-              const numberOfPeople = selectedFriends.length + 1;
-              const amountPerPerson = totalAmount / numberOfPeople;
-
-              const recordData = {};
-              selectedFriends.forEach((friend)=>{
-                recordData[friend] = amountPerPerson;
-              })
-              var record = navigation.getParam('record');
-              record.setData(recordData)
-
-              //Update the Singleton with new record
-              SingletonClass.getInstance().addNewRecord(record);
-
-              //Update Firebase with new record
-              willUpdateWithNewRecord(record).then(()=>{
-                navigation.dispatch(resetAction);
-              });
-            }}
-            title="Finish"
-          />
-        ),
         headerStyle: {
           backgroundColor: GLOBALS.COLORS.GREEN,
           borderBottomWidth: 0,
@@ -73,7 +44,7 @@ class ConfirmationScreen extends Component{
 
   }
 
-  //Controls how to render the flatlist item
+  //Controls each item looks
   _renderListItem = ({item}) => (
     <View style={styles.viewStyle}>
       <Text style={styles.textStyle}>
@@ -88,14 +59,14 @@ class ConfirmationScreen extends Component{
     </View>
   );
 
+  //confirms the record
   rightHeaderButtonPressed(){
-    this.props.confirmButtonPressed();
+    this.props.confirmButtonPressed(this.props.newRecord, this.props.navigation);
   }
 
   render(){
     return(
       <View>
-
         <Header
           header={'Confirmation'}
           leftButton={
