@@ -68,9 +68,7 @@ export default (state = INITIAL_STATE, action) => {
     case SELECT_FRIENDS_SUCCESS:
       return {
         ...state,
-        amount: '',
         title: '',
-        selectedFriends: '',
         newRecord: action.payload
       };
     default:

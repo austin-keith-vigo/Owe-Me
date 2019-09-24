@@ -27,5 +27,6 @@ export {
   addSelectedFriend,
   removeSelectedFriend,
   buttonPressedSelectFriends,
-  closeAlertSelectFriends
+  closeAlertSelectFriends,
+  confirmButtonPressed
 } from './HomeActions';

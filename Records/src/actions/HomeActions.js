@@ -136,3 +136,12 @@ export const closeAlertSelectFriends = () => {
     type: CLOSE_ERROR_SELECT_FRIENDS
   };
 };
+
+//Confirms the new record and updates singleton and firebase
+export const confirmButtonPressed = () => {
+  return (dispatch) => {
+    //Update the Singleton
+
+    //Update Firebase
+  };
+};
