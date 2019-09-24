@@ -52,13 +52,13 @@ class SelectFriendsScreen extends Component{
       this.props.removeSelectedFriend(selectedFriend, this.props.selectedFriends);
     } else {
       this.props.addSelectedFriend(selectedFriend, this.props.selectedFriends);
-
     }
   }
 
+  //Finalizes the record and sends to confirmation
   onButtonPress() {
-    const { newRecord, selectedFriends, amount } = this.props;
-    this.props.buttonPressedSelectFriends(newRecord, selectedFriends, amount);
+    const { newRecord, selectedFriends, amount, navigation } = this.props;
+    this.props.buttonPressedSelectFriends(newRecord, selectedFriends, amount, navigation);
   }
 
   render(){
@@ -69,9 +69,7 @@ class SelectFriendsScreen extends Component{
           renderItem={({item}) => (
             <FriendFlatListItem
               friend={item.key}
-              onPress={() => {
-                this.friendSelected(item.key)
-              }}
+              onPress={() => this.friendSelected(item.key)}
             />
           )}
         />

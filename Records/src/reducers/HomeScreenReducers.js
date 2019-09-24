@@ -36,7 +36,12 @@ export default (state = INITIAL_STATE, action) => {
     case AMOUNT_TEXT_CHANGED:
       return {...state, amount: action.payload};
     case CREATE_RECORD_SUCCESS:
-      return {...state, error:false, errorMessage:'', newRecord: action.payload};
+      return {
+        ...state,
+        error:false,
+        errorMessage:'',
+        newRecord: action.payload
+      };
     case CREATE_RECORD_FAILURE:
       return {...state, error: true, errorMessage: action.payload};
     case CLOSE_ALERT_ADD_RECORD:

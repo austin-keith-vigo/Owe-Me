@@ -69,7 +69,7 @@ export const createRecord = (title, amount, navigation, records) => {
   var newRecord = new Record(title, {});
   return {
     type: CREATE_RECORD_SUCCESS,
-    payload: newRecord
+    payload:  newRecord
   };
 };
 
@@ -102,8 +102,8 @@ export const removeSelectedFriend = (selectedFriend, selectedFriends) => {
   };
 };
 
-export const buttonPressedSelectFriends = (newRecord, selectedFriends, amount) => {
-  console.log(newRecord, selectedFriends, amount);
+export const buttonPressedSelectFriends = (newRecord, selectedFriends, amount, navigation) => {
+  amountNumber = Number(amount);
   return {
 
   };
