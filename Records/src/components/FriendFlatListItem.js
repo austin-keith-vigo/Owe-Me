@@ -29,7 +29,6 @@ class FriendFlatListItem extends Component {
         onPress={this.props.onPress}
       >
         <View style={styles.viewStyle}>
-          {console.log(this.props)}
           <Text style={styles.textStyle}>{this.props.friend}</Text>
           {this.renderChecmark()}
         </View>

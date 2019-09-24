@@ -89,19 +89,6 @@ export const addSelectedFriend = (selectedFriend, selectedFriends) => {
 };
 
 export const removeSelectedFriend = (selectedFriend, selectedFriends) => {
-  // var newSelectedFriends = [];
-  // for(index = 0; index < selectedFriends.length; ++index) {
-  //   console.log(selectedFriend);
-  //   if (selectedFriend != selectedFriends[index]) {
-  //     newSelectedFriends.push(selectedFriend);
-  //   }
-  // }
-  //
-  // return {
-  //   type: REMOVE_SELECTED_FRIEND,
-  //   payload: newSelectedFriends
-  // };
-  console.log(selectedFriend, selectedFriends);
   var newSelectedFriends = [];
   for(index = 0; index < selectedFriends.length; ++index) {
     if(selectedFriend != selectedFriends[index]) {
@@ -112,5 +99,12 @@ export const removeSelectedFriend = (selectedFriend, selectedFriends) => {
   return {
     type: REMOVE_SELECTED_FRIEND,
     payload: newSelectedFriends
+  };
+};
+
+export const buttonPressedSelectFriends = (newRecord, selectedFriends, amount) => {
+  console.log(newRecord, selectedFriends, amount);
+  return {
+
   };
 };

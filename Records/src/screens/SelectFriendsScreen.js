@@ -7,13 +7,19 @@ import {
   StyleSheet
 } from 'react-native';
 import SingletonClass from './../SingletonClass';
-import {resetAction} from './../../App';
-import {willUpdateWithNewRecord} from './../FirebaseActions';
 import GLOBALS from './../Globals';
-import FriendFlatListItem from './../components/FriendFlatListItem';
+
+import {
+  FriendFlatListItem
+} from './../components';
 
 import { connect } from 'react-redux';
-import { addSelectedFriend, removeSelectedFriend } from './../actions';
+import {
+  addSelectedFriend,
+  removeSelectedFriend,
+  buttonPressedSelectFriends
+} from './../actions';
+
 
 class SelectFriendsScreen extends Component{
 
@@ -29,7 +35,6 @@ class SelectFriendsScreen extends Component{
   };
 
   friends = [];         //For FlatList
-  selectedFriends = []; //Friends part of the bill
 
   //Initialize friends attribute for data prop of FlatList
   constructor(props){
@@ -51,6 +56,11 @@ class SelectFriendsScreen extends Component{
     }
   }
 
+  onButtonPress() {
+    const { newRecord, selectedFriends, amount } = this.props;
+    this.props.buttonPressedSelectFriends(newRecord, selectedFriends, amount);
+  }
+
   render(){
     return(
       <View>
@@ -67,16 +77,7 @@ class SelectFriendsScreen extends Component{
         />
         <Button
           title="Next"
-          onPress={()=>{
-
-            //Set the parameters for the next screen
-            const parameters = {
-              selectedFriends: this.selectedFriends,
-              totalAmount: this.props.navigation.getParam("totalAmount"),
-              record: this.props.navigation.getParam("record")
-            };
-            this.props.navigation.navigate('Confirmation', parameters);
-          }}
+          onPress={this.onButtonPress.bind(this)}
         />
       </View>
     );
@@ -95,7 +96,8 @@ const mapStateToProps = state => {
 
 const actions = {
   addSelectedFriend,
-  removeSelectedFriend
+  removeSelectedFriend,
+  buttonPressedSelectFriends
 };
 
 export default connect(mapStateToProps, actions)(SelectFriendsScreen);

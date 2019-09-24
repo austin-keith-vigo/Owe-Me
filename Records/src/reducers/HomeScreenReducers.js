@@ -44,7 +44,6 @@ export default (state = INITIAL_STATE, action) => {
     case ADD_SELECTED_FRIEND:
       return {...state, selectedFriends: action.payload};
     case REMOVE_SELECTED_FRIEND:
-      console.log(action.payload);
       return {...state, selectedFriends: action.payload};
     default:
       return {...state};
