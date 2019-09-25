@@ -68,11 +68,12 @@ export default class SingletonClass {
     }
 
     getFriends(){
-      return this._friends;
+
+      return {...this._friends};
     }
 
     getNotifications(){
-      return this._notifications
+      return [...this._notifications];
     }
 
     setNotifications(notifications){

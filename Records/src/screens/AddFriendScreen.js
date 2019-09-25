@@ -10,6 +10,8 @@ import {getAllUsernames} from './../FirebaseActions';
 import GLOBALS from './../Globals';
 import SingletonClass from './../SingletonClass';
 
+import { connect } from 'react-redux';
+
 class AddFriendScreen extends Component{
 
   //Configure header
@@ -85,6 +87,7 @@ class AddFriendScreen extends Component{
   render(){
     return(
       <View>
+        {console.log(this.props)}
         {this.renderFlatList()}
       </View>
     );
@@ -106,4 +109,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AddFriendScreen;
+const mapStateToProps = state => {
+  return {
+    nonFriends: state.friends.nonFriends
+  }
+}
+export default connect(mapStateToProps)(AddFriendScreen);

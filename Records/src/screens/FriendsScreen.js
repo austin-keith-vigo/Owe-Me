@@ -3,85 +3,89 @@ import {
   View,
   Text,
   FlatList,
-  Button
 } from 'react-native';
-import SingletonClass from './../SingletonClass';
 import GLOBALS from './../Globals';
-import RecordFlatListItem from './../components/RecordFlatListItem';
-import { NavigationEvents } from "react-navigation";
+
+import { Header, HeaderButton } from './../components';
+
+import { connect } from 'react-redux';
+import { getNonFriends } from './../actions';
 
 class FriendsScreen extends Component{
 
   state={gotFlatListData: false};
-  
+
   //Configure header
   static navigationOptions = ({navigation}) => {
     return {
       title: 'Friends',
-      headerRight: (
-        <Button
-          onPress={()=>{ //Go to confirmation screen
-            navigation.navigate('AddFriends')
-          }}
-          title="Add Friend"
-        />
-      ),
       headerStyle: {
         backgroundColor: GLOBALS.COLORS.GREEN,
-        borderBottomWidth: 0
+        borderBottomWidth: 0,
+        height: 0
       }
     };
   };
 
-  //Dictionary of all friends and how much the user owes them
-  friends = [];
-  flatListDataProp = [];
+  //Data prop for flatlist
+  friendsList = [];
 
-  //Initialize the friends attribute from Singleton
-  setFlatListDataProp(){
-    const friendsData = SingletonClass.getInstance().getFriends();
-    for(key in friendsData){
-      var newFlatListRow =
-        <RecordFlatListItem
-          title={key}
-          amount={friendsData[key]}
-        />;
+  constructor(props) {
+    super(props);
 
-      this.flatListDataProp.push({"key": key, "value": newFlatListRow});
-    };
+    //friends given as a object, need to convert to array for flatlist
+    this.friendsList = Object.keys(this.props.friends).map((key)=>{
+      return {key: key, value: {friendName: key, amountOwed: this.props.friends[key]}};
+    });
   }
 
-  //Conditional rendering to render flatList
-  renderFlatList(){
-    if(this.state.gotFlatListData == true){
-      return(
-        <FlatList
-          data={this.flatListDataProp}
-          renderItem={({item}) => (
-            <View>{item.value}</View>
-          )}
-        />
-      );
-    }
+  //renders items for flatlist
+  _renderItem(item){
+    return (
+      <View>
+        <Text>{item.friendName}</Text>
+        <Text>{item.amountOwed}</Text>
+      </View>
+    );
+  }
+
+  //right header button functionality
+  onRightHeaderButtonPressed() {
+    this.props.getNonFriends(this.props.friends, this.props.navigation);
   }
 
   render(){
     return(
       <View>
-      <NavigationEvents
-        onWillFocus={payload => {
-          this.setFlatListDataProp();
-          this.setState({gotFlatListData: true});
-        }}
-        onDidBlur={payload => {
-          this.flatListDataProp = [];
-          this.setState({gotFlatListData: false});
-        }}
-      />
-        {this.renderFlatList()}
+        <Header
+          header='Friends'
+          leftButton={
+            <HeaderButton
+              title='BACK'
+              onPress={() => {
+                this.props.onBackButtonPressedAddRecord(this.props.navigation);
+              }}
+            />}
+          rightButton={
+            <HeaderButton
+              title='ADD FRIEND'
+              onPress={this.onRightHeaderButtonPressed.bind(this)}
+            />}
+        />
+
+        <FlatList
+          data={this.friendsList}
+          renderItem={({item})=> this._renderItem(item.value)}
+        />
       </View>
     );
   }
 }
 
-export default FriendsScreen;
+const mapStateToProps = state => {
+  return {
+    friends: state.friends.friends
+  };
+};
+
+export default connect(mapStateToProps,{ getNonFriends })(FriendsScreen);
