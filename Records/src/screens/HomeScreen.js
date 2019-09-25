@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text,
   FlatList,
-  Button,
   StyleSheet,
-  TouchableOpacity
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import { NavigationEvents } from 'react-navigation';
