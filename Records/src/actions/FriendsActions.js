@@ -28,7 +28,6 @@ export const getNonFriends = (friends, navigation) => {
           }
         };
 
-        console.log(nonFriendsFinal, nonFriends);
         dispatch({
           type: GOT_NON_FRIENDS,
           payload: nonFriendsFinal

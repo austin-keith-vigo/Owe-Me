@@ -4,13 +4,15 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  Button
 } from 'react-native';
 import {getAllUsernames} from './../FirebaseActions';
 import GLOBALS from './../Globals';
 import SingletonClass from './../SingletonClass';
-
+import { SearchBar } from 'react-native-elements'
 import { connect } from 'react-redux';
+import { Header, HeaderButton } from './../components';
 
 class AddFriendScreen extends Component{
 
@@ -19,99 +21,85 @@ class AddFriendScreen extends Component{
     title: 'Add Friends',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
+      height: 0
     }
   };
 
-  state={gotUsernames: false};
-  flatListData=[];
-
-  //Gets all usernames from database and presents it to flatlist
-  constructor(props){
-    super(props);
-
-    getAllUsernames().then((value)=>{
-      const usersData = value['users'];
-      for(index = 0; index < usersData.length; ++index){
-
-        // if the username is already in the user's friend list do not display it.
-        //and is not the person's own name
-        const username = SingletonClass.getInstance().getUsername();
-        const friends = SingletonClass.getInstance().getFriends();
-        if(!(usersData[index]['username'] in friends) &&
-            usersData[index]['username'] != username)
-        {
-          this.flatListData.push({
-            key:index.toString(),
-            username: usersData[index]["username"],
-            uid: usersData[index]['uid']
-          });
-        }
-      }
-      this.setState({gotUsernames: true});
-    })
+  sendFriendRequest(username){
+    console.log('sending friend request to ' + username);
   }
 
-  listItemPressed(username,uid){
-    console.log(username,uid);
-    this.props.navigation.navigate("SendFriendRequest",{
-      username: username,
-      uid: uid
-    });
-  }
-  //Controls how to render the flatlist item
-  _renderListItem = ({item}) => (
-    <TouchableOpacity
-      onPress={this.listItemPressed.bind(this,item.username,item.uid)}
-    >
-      <View style={styles.listViewStyle}>
-        <Text style={styles.listTextSyle}>
-          {item.username}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
+  //Controls how each row looks
+  _renderItem(item){
+    const username = item.item;
 
-  //Conditional rendering to render an item
-  renderFlatList(){
-    if(this.state.gotUsernames == true){
-      return(
-        <FlatList
-          data={this.flatListData}
-          renderItem={this._renderListItem}
+    return (
+      <View style={styles.listRowViewStyle}>
+        <Text style={styles.listTextStyle}>{username}</Text>
+        <View style={{flex: 1}}/>
+        <Button
+          style={styles.buttonStyle}
+          title='send'
+          onPress={() => this.sendFriendRequest(username)}
         />
-      );
-    }
-  }
+      </View>
+    );
+  };
 
   render(){
     return(
-      <View>
-        {console.log(this.props)}
-        {this.renderFlatList()}
+      <View style={styles.viewStyle}>
+        <Header
+          header="Send Friend Request"
+          leftButton={
+            <HeaderButton
+              title="Back"
+              onPress={()=>this.props.navigation.pop()}
+            />
+          }
+        />
+        <SearchBar
+          containerStyle={{backgroundColor: 'white'}}
+          inputContainerStyle={{backgroundColor: 'white'}}
+          placeholder="Type Here..."
+          onChangeText={this.updateSearch}
+          value='test'
+        />
+        <FlatList
+          data={this.props.nonFriends}
+          renderItem={({item}) => this._renderItem({item})}
+          keyExtractor={(item) => item}
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  listViewStyle: {
-    height: 40,
-    width: "100%",
-    borderBottomWidth: 2,
-    borderBottomColor: 'black',
-    justifyContent: 'center'
+  viewStyle: {
+    flex: 1
   },
-  listTextSyle: {
+  listRowViewStyle: {
+    height: 40,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  listTextStyle: {
     fontSize: 18,
-    paddingLeft: 5,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginLeft: 5
+  },
+  buttonStyle: {
+    marginRight: 5
   }
 });
 
 const mapStateToProps = state => {
   return {
-    nonFriends: state.friends.nonFriends
+    nonFriends: state.friends.nonFriends,
+    searchValue: state.friends.searchValue
   }
 }
 export default connect(mapStateToProps)(AddFriendScreen);
