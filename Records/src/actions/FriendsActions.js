@@ -56,11 +56,6 @@ export const updateSearchValue = (text, nonFriends) => {
       };
     });
 
-
-    if (foundUsernames == nonFriends){
-      dispatch({type: 'test', payload: []});
-    }
-
     dispatch({type: 'test', payload: foundUsernames});
   }
 };
