@@ -34,5 +34,6 @@ export {
 } from './HomeActions';
 
 export {
-  getNonFriends
+  getNonFriends,
+  updateSearchValue
 } from './FriendsActions';

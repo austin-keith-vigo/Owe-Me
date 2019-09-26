@@ -38,3 +38,4 @@ export const ON_BACK_BUTTON_PRESSED_SELECT_FRIENDS = 'on_back_button_pressed_sel
 
 //Friends
 export const GOT_NON_FRIENDS = 'got_non_friends';
+export const UPDATED_SEARCH_VALUE = 'update_search_value';

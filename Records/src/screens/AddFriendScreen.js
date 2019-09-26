@@ -11,7 +11,12 @@ import {getAllUsernames} from './../FirebaseActions';
 import GLOBALS from './../Globals';
 import SingletonClass from './../SingletonClass';
 import { SearchBar } from 'react-native-elements'
+
 import { connect } from 'react-redux';
+import {
+  updateSearchValue
+} from './../actions';
+
 import { Header, HeaderButton } from './../components';
 
 class AddFriendScreen extends Component{
@@ -47,6 +52,10 @@ class AddFriendScreen extends Component{
     );
   };
 
+  updateSearch(text){
+    this.props.updateSearchValue(text, this.props.nonFriends);
+  }
+
   render(){
     return(
       <View style={styles.viewStyle}>
@@ -63,11 +72,11 @@ class AddFriendScreen extends Component{
           containerStyle={{backgroundColor: 'white'}}
           inputContainerStyle={{backgroundColor: 'white'}}
           placeholder="Type Here..."
-          onChangeText={this.updateSearch}
-          value='test'
+          onChangeText={(text)=>this.updateSearch(text)}
+          value={this.props.searchValue}
         />
         <FlatList
-          data={this.props.nonFriends}
+          data={this.props.foundUsernames}
           renderItem={({item}) => this._renderItem({item})}
           keyExtractor={(item) => item}
         />
@@ -99,7 +108,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     nonFriends: state.friends.nonFriends,
-    searchValue: state.friends.searchValue
+    searchValue: state.friends.searchValue,
+    foundUsernames: state.friends.foundUsernames
   }
 }
-export default connect(mapStateToProps)(AddFriendScreen);
+export default connect(mapStateToProps, { updateSearchValue })(AddFriendScreen);

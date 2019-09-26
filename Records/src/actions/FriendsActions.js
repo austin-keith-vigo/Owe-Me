@@ -1,5 +1,6 @@
 import {
-  GOT_NON_FRIENDS
+  GOT_NON_FRIENDS,
+  UPDATED_SEARCH_VALUE
 } from './types';
 
 import SingletonClass from './../SingletonClass';
@@ -36,4 +37,30 @@ export const getNonFriends = (friends, navigation) => {
         navigation.navigate('AddFriends');
       });
   };
+};
+
+//Return all usernames with the substr
+export const updateSearchValue = (text, nonFriends) => {
+
+  return (dispatch) => {
+
+    //update search value
+    dispatch({type: UPDATED_SEARCH_VALUE, payload: text});
+
+    //filter usernames with given value
+    var foundUsernames = [];
+    nonFriends.forEach((username) => {
+      if (username.includes(text)){
+        console.log(foundUsernames);
+        foundUsernames.push(username);
+      };
+    });
+
+
+    if (foundUsernames == nonFriends){
+      dispatch({type: 'test', payload: []});
+    }
+
+    dispatch({type: 'test', payload: foundUsernames});
+  }
 };
