@@ -1,6 +1,7 @@
 import {
   GOT_NON_FRIENDS,
-  UPDATED_SEARCH_VALUE
+  UPDATED_SEARCH_VALUE,
+  UPDATED_FOUND_USERNAMES
 } from './types';
 
 import SingletonClass from './../SingletonClass';
@@ -51,11 +52,10 @@ export const updateSearchValue = (text, nonFriends) => {
     var foundUsernames = [];
     nonFriends.forEach((username) => {
       if (username.includes(text)){
-        console.log(foundUsernames);
         foundUsernames.push(username);
       };
     });
 
-    dispatch({type: 'test', payload: foundUsernames});
+    dispatch({type: UPDATED_FOUND_USERNAMES, payload: foundUsernames});
   }
 };

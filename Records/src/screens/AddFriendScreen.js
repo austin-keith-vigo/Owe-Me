@@ -14,7 +14,7 @@ import { SearchBar } from 'react-native-elements'
 
 import { connect } from 'react-redux';
 import {
-  updateSearchValue
+  updateSearchValue,
 } from './../actions';
 
 import { Header, HeaderButton } from './../components';

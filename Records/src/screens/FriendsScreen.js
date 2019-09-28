@@ -63,7 +63,7 @@ class FriendsScreen extends Component{
             <HeaderButton
               title='BACK'
               onPress={() => {
-                this.props.onBackButtonPressedAddRecord(this.props.navigation);
+                this.props.navigation.pop();
               }}
             />}
           rightButton={

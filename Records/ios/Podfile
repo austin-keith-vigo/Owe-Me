@@ -32,7 +32,6 @@ target 'Records' do
 
   pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
 
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'RecordsTests' do
     inherit! :search_paths

@@ -1,7 +1,8 @@
 import {
   LOGIN_USER_SUCCESS,
   GOT_NON_FRIENDS,
-  UPDATED_SEARCH_VALUE
+  UPDATED_SEARCH_VALUE,
+  UPDATED_FOUND_USERNAMES
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -19,7 +20,7 @@ export default (state, action) => {
       return {...state, nonFriends: action.payload};
     case UPDATED_SEARCH_VALUE:
       return {...state, searchValue: action.payload};
-    case 'test':
+    case UPDATED_FOUND_USERNAMES:
       return {...state, foundUsernames: action.payload};
     default:
       return {...state, ...INITIAL_STATE};
