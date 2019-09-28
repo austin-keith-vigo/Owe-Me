@@ -161,6 +161,7 @@ export const closeAlertSelectFriends = () => {
 //Confirms the new record and updates singleton and firebase
 export const confirmButtonPressed = (newRecord, navigation) => {
   return (dispatch) => {
+
     //Update the Singleton
     SingletonClass.getInstance().addNewRecord(newRecord);
 

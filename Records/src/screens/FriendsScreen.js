@@ -7,14 +7,12 @@ import {
 import GLOBALS from './../Globals';
 
 import { Header, HeaderButton, FriendsListRow } from './../components';
+import SingletonClass from './../SingletonClass';
 
 import { connect } from 'react-redux';
 import { getNonFriends } from './../actions';
 
 class FriendsScreen extends Component{
-
-  state={gotFlatListData: false};
-
   //Configure header
   static navigationOptions = ({navigation}) => {
     return {
@@ -26,18 +24,6 @@ class FriendsScreen extends Component{
       }
     };
   };
-
-  //Data prop for flatlist
-  friendsList = [];
-
-  constructor(props) {
-    super(props);
-
-    //friends given as a object, need to convert to array for flatlist
-    this.friendsList = Object.keys(this.props.friends).map((key)=>{
-      return {key: key, value: {friendName: key, amountOwed: this.props.friends[key]}};
-    });
-  }
 
   //renders items for flatlist
   _renderItem(item){
@@ -57,6 +43,7 @@ class FriendsScreen extends Component{
   render(){
     return(
       <View style={{flex:1}}>
+
         <Header
           header='Friends'
           rightButton={
@@ -67,13 +54,15 @@ class FriendsScreen extends Component{
         />
 
         <FlatList
-          data={this.friendsList}
+          data={SingletonClass.getInstance().getFriendsFlatList()}
           renderItem={({item})=> this._renderItem(item.value)}
         />
+
       </View>
     );
   }
 }
+
 
 const mapStateToProps = state => {
   return {

@@ -72,6 +72,16 @@ export default class SingletonClass {
       return {...this._friends};
     }
 
+    getFriendsFlatList() {
+      var friendsList = null;
+
+      friendsList = Object.keys(this._friends).map((key)=>{
+        return {key: key, value: {friendName: key, amountOwed: this._friends[key]}};
+      });
+
+      return friendsList;
+    }
+
     getNotifications(){
       return [...this._notifications];
     }
