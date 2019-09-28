@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import GLOBALS from './../Globals';
 
-import { Header, HeaderButton } from './../components';
+import { Header, HeaderButton, FriendsListRow } from './../components';
 
 import { connect } from 'react-redux';
 import { getNonFriends } from './../actions';
@@ -42,10 +42,10 @@ class FriendsScreen extends Component{
   //renders items for flatlist
   _renderItem(item){
     return (
-      <View>
-        <Text>{item.friendName}</Text>
-        <Text>{item.amountOwed}</Text>
-      </View>
+      <FriendsListRow
+        friendName={item.friendName}
+        amountOwed={item.amountOwed}
+      />
     );
   }
 
@@ -56,16 +56,9 @@ class FriendsScreen extends Component{
 
   render(){
     return(
-      <View>
+      <View style={{flex:1}}>
         <Header
           header='Friends'
-          leftButton={
-            <HeaderButton
-              title='BACK'
-              onPress={() => {
-                this.props.navigation.pop();
-              }}
-            />}
           rightButton={
             <HeaderButton
               title='ADD FRIEND'

@@ -1,7 +1,8 @@
 import {
   GOT_NON_FRIENDS,
   UPDATED_SEARCH_VALUE,
-  UPDATED_FOUND_USERNAMES
+  UPDATED_FOUND_USERNAMES,
+  CHANGED_SELECTED_FRIEND_ROW
 } from './types';
 
 import SingletonClass from './../SingletonClass';
@@ -58,4 +59,11 @@ export const updateSearchValue = (text, nonFriends) => {
 
     dispatch({type: UPDATED_FOUND_USERNAMES, payload: foundUsernames});
   }
+};
+
+export const changeSelectedFriendRow = (friendName) => {
+  return {
+    type: CHANGED_SELECTED_FRIEND_ROW,
+    payload: friendName
+  };
 };

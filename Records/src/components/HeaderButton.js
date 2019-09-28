@@ -15,7 +15,7 @@ const HeaderButton = (props) => {
 
 const styles = {
   textStyle: {
-    fontSize: 25,
+    fontSize: 20,
     color: 'black',
     fontWeight: 'bold'
   }

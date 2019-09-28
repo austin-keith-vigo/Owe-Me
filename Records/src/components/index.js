@@ -9,3 +9,5 @@ export Header from './Header';
 export HeaderButton from './HeaderButton';
 export Spinner from './Spinner';
 export RecordFlatListItem from './RecordFlatListItem';
+export FriendsListRow from './FriendsListRow';
+export FriendMoreInfoView from './FriendMoreInfoView';

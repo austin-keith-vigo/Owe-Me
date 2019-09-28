@@ -40,3 +40,4 @@ export const ON_BACK_BUTTON_PRESSED_SELECT_FRIENDS = 'on_back_button_pressed_sel
 export const GOT_NON_FRIENDS = 'got_non_friends';
 export const UPDATED_SEARCH_VALUE = 'update_search_value';
 export const UPDATED_FOUND_USERNAMES = 'updated_found_usernames';
+export const CHANGED_SELECTED_FRIEND_ROW = 'changed_selected_friend_row';

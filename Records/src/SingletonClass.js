@@ -95,6 +95,24 @@ export default class SingletonClass {
       this._notifications = newNotificationsData;
     }
 
+    //Gets all the records for the friend
+    getRecordsForFriend(friendName) {
+      var records = [];
+
+      for(index = 0; index < this._records.length; ++index){
+        for(friend in this._records[index]._data){
+          if(friendName == friend) {
+            records.push({
+              title: this._records[index].getTitle(),
+              amountOwed: this._records[index]._data[friend]
+            });
+          }
+        };
+      };
+
+      return records;
+    }
+
     //Clears the Singleton when the user logs out
     clearSingleton(){
       this._userUID = "";

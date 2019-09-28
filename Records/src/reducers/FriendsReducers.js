@@ -2,14 +2,16 @@ import {
   LOGIN_USER_SUCCESS,
   GOT_NON_FRIENDS,
   UPDATED_SEARCH_VALUE,
-  UPDATED_FOUND_USERNAMES
+  UPDATED_FOUND_USERNAMES,
+  CHANGED_SELECTED_FRIEND_ROW
 } from './../actions/types';
 
 const INITIAL_STATE = {
   friends: [],
   nonFriends: [],
   searchValue: '',
-  foundUsernames: []
+  foundUsernames: [],
+  selectedFriendRow: null
 };
 
 export default (state, action) => {
@@ -22,6 +24,8 @@ export default (state, action) => {
       return {...state, searchValue: action.payload};
     case UPDATED_FOUND_USERNAMES:
       return {...state, foundUsernames: action.payload};
+    case CHANGED_SELECTED_FRIEND_ROW:
+      return {...state, selectedFriendRow: action.payload};
     default:
       return {...state, ...INITIAL_STATE};
   };
