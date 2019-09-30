@@ -15,3 +15,4 @@ export AddFriendRow from './AddFriendRow';
 export FriendNotification from './FriendNotification';
 export RecordNotification from './RecordNotification';
 export PaidNotification from './PaidNotification';
+export NotificationIcon from './NotificationIcon';

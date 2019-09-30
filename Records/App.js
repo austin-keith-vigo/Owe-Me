@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { createAppContainer,createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createBottomTabNavigator, BottomTabBar } from 'react-navigation-tabs';
 import { StackActions, NavigationActions } from 'react-navigation';
 import GLOBALS from './src/Globals';
 import { Provider } from 'react-redux';
@@ -83,50 +83,50 @@ const NotificationsStack = createStackNavigator(
   }
 );
 
+//custom bottom tab tabBar
+const TabBarComponent = props => {
+  console.log(props);
+  return <BottomTabBar {...props} />;
+}
+
+import { NotificationIcon } from './src/components';
+const Icon = Ionicons;
 //Tab Navigator
 const AppNavigator = createBottomTabNavigator(
   {
-    Home: HomeStack,
-    Friends: FriendsStack,
-    Notifications: NotificationsStack,
-    Settings: SettingsStack
-  },
-  {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
-
-        let iconName = null;
-
-        //Detirmine which icon to use
-        switch (navigation.state.key){
-          case 'Home':
-            iconName = 'ios-home'
-            break;
-          case 'Friends':
-            iconName = 'ios-body'
-            break;
-          case 'Notifications':
-            iconName = 'ios-notifications'
-            break;
-          case 'Settings':
-            iconName = 'ios-settings';
-            break;
-          default:
-            iconName = `ios-options`;
-          }
-
-        //return icon
-        let IconComponent = Ionicons;
-        return <IconComponent name={iconName} size={25} color={tintColor} />;
+    Home: {
+      screen: HomeStack,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => <Icon name='ios-home' size={25} color={tintColor}/>
       }
-    }),
-    tabBarOptions: {
-      showLabel: false,
-      style: {
-        height: 40
+    },
+    Friends: {
+      screen: FriendsStack,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => <Icon name='ios-body' size={25} color={tintColor}/>
+      }
+    },
+    Notifications: {
+      screen: NotificationsStack,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => <NotificationIcon tintColor={tintColor}/>
+      }
+    },
+    Settings: {
+      screen: SettingsStack,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => <Icon name='ios-settings' size={25} color={tintColor}/>
       }
     }
-  }
+  },
+  {
+   tabBarOptions: {
+     showLabel: false,
+     style: {
+       height: 40
+     }
+   }
+ }
 );
 
 //Main App navigation container
