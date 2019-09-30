@@ -36,7 +36,7 @@ export default (state = INITIAL_STATE, action) => {
     case BACK_BUTTTON_PRESSED_ADD_RECORD:
       return {...state, ...INITIAL_STATE};
     case LOGIN_USER_SUCCESS:
-      return {...state, records: action.payload};
+      return {...state, records: action.payload.records};
     case USER_LOGGED_OUT_SUCCESS:
       return {...state, ...INITIAL_STATE};
     case TITLE_TEXT_CHANGED:

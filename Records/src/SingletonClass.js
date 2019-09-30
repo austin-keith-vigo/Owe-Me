@@ -68,11 +68,22 @@ export default class SingletonClass {
     }
 
     getFriends(){
-      return this._friends;
+
+      return {...this._friends};
+    }
+
+    getFriendsFlatList() {
+      var friendsList = null;
+
+      friendsList = Object.keys(this._friends).map((key)=>{
+        return {key: key, value: {friendName: key, amountOwed: this._friends[key]}};
+      });
+
+      return friendsList;
     }
 
     getNotifications(){
-      return this._notifications
+      return [...this._notifications];
     }
 
     setNotifications(notifications){
@@ -92,6 +103,24 @@ export default class SingletonClass {
         }
       }
       this._notifications = newNotificationsData;
+    }
+
+    //Gets all the records for the friend
+    getRecordsForFriend(friendName) {
+      var records = [];
+
+      for(index = 0; index < this._records.length; ++index){
+        for(friend in this._records[index]._data){
+          if(friendName == friend) {
+            records.push({
+              title: this._records[index].getTitle(),
+              amountOwed: this._records[index]._data[friend]
+            });
+          }
+        };
+      };
+
+      return records;
     }
 
     //Clears the Singleton when the user logs out

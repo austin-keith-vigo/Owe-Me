@@ -3,85 +3,71 @@ import {
   View,
   Text,
   FlatList,
-  Button
 } from 'react-native';
-import SingletonClass from './../SingletonClass';
 import GLOBALS from './../Globals';
-import RecordFlatListItem from './../components/RecordFlatListItem';
-import { NavigationEvents } from "react-navigation";
+
+import { Header, HeaderButton, FriendsListRow } from './../components';
+import SingletonClass from './../SingletonClass';
+
+import { connect } from 'react-redux';
+import { getNonFriends } from './../actions';
 
 class FriendsScreen extends Component{
-
-  state={gotFlatListData: false};
-  
   //Configure header
   static navigationOptions = ({navigation}) => {
     return {
       title: 'Friends',
-      headerRight: (
-        <Button
-          onPress={()=>{ //Go to confirmation screen
-            navigation.navigate('AddFriends')
-          }}
-          title="Add Friend"
-        />
-      ),
       headerStyle: {
         backgroundColor: GLOBALS.COLORS.GREEN,
-        borderBottomWidth: 0
+        borderBottomWidth: 0,
+        height: 0
       }
     };
   };
 
-  //Dictionary of all friends and how much the user owes them
-  friends = [];
-  flatListDataProp = [];
-
-  //Initialize the friends attribute from Singleton
-  setFlatListDataProp(){
-    const friendsData = SingletonClass.getInstance().getFriends();
-    for(key in friendsData){
-      var newFlatListRow =
-        <RecordFlatListItem
-          title={key}
-          amount={friendsData[key]}
-        />;
-
-      this.flatListDataProp.push({"key": key, "value": newFlatListRow});
-    };
+  //renders items for flatlist
+  _renderItem(item){
+    return (
+      <FriendsListRow
+        friendName={item.friendName}
+        amountOwed={item.amountOwed}
+      />
+    );
   }
 
-  //Conditional rendering to render flatList
-  renderFlatList(){
-    if(this.state.gotFlatListData == true){
-      return(
-        <FlatList
-          data={this.flatListDataProp}
-          renderItem={({item}) => (
-            <View>{item.value}</View>
-          )}
-        />
-      );
-    }
+  //right header button functionality
+  onRightHeaderButtonPressed() {
+    this.props.getNonFriends(this.props.friends, this.props.navigation);
   }
 
   render(){
     return(
-      <View>
-      <NavigationEvents
-        onWillFocus={payload => {
-          this.setFlatListDataProp();
-          this.setState({gotFlatListData: true});
-        }}
-        onDidBlur={payload => {
-          this.flatListDataProp = [];
-          this.setState({gotFlatListData: false});
-        }}
-      />
-        {this.renderFlatList()}
+      <View style={{flex:1}}>
+
+        <Header
+          header='Friends'
+          rightButton={
+            <HeaderButton
+              title='ADD FRIEND'
+              onPress={this.onRightHeaderButtonPressed.bind(this)}
+            />}
+        />
+
+        <FlatList
+          data={SingletonClass.getInstance().getFriendsFlatList()}
+          renderItem={({item})=> this._renderItem(item.value)}
+        />
+
       </View>
     );
   }
 }
 
-export default FriendsScreen;
+
+const mapStateToProps = state => {
+  return {
+    friends: state.friends.friends
+  };
+};
+
+export default connect(mapStateToProps,{ getNonFriends })(FriendsScreen);

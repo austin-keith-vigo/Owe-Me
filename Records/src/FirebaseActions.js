@@ -167,11 +167,23 @@ const createAccount = (email, password, username) => {
     });
   });
 }
+
+const getUsersUDID = (username) => {
+  return new Promise((resolve, reject) => {
+    const filepath = 'usernames/' + username.toString();
+    firebase.database().ref(filepath).once('value')
+      .then((snapshot)=> {
+        resolve({udid: snapshot.val()});
+      })
+  });
+};
+
 export {
   willUpdateWithNewRecord,
   getAllUsernames,
   sendNotification,
   acceptFriendRequest,
   firebaseSignOut,
-  createAccount
+  createAccount,
+  getUsersUDID
 }

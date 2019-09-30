@@ -76,9 +76,14 @@ export const loginUser = (email, password, navigation) => {
         //Initialize the Singleton before moving on
         willInitializeSingleton()
           .then(()=> {
+            console.log('here');
             dispatch({
               type: LOGIN_USER_SUCCESS,
-              payload: [...SingletonClass.getInstance().getRecords()]
+              payload: {
+                records:[...SingletonClass.getInstance().getRecords()],
+                friends: SingletonClass.getInstance().getFriends(),
+                notifications: SingletonClass.getInstance().getNotifications()
+              }
             });
             navigation.navigate('App');
           })

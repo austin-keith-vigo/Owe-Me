@@ -35,3 +35,10 @@ export const SELECT_FRIENDS_SUCCESS = 'select_friends_success';
 export const ADDED_NEW_RECORD_SUCCESS = 'added_new_record_succes';
 export const BACK_BUTTTON_PRESSED_ADD_RECORD = 'back_button_pressed_add_record';
 export const ON_BACK_BUTTON_PRESSED_SELECT_FRIENDS = 'on_back_button_pressed_select_friends';
+
+//Friends
+export const GOT_NON_FRIENDS = 'got_non_friends';
+export const UPDATED_SEARCH_VALUE = 'update_search_value';
+export const UPDATED_FOUND_USERNAMES = 'updated_found_usernames';
+export const CHANGED_SELECTED_FRIEND_ROW = 'changed_selected_friend_row';
+export const SENT_REQUEST = 'SENT_REQUEST';

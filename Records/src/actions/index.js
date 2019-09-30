@@ -32,3 +32,10 @@ export {
   onBackButtonPressedAddRecord,
   onBackButtonPressedSelectFriends
 } from './HomeActions';
+
+export {
+  getNonFriends,
+  updateSearchValue,
+  changeSelectedFriendRow,
+  sendRequestToUser
+} from './FriendsActions';
