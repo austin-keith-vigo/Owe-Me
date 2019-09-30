@@ -6,10 +6,12 @@ import {
   StyleSheet
 } from 'react-native';
 
+import { payNotification } from './../actions';
+import { connect } from 'react-redux';
+
 const PaidNotification = (props) => {
   return(
     <View style={styles.mainViewStyle}>
-      {console.log(props.notification)}
       <View style={styles.textViewStyle}>
         <Text style={styles.titleTextStyle}>
           {props.notification['data']['title']}
@@ -47,4 +49,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   }
 });
+
+
 export default PaidNotification;

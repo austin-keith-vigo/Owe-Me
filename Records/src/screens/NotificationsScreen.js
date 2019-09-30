@@ -10,6 +10,7 @@ import Notification from './../components/Notification';
 import FriendNotification from './../components/FriendNotification';
 import RecordNotification from './../components/RecordNotification';
 import PaidNotification from './../components/PaidNotification';
+import { connect } from 'react-redux';
 
 import GLOBALS from './../Globals';
 import {acceptFriendRequest} from './../FirebaseActions';
@@ -155,19 +156,21 @@ class NotificationsScreen extends Component{
     this.props.navigation.dispatch(resetNavigationStack);
   }
 
-  //Controls what each list item looks like
-  _renderListItem = ({item}) => (
-    <View>
-      {this.renderNotificationType(item['notification'])}
-    </View>
-  );
+  renderItem(item){
+    return(
+      <View>
+        {this.renderNotificationType(item)}
+      </View>
+    );
+  }
 
   render(){
     return(
       <View style={styles.viewStyle}>
         <FlatList
-          data={this.flatListData}
-          renderItem={this._renderListItem}
+          data={this.props.notifications}
+          renderItem={({item,index}) => this.renderItem(item)}
+          keyExtractor={(item) => item.id}
         />
       </View>
     );
@@ -180,4 +183,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NotificationsScreen;
+const mapStateToProps = state => {
+  return {
+    notifications: state.notifications.notifications
+  };
+};
+
+export default connect(mapStateToProps)(NotificationsScreen);
