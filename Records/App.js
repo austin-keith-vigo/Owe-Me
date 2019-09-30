@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text
+  Text,
+  Image
 } from 'react-native';
 import { createAppContainer,createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -12,6 +13,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import reducers from './src/reducers';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 //Screens
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
@@ -89,10 +92,39 @@ const AppNavigator = createBottomTabNavigator(
     Settings: SettingsStack
   },
   {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+
+        let iconName = null;
+
+        //Detirmine which icon to use
+        switch (navigation.state.key){
+          case 'Home':
+            iconName = 'ios-home'
+            break;
+          case 'Friends':
+            iconName = 'ios-body'
+            break;
+          case 'Notifications':
+            iconName = 'ios-notifications'
+            break;
+          case 'Settings':
+            iconName = 'ios-settings';
+            break;
+          default:
+            iconName = `ios-options`;
+          }
+
+        //return icon
+        let IconComponent = Ionicons;
+        return <IconComponent name={iconName} size={25} color={tintColor} />;
+      }
+    }),
     tabBarOptions: {
-      initialRouteName: "Home",
-      activeTintColor: GLOBALS.COLORS.GREEN,
-      inactiveTintColor: 'gray',
+      showLabel: false,
+      style: {
+        height: 40
+      }
     }
   }
 );

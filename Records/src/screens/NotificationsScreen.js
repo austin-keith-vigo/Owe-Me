@@ -23,7 +23,7 @@ class NotificationsScreen extends Component{
 
   //Configure header
   static navigationOptions = {
-    title: 'Notifications',
+    title: '',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 0

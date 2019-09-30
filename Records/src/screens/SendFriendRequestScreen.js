@@ -13,7 +13,7 @@ class SendFriendRequestScreen extends Component{
 
   //Configure header
   static navigationOptions = {
-    title: 'Send Request',
+    title: '',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 0

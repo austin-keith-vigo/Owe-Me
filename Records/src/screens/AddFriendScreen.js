@@ -23,7 +23,7 @@ class AddFriendScreen extends Component{
 
   //Configure header
   static navigationOptions = {
-    title: 'Add Friends',
+    title: '',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 0,

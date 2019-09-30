@@ -27,7 +27,7 @@ class AddRecordScreen extends Component{
 
   //Configure header
   static navigationOptions = {
-    title: 'Add Record',
+    title: '',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 0,

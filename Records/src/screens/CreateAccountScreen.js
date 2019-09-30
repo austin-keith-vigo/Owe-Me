@@ -19,7 +19,7 @@ class CreateAccountScreen extends Component{
 
   //Configure header
   static navigationOptions = {
-    title: 'Create Account',
+    title: '',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 0
