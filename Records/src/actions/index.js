@@ -45,3 +45,7 @@ export {
   acceptFriendNotification,
   payRecordNotification
 } from './NotificationsActions';
+
+export {
+  signUserOut
+} from './SettingsActions';

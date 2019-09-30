@@ -5,7 +5,8 @@ import {
   UPDATED_FOUND_USERNAMES,
   CHANGED_SELECTED_FRIEND_ROW,
   ADDED_NEW_RECORD_SUCCESS,
-  SENT_REQUEST
+  SENT_REQUEST,
+  USER_LOGGED_OUT_SUCCESS
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -35,6 +36,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, selectedFriendRow: action.payload};
     case SENT_REQUEST:
       return {...state, usersRequested: action.payload}
+    case USER_LOGGED_OUT_SUCCESS:
+      return {...state, ...INITIAL_STATE};
     default:
       return {...state};
   };
