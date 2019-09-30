@@ -17,7 +17,7 @@ class ConfirmationScreen extends Component{
     //Configure header
     static navigationOptions = ({navigation}) => {
       return {
-        title: 'Confirmation',
+        title: '',
         headerStyle: {
           backgroundColor: GLOBALS.COLORS.GREEN,
           borderBottomWidth: 0,

@@ -11,7 +11,7 @@ class CheckEmailScreen extends Component{
 
   //Configure header
   static navigationOptions = {
-    title: 'Forgot Password',
+    title: '',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 0

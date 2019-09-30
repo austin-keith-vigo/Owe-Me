@@ -16,7 +16,7 @@ class FriendsScreen extends Component{
   //Configure header
   static navigationOptions = ({navigation}) => {
     return {
-      title: 'Friends',
+      title: '',
       headerStyle: {
         backgroundColor: GLOBALS.COLORS.GREEN,
         borderBottomWidth: 0,

@@ -18,7 +18,7 @@ class RecordScreen extends Component{
 
   //Configure header
   static navigationOptions = {
-    title: "Record",
+    title: "",
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
       borderBottomWidth: 0,
