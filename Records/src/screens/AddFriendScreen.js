@@ -17,7 +17,7 @@ import {
   updateSearchValue,
 } from './../actions';
 
-import { Header, HeaderButton } from './../components';
+import { Header, HeaderButton, AddFriendRow } from './../components';
 
 class AddFriendScreen extends Component{
 
@@ -31,24 +31,14 @@ class AddFriendScreen extends Component{
     }
   };
 
-  sendFriendRequest(username){
-    console.log('sending friend request to ' + username);
-  }
-
   //Controls how each row looks
   _renderItem(item){
     const username = item.item;
 
     return (
-      <View style={styles.listRowViewStyle}>
-        <Text style={styles.listTextStyle}>{username}</Text>
-        <View style={{flex: 1}}/>
-        <Button
-          style={styles.buttonStyle}
-          title='send'
-          onPress={() => this.sendFriendRequest(username)}
-        />
-      </View>
+      <AddFriendRow
+        username={username}
+      />
     );
   };
 
@@ -69,11 +59,12 @@ class AddFriendScreen extends Component{
           }
         />
         <SearchBar
-          containerStyle={{backgroundColor: 'white'}}
-          inputContainerStyle={{backgroundColor: 'white'}}
-          placeholder="Type Here..."
+          containerStyle={styles.containerStyle}
+          inputContainerStyle={styles.inputContainerStyle}
+          placeholder="Friend's username: "
           onChangeText={(text)=>this.updateSearch(text)}
           value={this.props.searchValue}
+          autoCapitalize = 'none'
         />
         <FlatList
           data={this.props.foundUsernames}
@@ -89,19 +80,11 @@ const styles = StyleSheet.create({
   viewStyle: {
     flex: 1
   },
-  listRowViewStyle: {
-    height: 40,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center'
+  containerStyle: {
+    backgroundColor: 'white'
   },
-  listTextStyle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginLeft: 5
-  },
-  buttonStyle: {
-    marginRight: 5
+  inputContainerStyle: {
+    backgroundColor: 'white',
   }
 });
 

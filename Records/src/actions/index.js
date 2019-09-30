@@ -36,5 +36,6 @@ export {
 export {
   getNonFriends,
   updateSearchValue,
-  changeSelectedFriendRow
+  changeSelectedFriendRow,
+  sendRequestToUser
 } from './FriendsActions';

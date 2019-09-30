@@ -2,11 +2,12 @@ import {
   GOT_NON_FRIENDS,
   UPDATED_SEARCH_VALUE,
   UPDATED_FOUND_USERNAMES,
-  CHANGED_SELECTED_FRIEND_ROW
+  CHANGED_SELECTED_FRIEND_ROW,
+  SENT_REQUEST
 } from './types';
 
 import SingletonClass from './../SingletonClass';
-import {getAllUsernames} from './../FirebaseActions';
+import { getAllUsernames, getUsersUDID, sendNotification } from './../FirebaseActions';
 
 export const getNonFriends = (friends, navigation) => {
   return (dispatch) => {
@@ -65,5 +66,32 @@ export const changeSelectedFriendRow = (friendName) => {
   return {
     type: CHANGED_SELECTED_FRIEND_ROW,
     payload: friendName
+  };
+};
+
+//Sends a friend request to the user
+export const sendRequestToUser = (usersRequested, username) => {
+  getUsersUDID(username)
+    .then(({udid}) => {
+      //create a notification and send it
+      const notification = {
+        type: 'friendRequest',
+        senderUsername: SingletonClass.getInstance().getUsername(),
+        senderUID: SingletonClass.getInstance().getUserUID()
+      };
+
+      //send notification
+      sendNotification(udid, notification)
+        .then(()=>{
+          console.log('sent');
+        });
+    });
+
+  //update the state of the component
+  const newAr = [...usersRequested];
+  newAr.push(username);
+  return {
+    type: SENT_REQUEST,
+    payload: newAr
   };
 };

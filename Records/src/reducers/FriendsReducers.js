@@ -4,7 +4,8 @@ import {
   UPDATED_SEARCH_VALUE,
   UPDATED_FOUND_USERNAMES,
   CHANGED_SELECTED_FRIEND_ROW,
-  ADDED_NEW_RECORD_SUCCESS
+  ADDED_NEW_RECORD_SUCCESS,
+  SENT_REQUEST
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -12,7 +13,8 @@ const INITIAL_STATE = {
   nonFriends: [],
   searchValue: '',
   foundUsernames: [],
-  selectedFriendRow: null
+  selectedFriendRow: null,
+  usersRequested: []
 };
 
 import SingletonClass from './../SingletonClass';
@@ -31,6 +33,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, foundUsernames: action.payload};
     case CHANGED_SELECTED_FRIEND_ROW:
       return {...state, selectedFriendRow: action.payload};
+    case SENT_REQUEST:
+      return {...state, usersRequested: action.payload}
     default:
       return {...state};
   };
