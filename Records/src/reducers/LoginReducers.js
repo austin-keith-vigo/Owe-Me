@@ -4,7 +4,8 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
   CLOSE_ERROR_MESSAGE,
-  START_LOGGING_IN
+  START_LOGGING_IN,
+  USER_LOGGED_OUT_SUCCESS
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -29,6 +30,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, error: true, errorMessage: action.payload, loading: false};
     case CLOSE_ERROR_MESSAGE:
       return {...state, error: false, errorMessage: ''};
+    case USER_LOGGED_OUT_SUCCESS:
+      return {...state, ...INITIAL_STATE};
     default:
       return {...state};
   }
