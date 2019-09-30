@@ -19,6 +19,8 @@ export const ON_PASSWORD_CHANGED_CREATE_ACCOUNT = 'on_password_changed_create_ac
 export const CREATE_ACCOUNT_SUCCESS = 'create_account_success';
 export const CREATE_ACCOUNT_FAILURE = 'create_account_failure';
 export const CREATE_ACCOUNT_CLOSE_ALERT = 'create_account_close_alert';
+export const CREATING_ACCOUNT = 'creating_account';
+export const NOT_CREATING_ACCOUNT = 'not_creating_account';
 
 //Settings
 export const USER_LOGGED_OUT_SUCCESS = 'user_logged_out_success';

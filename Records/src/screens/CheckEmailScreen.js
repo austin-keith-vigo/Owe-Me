@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import GLOBALS from './../Globals';
 
+
 class CheckEmailScreen extends Component{
 
   //Configure header
@@ -14,14 +15,17 @@ class CheckEmailScreen extends Component{
     title: '',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
+      height: 0
     }
   };
 
   render(){
     return(
       <View style = {styles.viewStyle}>
+
         <Text style = {styles.textStyle}>Check your email to reset your password</Text>
+
         <TouchableOpacity
           onPress={()=>{
             this.props.navigation.navigate("Login");

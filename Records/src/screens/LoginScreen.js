@@ -41,6 +41,7 @@ class LoginScreen extends Component{
       return <Spinner/>;
     }
   }
+  
   render(){
     return(
       <View style={styles.viewStyle}>

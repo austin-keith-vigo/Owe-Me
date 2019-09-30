@@ -4,7 +4,9 @@ import {
   ON_PASSWORD_CHANGED_CREATE_ACCOUNT,
   CREATE_ACCOUNT_SUCCESS,
   CREATE_ACCOUNT_FAILURE,
-  CREATE_ACCOUNT_CLOSE_ALERT
+  CREATE_ACCOUNT_CLOSE_ALERT,
+  CREATING_ACCOUNT,
+  NOT_CREATING_ACCOUNT
 } from './types';
 
 import { createAccount } from './../FirebaseActions';
@@ -34,6 +36,8 @@ export const onPasswordChangedCreateAccount = (text) => {
 
 export const onCreateAccountButtonPressed = (email, username, password, navigation) => {
   return (dispatch) => {
+    dispatch({type: CREATING_ACCOUNT});
+
     //Create the account with firebase
     createAccount(email, password, username)
       .then(()=>{
@@ -44,10 +48,12 @@ export const onCreateAccountButtonPressed = (email, username, password, navigati
         SingletonClass.getInstance().setUserUID(uid);
         SingletonClass.getInstance().setUsername(username);
 
+        dispatch({type: NOT_CREATING_ACCOUNT});
         dispatch({type: CREATE_ACCOUNT_SUCCESS});
         navigation.navigate('App');
       })
       .catch((error) => {
+        dispatch({type: NOT_CREATING_ACCOUNT})
         dispatch({
           type: CREATE_ACCOUNT_FAILURE,
           payload: error

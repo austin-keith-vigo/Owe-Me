@@ -7,7 +7,13 @@ import {
 
 import GLOBALS from './../Globals';
 
-import { Alert, EmailUsernamePasswordForm } from './../components';
+import {
+  Alert,
+  EmailUsernamePasswordForm,
+  Header,
+  HeaderButton,
+  Spinner
+} from './../components';
 
 import { connect } from 'react-redux';
 import {
@@ -22,7 +28,8 @@ class CreateAccountScreen extends Component{
     title: '',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
+      height: 0
     }
   };
 
@@ -36,30 +43,52 @@ class CreateAccountScreen extends Component{
     this.props.createAccountCloseAlert();
   }
 
+  renderSpinner() {
+    if(this.props.loading) {
+      return <Spinner/>;
+    }
+  }
+
   render(){
     return(
-      <View style={styles.viewStyle}>
-
-        <EmailUsernamePasswordForm
-          onPress={this.onCreateAccountButtonPressed.bind(this)}
-          buttonTitle="Finish"
+      <View style={styles.mainViewStyle}>
+        <Header
+          header="CREATE ACCOUNT"
+          leftButton={
+            <HeaderButton
+              title='BACK'
+              onPress={() => {
+                this.props.navigation.pop();
+              }}
+            />}
         />
+        <View style={styles.viewStyle}>
+          <EmailUsernamePasswordForm
+            onPress={this.onCreateAccountButtonPressed.bind(this)}
+            buttonTitle="Finish"
+          />
+        </View>
+
 
         <Alert
           isVisible={this.props.error}
           errorMessage={this.props.errorMessage}
           closeAlert={() => this.closeAlert()}
         />
+
+        {this.renderSpinner()}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  viewStyle: {
-    paddingTop: 50,
-    flex: 1,
+  mainViewStyle: {
     backgroundColor: GLOBALS.COLORS.GREEN,
+    flex: 1
+  },
+  viewStyle: {
+    marginTop: 50,
     alignItems: 'center'
   }
 });
@@ -70,7 +99,8 @@ const mapStateToProps = state => {
     username: state.createAccount.username,
     password: state.createAccount.password,
     error: state.createAccount.error,
-    errorMessage: state.createAccount.errorMessage
+    errorMessage: state.createAccount.errorMessage,
+    loading: state.createAccount.loading
   };
 };
 

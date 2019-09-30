@@ -15,7 +15,7 @@ import {
   closeAlertForgotPassword
 } from './../actions';
 
-import { Alert, InputField } from './../components';
+import { Alert, InputField, Header, HeaderButton } from './../components';
 
 class ForgotPasswordScreen extends Component{
 
@@ -24,7 +24,8 @@ class ForgotPasswordScreen extends Component{
     title: '',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
+      height: 0
     }
   };
 
@@ -49,6 +50,16 @@ class ForgotPasswordScreen extends Component{
   render(){
     return(
       <View style={styles.viewStyle}>
+        <Header
+          header="FORGOT PASSWORD"
+          leftButton={
+            <HeaderButton
+              title='BACK'
+              onPress={() => {
+                this.props.navigation.pop();
+              }}
+            />}
+        />
 
         <View style={styles.bufferView}></View>
 

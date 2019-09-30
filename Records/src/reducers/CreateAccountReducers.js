@@ -4,7 +4,9 @@ import {
   ON_PASSWORD_CHANGED_CREATE_ACCOUNT,
   CREATE_ACCOUNT_SUCCESS,
   CREATE_ACCOUNT_FAILURE,
-  CREATE_ACCOUNT_CLOSE_ALERT
+  CREATE_ACCOUNT_CLOSE_ALERT,
+  CREATING_ACCOUNT,
+  NOT_CREATING_ACCOUNT
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -12,7 +14,8 @@ const INITIAL_STATE = {
   username: '',
   password: '',
   error: false,
-  errorMessage: ''
+  errorMessage: '',
+  loading: false
 };
 
 export default (state=INITIAL_STATE, action) => {
@@ -29,6 +32,10 @@ export default (state=INITIAL_STATE, action) => {
       return {...state, error: true, errorMessage: action.payload};
     case CREATE_ACCOUNT_CLOSE_ALERT:
       return {...state, error: false, errorMessage: ''};
+    case CREATING_ACCOUNT:
+      return {...state, loading: true};
+    case NOT_CREATING_ACCOUNT:
+      return {...state, loading: false};
     default:
       return {...state};
   };
