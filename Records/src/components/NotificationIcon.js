@@ -1,13 +1,13 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import GLOBALS from './../Globals';
 import { connect } from 'react-redux';
 
 //Tells user to check the screen out
 const renderAlertIcon = (tintColor, notifications) => {
   console.log(notifications);
   if(notifications.length > 0) {
-    return <Icon name='ios-notifications' size={25} color='red'/>;
+    return <Icon name='ios-notifications' size={25} color={GLOBALS.COLORS.RED}/>;
   };
 
   return <Icon name='ios-notifications' size={25} color={tintColor}/>;
