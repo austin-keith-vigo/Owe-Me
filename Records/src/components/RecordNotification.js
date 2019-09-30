@@ -2,9 +2,12 @@ import React from 'react';
 import {
   View,
   Text,
-  Button,
-  StyleSheet
+  StyleSheet,
+  Image,
+  TouchableOpacity
 } from 'react-native';
+
+import GLOBALS from './../Globals';
 
 import { connect } from 'react-redux';
 import { payRecordNotification } from './../actions';
@@ -12,7 +15,15 @@ import { payRecordNotification } from './../actions';
 const RecordNotification = (props) => {
   return(
     <View style={styles.mainViewStyle}>
-      {console.log(props)}
+
+      <View style={styles.imageViewStyle}>
+        <Image
+          source={require('./../assets/dollar-symbol.png')}
+          style={styles.imageStyle}
+          resizeMode='contain'
+        />
+      </View>
+
       <View style = {styles.textViewStyle}>
         <Text style = {styles.titleTextStyle}>
           {props.notification['data']['title']}
@@ -21,33 +32,53 @@ const RecordNotification = (props) => {
           {props.notification['data']['senderUsername']} : ${props.notification['data']['amount']}
         </Text>
       </View>
-      <Button
-        title="Paid"
+
+      <TouchableOpacity
         onPress={()=>props.payRecordNotification(props.notification)}
-      />
+      >
+        <Text style={styles.buttonTextStyle}>paid</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   mainViewStyle: {
-    height: 40,
+    height: 70,
     width: "100%",
     flexDirection: 'row',
-    borderBottomColor: 'black',
-    borderBottomWidth: 2
+    alignItems: 'center',
+    borderBottomWidth: 2,
+    borderBottomColor: 'black'
   },
   textViewStyle: {
-    height: 40,
-    flex: 1
+    height: 70,
+    flex: 1,
+    paddingLeft: 20,
+    justifyContent: 'center'
   },
   titleTextStyle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   senderTextStyle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold'
+  },
+  buttonTextStyle: {
+    fontSize: 18,
+    color: GLOBALS.COLORS.BLUE,
+    marginRight: 5
+  },
+  imageViewStyle: {
+    height: 45,
+    width: 45,
+    marginLeft: 5
+  },
+  imageStyle: {
+    height: undefined,
+    width: undefined,
+    flex: 1
   }
 });
 

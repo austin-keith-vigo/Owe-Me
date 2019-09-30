@@ -12,3 +12,6 @@ export RecordFlatListItem from './RecordFlatListItem';
 export FriendsListRow from './FriendsListRow';
 export FriendMoreInfoView from './FriendMoreInfoView';
 export AddFriendRow from './AddFriendRow';
+export FriendNotification from './FriendNotification';
+export RecordNotification from './RecordNotification';
+export PaidNotification from './PaidNotification';

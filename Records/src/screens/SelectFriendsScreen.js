@@ -74,7 +74,7 @@ class SelectFriendsScreen extends Component{
 
   render(){
     return(
-      <View>
+      <View style={{flex: 1}}>
         <Header
           header={'SELECT FRIENDS'}
           leftButton={

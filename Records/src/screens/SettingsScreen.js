@@ -15,7 +15,8 @@ class SettingsScreen extends Component{
     title: '',
     headerStyle: {
       backgroundColor: GLOBALS.COLORS.GREEN,
-      borderBottomWidth: 0
+      borderBottomWidth: 0,
+      height: 0
     }
   };
 
