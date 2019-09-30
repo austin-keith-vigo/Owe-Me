@@ -3,14 +3,26 @@ import {
   View,
   Text,
   StyleSheet,
-  Button
+  TouchableOpacity,
+  Image
 } from 'react-native';
-import {acceptFriendRequest} from './../FirebaseActions';
-import SingletonClass from './../SingletonClass';
+import GLOBALS from './../Globals';
+
+import { acceptFriendNotification } from './../actions';
+import { connect } from 'react-redux';
 
 const FriendNotification = (props) => {
   return(
     <View style={styles.mainViewStyle}>
+
+      <View style={styles.imageViewStyle}>
+        <Image
+          source={require('./../assets/add-friend.png')}
+          style={styles.imageStyle}
+          resizeMode='contain'
+        />
+      </View>
+
       <View style={styles.textViewStyle}>
         <Text style={styles.textStyle}>
           Friend Request:
@@ -19,17 +31,19 @@ const FriendNotification = (props) => {
           {props.notification['data']['senderUsername']}
         </Text>
       </View>
-      <Button
-        title='Accept'
-        onPress={props.acceptButtonPressed}
-      />
+
+      <TouchableOpacity
+        onPress={()=>props.acceptFriendNotification(props.notification)}
+      >
+        <Text style={styles.buttonTextStyle}>accept</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   mainViewStyle: {
-    height: 60,
+    height: 70,
     width: "100%",
     flexDirection: 'row',
     alignItems: 'center',
@@ -37,9 +51,10 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black'
   },
   textViewStyle:{
-    height: 60,
+    height: 70,
     flex: 1,
-    paddingLeft: 5
+    paddingLeft: 20,
+    justifyContent: 'center'
   },
   textStyle: {
     fontSize: 15,
@@ -48,8 +63,23 @@ const styles = StyleSheet.create({
   textUsernameStyle: {
     fontSize: 20,
     fontWeight: 'bold'
+  },
+  buttonTextStyle: {
+    fontSize: 18,
+    color: GLOBALS.COLORS.BLUE,
+    marginRight: 5
+  },
+  imageViewStyle: {
+    height: 45,
+    width: 45,
+    marginLeft: 5
+  },
+  imageStyle: {
+    height: undefined,
+    width: undefined,
+    flex: 1
   }
 });
 
 
-export default FriendNotification;
+export default connect(null, { acceptFriendNotification })(FriendNotification);

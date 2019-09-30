@@ -2,49 +2,85 @@ import React from 'react';
 import {
   View,
   Text,
-  Button,
-  StyleSheet
+  TouchableOpacity,
+  StyleSheet,
+  Image
 } from 'react-native';
 
-const PaidNotification = (props) => {
+import GLOBALS from './../Globals';
+
+import { dismissPaidNotification } from './../actions';
+import { connect } from 'react-redux';
+
+const PaidNotification = ({notification, notifications, dismissPaidNotification}) => {
   return(
     <View style={styles.mainViewStyle}>
-      {console.log(props.notification)}
+
+      <View style={styles.imageViewStyle}>
+        <Image
+          source={require('./../assets/like.png')}
+          style={styles.imageStyle}
+          resizeMode='contain'
+        />
+      </View>
+
       <View style={styles.textViewStyle}>
         <Text style={styles.titleTextStyle}>
-          {props.notification['data']['title']}
+          {notification['data']['title']}
         </Text>
         <Text style={styles.senderTextStyle}>
-          {props.notification['data']['senderUsername']} : payed
+          {notification['data']['senderUsername']} : paid
         </Text>
       </View>
-      <Button
-        title="Dismiss"
-        onPress={props.dismissButtonPressed}
-      />
+
+      <TouchableOpacity
+        onPress={()=> dismissPaidNotification(notification, notifications)}
+      >
+        <Text style={styles.buttonTextStyle}>dismiss</Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   mainViewStyle: {
-    height: 60,
+    height: 70,
     width: "100%",
     flexDirection: 'row',
-    borderBottomColor: 'black',
-    borderBottomWidth: 2
+    alignItems: 'center',
+    borderBottomWidth: 2,
+    borderBottomColor: 'black'
   },
   textViewStyle: {
-    height: 60,
-    flex: 1
+    height: 70,
+    flex: 1,
+    paddingLeft: 20,
+    justifyContent: 'center'
   },
   titleTextStyle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   senderTextStyle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold'
+  },
+  buttonTextStyle: {
+    fontSize: 18,
+    color: GLOBALS.COLORS.BLUE,
+    marginRight: 5
+  },
+  imageViewStyle: {
+    height: 45,
+    width: 45,
+    marginLeft: 5
+  },
+  imageStyle: {
+    height: undefined,
+    width: undefined,
+    flex: 1
   }
 });
-export default PaidNotification;
+
+export default connect(null, { dismissPaidNotification })(PaidNotification);
