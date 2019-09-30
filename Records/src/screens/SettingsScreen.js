@@ -6,8 +6,6 @@ import {
 } from 'react-native';
 import GLOBALS from './../Globals';
 
-
-
 import {
   signUserOut
 } from './../actions';
@@ -58,7 +56,7 @@ class SettingsScreen extends Component{
 
         <View style={styles.buttonsViewStyle}>
           <TouchableOpacity
-            onPress={()=>this.props.signUserOut()}
+            onPress={()=>this.props.signUserOut(this.props.navigation)}
           >
             <View style={styles.setttingsButtonViewStyle}>
               <Text style={styles.settingsButtonTextStyle}>Sign Out</Text>
@@ -80,7 +78,8 @@ const styles = {
   },
   iconUsernameView: {
     position: 'absolute',
-    top: 50
+    top: 50,
+    alignItems: 'center'
   },
   iconBackgroundViewStyle:{
     flex: 1,

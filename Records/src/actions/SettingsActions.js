@@ -5,7 +5,7 @@ import {
 import SingletonClass from './../SingletonClass';
 import {firebaseSignOut} from './../FirebaseActions';
 
-export const signUserOut = () => {
+export const signUserOut = (navigation) => {
   return (dispatch) => {
     //reset all components
     dispatch({ type: USER_LOGGED_OUT_SUCCESS });
@@ -14,7 +14,7 @@ export const signUserOut = () => {
     SingletonClass.getInstance().clearSingleton();
     firebaseSignOut().then(()=>{
       //Go Back to Login Screen
-      this.props.navigation.navigate('Auth');
+      navigation.navigate('Auth');
     });
   };
 };
