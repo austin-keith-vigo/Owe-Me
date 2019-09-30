@@ -6,23 +6,23 @@ import {
   StyleSheet
 } from 'react-native';
 
-import { payNotification } from './../actions';
+import { dismissPaidNotification } from './../actions';
 import { connect } from 'react-redux';
 
-const PaidNotification = (props) => {
+const PaidNotification = ({notification, notifications, dismissPaidNotification}) => {
   return(
     <View style={styles.mainViewStyle}>
       <View style={styles.textViewStyle}>
         <Text style={styles.titleTextStyle}>
-          {props.notification['data']['title']}
+          {notification['data']['title']}
         </Text>
         <Text style={styles.senderTextStyle}>
-          {props.notification['data']['senderUsername']} : payed
+          {notification['data']['senderUsername']} : paid
         </Text>
       </View>
       <Button
         title="Dismiss"
-        onPress={props.dismissButtonPressed}
+        onPress={()=> dismissPaidNotification(notification, notifications)}
       />
     </View>
   );
@@ -50,5 +50,4 @@ const styles = StyleSheet.create({
   }
 });
 
-
-export default PaidNotification;
+export default connect(null, { dismissPaidNotification })(PaidNotification);

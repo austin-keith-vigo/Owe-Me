@@ -5,8 +5,9 @@ import {
   StyleSheet,
   Button
 } from 'react-native';
-import {acceptFriendRequest} from './../FirebaseActions';
-import SingletonClass from './../SingletonClass';
+
+import { acceptFriendNotification } from './../actions';
+import { connect } from 'react-redux';
 
 const FriendNotification = (props) => {
   return(
@@ -21,7 +22,7 @@ const FriendNotification = (props) => {
       </View>
       <Button
         title='Accept'
-        onPress={props.acceptButtonPressed}
+        onPress={()=>props.acceptFriendNotification(props.notification)}
       />
     </View>
   );
@@ -52,4 +53,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default FriendNotification;
+export default connect(null, { acceptFriendNotification })(FriendNotification);

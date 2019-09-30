@@ -178,6 +178,14 @@ const getUsersUDID = (username) => {
   });
 };
 
+const removeNotification = (udid, notificationId) => {
+  return new Promise((resolve, reject) => {
+    const filepath = udid + '/notifications/' + notificationId;
+    firebase.database().ref(filepath).set(null);
+    resolve();
+  });
+}
+
 export {
   willUpdateWithNewRecord,
   getAllUsernames,
@@ -185,5 +193,6 @@ export {
   acceptFriendRequest,
   firebaseSignOut,
   createAccount,
-  getUsersUDID
+  getUsersUDID,
+  removeNotification
 }

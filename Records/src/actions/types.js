@@ -42,3 +42,7 @@ export const UPDATED_SEARCH_VALUE = 'update_search_value';
 export const UPDATED_FOUND_USERNAMES = 'updated_found_usernames';
 export const CHANGED_SELECTED_FRIEND_ROW = 'changed_selected_friend_row';
 export const SENT_REQUEST = 'SENT_REQUEST';
+
+//Notifications
+export const NOTIFICATION_PAYED = 'notification_payed';
+export const FRIEND_NOTIFICATION_ACCEPTED = 'friend_notification_accepted';

@@ -31,48 +31,29 @@ class NotificationsScreen extends Component{
     }
   };
 
-  //List to hold all the notifications for the flat list
-  flatListData = [];
-
-  //Get all notifications from the singleton
-  constructor(props){
-    super(props);
-
-    const notificationsData = SingletonClass.getInstance().getNotifications();
-    for(index = 0; index < notificationsData.length; ++index){
-      this.flatListData.push({key: index.toString(), notification: notificationsData[index]});
-    }
-  }
-
   //Conditional rendering to choose which type of notification to render
-  renderNotificationType(notification){
+  renderNotificationType(notification, notifications){
     const notificationType = notification['data']['type'];
     switch(notificationType){
       case 'friendRequest':
         return(
           <FriendNotification
+            notifications={notifications}
             notification={notification}
-            acceptButtonPressed={()=>{
-              this.acceptButtonPressed(notification);
-            }}
           />
         );
       case 'record':
         return(
           <RecordNotification
+            notifications={notifications}
             notification={notification}
-            paidButtonPressed={()=>{
-              this.paidButtonPressed(notification);
-            }}
           />
         );
       case 'payed':
         return(
           <PaidNotification
+            notifications={notifications}
             notification={notification}
-            dismissButtonPressed={()=>{
-              this.dismissButtonPressed(notification);
-            }}
           />
         );
     }
@@ -126,40 +107,11 @@ class NotificationsScreen extends Component{
     });
   }
 
-  //The user accepts the friend request so it updates firebase
-  acceptButtonPressed = (notification) => {
-
-    //Add the friend to the SinglenClass
-    const senderUsername = notification['data']['senderUsername']
-    const senderUID = notification['data']['senderUID'];
-    SingletonClass.getInstance().addFriend(senderUsername, 0);
-
-    //Update the user's database and then re-render the screen
-    acceptFriendRequest(notification).then(()=>{
-      this.props.navigation.dispatch(resetNavigationStack);
-    })
-  }
-
-  //Dismisses the notification that someone payed you
-  dismissButtonPressed = (notification) => {
-
-    //Remove from singleton
-    SingletonClass.getInstance().removeNotification(notification);
-
-    //Remove from firebase
-    const filepath =  SingletonClass.getInstance().getUserUID() +
-                      '/notifications/' +
-                      notification['id'];
-    firebase.database().ref(filepath).set(null);
-
-    //Go back to home screen
-    this.props.navigation.dispatch(resetNavigationStack);
-  }
-
-  renderItem(item){
+  //Renders list item
+  renderItem(item, notifications){
     return(
       <View>
-        {this.renderNotificationType(item)}
+        {this.renderNotificationType(item, notifications)}
       </View>
     );
   }
@@ -169,7 +121,7 @@ class NotificationsScreen extends Component{
       <View style={styles.viewStyle}>
         <FlatList
           data={this.props.notifications}
-          renderItem={({item,index}) => this.renderItem(item)}
+          renderItem={({item,index}) => this.renderItem(item, this.props.notifications)}
           keyExtractor={(item) => item.id}
         />
       </View>

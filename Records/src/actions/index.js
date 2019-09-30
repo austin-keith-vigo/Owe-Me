@@ -39,3 +39,8 @@ export {
   changeSelectedFriendRow,
   sendRequestToUser
 } from './FriendsActions';
+
+export {
+  dismissPaidNotification,
+  acceptFriendNotification
+} from './NotificationsActions';
