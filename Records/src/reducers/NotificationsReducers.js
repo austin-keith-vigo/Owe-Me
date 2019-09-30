@@ -2,7 +2,8 @@ import {
   LOGIN_USER_SUCCESS,
   USER_LOGGED_OUT_SUCCESS,
   NOTIFICATION_PAYED,
-  FRIEND_NOTIFICATION_ACCEPTED
+  FRIEND_NOTIFICATION_ACCEPTED,
+  RECORD_NOTIFICATION_SENT
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -18,6 +19,8 @@ export default (state = INITIAL_STATE, action) => {
     case NOTIFICATION_PAYED:
       return {...state, notifications: action.payload};
     case FRIEND_NOTIFICATION_ACCEPTED:
+      return {...state, notifications: action.payload};
+    case RECORD_NOTIFICATION_SENT:
       return {...state, notifications: action.payload};
     default:
       return {...state};

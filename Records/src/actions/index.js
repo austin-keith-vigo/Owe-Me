@@ -42,5 +42,6 @@ export {
 
 export {
   dismissPaidNotification,
-  acceptFriendNotification
+  acceptFriendNotification,
+  payRecordNotification
 } from './NotificationsActions';

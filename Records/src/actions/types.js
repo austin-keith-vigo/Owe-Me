@@ -46,3 +46,4 @@ export const SENT_REQUEST = 'SENT_REQUEST';
 //Notifications
 export const NOTIFICATION_PAYED = 'notification_payed';
 export const FRIEND_NOTIFICATION_ACCEPTED = 'friend_notification_accepted';
+export const RECORD_NOTIFICATION_SENT = 'record_notification_sent';

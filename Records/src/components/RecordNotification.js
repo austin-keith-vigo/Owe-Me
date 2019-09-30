@@ -6,9 +6,13 @@ import {
   StyleSheet
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { payRecordNotification } from './../actions';
+
 const RecordNotification = (props) => {
   return(
     <View style={styles.mainViewStyle}>
+      {console.log(props)}
       <View style = {styles.textViewStyle}>
         <Text style = {styles.titleTextStyle}>
           {props.notification['data']['title']}
@@ -19,7 +23,7 @@ const RecordNotification = (props) => {
       </View>
       <Button
         title="Paid"
-        onPress={props.paidButtonPressed}
+        onPress={()=>props.payRecordNotification(props.notification)}
       />
     </View>
   );
@@ -47,4 +51,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RecordNotification;
+export default connect(null, { payRecordNotification })(RecordNotification);
