@@ -10,9 +10,18 @@ import GLOBALS from './../Globals';
 import { Alert, EmailPasswordForm, Spinner } from './../components';
 
 import { connect } from 'react-redux';
-import { loginUser, closeErrorMessage } from './../actions';
+import {
+  loginUser,
+  closeErrorMessage
+} from './../actions';
 
 class LoginScreen extends Component{
+
+  constructor(props){
+    super(props);
+
+    //Try to login asynchronously
+  }
 
   //Configure header
   static navigationOptions = {
@@ -41,7 +50,7 @@ class LoginScreen extends Component{
       return <Spinner/>;
     }
   }
-  
+
   render(){
     return(
       <View style={styles.viewStyle}>

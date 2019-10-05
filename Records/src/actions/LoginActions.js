@@ -4,12 +4,13 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
   CLOSE_ERROR_MESSAGE,
-  START_LOGGING_IN
+  START_LOGGING_IN,
 } from './types';
 
 import Record from './../Record';
 import firebase from 'react-native-firebase';
 import SingletonClass from './../SingletonClass';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const emailChanged = (text) => {
   return {

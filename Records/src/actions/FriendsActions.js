@@ -83,7 +83,7 @@ export const sendRequestToUser = (usersRequested, username) => {
       //send notification
       sendNotification(udid, notification)
         .then(()=>{
-          console.log('sent');
+          console.log(notification);
         });
     });
 
