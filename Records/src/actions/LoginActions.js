@@ -4,12 +4,13 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
   CLOSE_ERROR_MESSAGE,
-  START_LOGGING_IN
+  START_LOGGING_IN,
 } from './types';
 
 import Record from './../Record';
 import firebase from 'react-native-firebase';
 import SingletonClass from './../SingletonClass';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const emailChanged = (text) => {
   return {
@@ -66,6 +67,16 @@ const willInitializeSingleton = () => {
   });
 };
 
+const _storeLoginCredentials = async (email, password) => {
+  try {
+    await AsyncStorage.setItem('email', email);
+    await AsyncStorage.setItem('password', password);
+    console.log('stored');
+  } catch (error) {
+    console.log('error');
+  }
+};
+
 export const loginUser = (email, password, navigation) => {
   return (dispatch) => {
 
@@ -74,6 +85,7 @@ export const loginUser = (email, password, navigation) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
         //Initialize the Singleton before moving on
+        _storeLoginCredentials(email, password);
         willInitializeSingleton()
           .then(()=> {
             console.log('here');

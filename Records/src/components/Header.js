@@ -56,7 +56,8 @@ const styles = {
     position: 'absolute',
     alignSelf: 'center',
     fontSize: 30,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: GLOBALS.FONT
   },
   rightButtonView: {
     position: 'absolute',

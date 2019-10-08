@@ -71,12 +71,6 @@ class NotificationsScreen extends Component{
       <View style={styles.viewStyle}>
         <Header
           header="Notifications"
-          leftButton={
-            <HeaderButton
-              title="Back"
-              onPress={()=>this.props.navigation.pop()}
-            />
-          }
         />
         <FlatList
           data={this.props.notifications}

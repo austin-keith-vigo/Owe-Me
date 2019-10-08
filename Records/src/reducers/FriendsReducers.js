@@ -6,7 +6,8 @@ import {
   CHANGED_SELECTED_FRIEND_ROW,
   ADDED_NEW_RECORD_SUCCESS,
   SENT_REQUEST,
-  USER_LOGGED_OUT_SUCCESS
+  USER_LOGGED_OUT_SUCCESS,
+  FRIEND_NOTIFICATION_ACCEPTED
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -25,7 +26,7 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_USER_SUCCESS:
       return {...state, friends: action.payload.friends};
     case ADDED_NEW_RECORD_SUCCESS:
-      return {...state, friends: SingletonClass.getInstance().getFriends()}
+      return {...state, friends: SingletonClass.getInstance().getFriends()};
     case GOT_NON_FRIENDS:
       return {...state, nonFriends: action.payload};
     case UPDATED_SEARCH_VALUE:
@@ -35,9 +36,11 @@ export default (state = INITIAL_STATE, action) => {
     case CHANGED_SELECTED_FRIEND_ROW:
       return {...state, selectedFriendRow: action.payload};
     case SENT_REQUEST:
-      return {...state, usersRequested: action.payload}
+      return {...state, usersRequested: action.payload};
     case USER_LOGGED_OUT_SUCCESS:
       return {...state, ...INITIAL_STATE};
+    case FRIEND_NOTIFICATION_ACCEPTED:
+      return {...state, friends: SingletonClass.getInstance().getFriends()};
     default:
       return {...state};
   };

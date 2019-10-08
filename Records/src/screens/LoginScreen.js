@@ -10,9 +10,18 @@ import GLOBALS from './../Globals';
 import { Alert, EmailPasswordForm, Spinner } from './../components';
 
 import { connect } from 'react-redux';
-import { loginUser, closeErrorMessage } from './../actions';
+import {
+  loginUser,
+  closeErrorMessage
+} from './../actions';
 
 class LoginScreen extends Component{
+
+  constructor(props){
+    super(props);
+
+    //Try to login asynchronously
+  }
 
   //Configure header
   static navigationOptions = {
@@ -41,7 +50,7 @@ class LoginScreen extends Component{
       return <Spinner/>;
     }
   }
-  
+
   render(){
     return(
       <View style={styles.viewStyle}>
@@ -81,7 +90,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 45,
     fontWeight: "bold",
-    padding: 40
+    padding: 40,
+    fontFamily: GLOBALS.FONT
   },
   viewStyle: {
     flex: 1,
@@ -90,7 +100,8 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     paddingTop: 15,
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: GLOBALS.FONT
   }
 });
 

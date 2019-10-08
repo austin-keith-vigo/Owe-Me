@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import InputField from './InputField';
 import { connect } from 'react-redux';
+import GLOBALS from './../Globals';
 
 //Actions
 import {
@@ -70,7 +71,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   buttonTextStyle:{
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: GLOBALS.FONT
   }
 })
 
