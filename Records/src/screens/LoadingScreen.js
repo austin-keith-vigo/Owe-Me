@@ -21,7 +21,7 @@ class LoadingScreen extends Component {
     }
   };
 
-  _animateAway(email, password, navigation) {
+  _animateAway(email, password, endFunc) {
     this.xPos.setValue(0);
     Animated.timing(
       this.xPos,
@@ -29,7 +29,7 @@ class LoadingScreen extends Component {
         toValue: 1,
         duration: 2000
       }
-    ).start(() => this.props.loginUser(email, password, navigation));
+    ).start(() => endFunc());
   }
 
   //Try to login the user asynchronously
@@ -38,7 +38,9 @@ class LoadingScreen extends Component {
     this.xPos = new Animated.Value(0);
     this._getLoginCredentials()
       .then(({email, password})=>{
-        this._animateAway(email, password, this.props.navigation)
+        this._animateAway(email, password, () => {
+          this.props.loginUser(email, password, this.props.navigation);
+        });
       });
   }
 
@@ -50,7 +52,7 @@ class LoadingScreen extends Component {
 
       if(email == null || password == null){
         //Email and password is not settings
-        this.props.navigation.navigate('Login');
+        this._animateAway('','',()=>this.props.navigation.navigate('Login'));
       } else {
         return {email: email, password: password};
       }
