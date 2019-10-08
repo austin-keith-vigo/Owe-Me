@@ -16,6 +16,7 @@ import reducers from './src/reducers';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 //Screens
+import LoadingScreen from './src/screens/LoadingScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import CreateAccountScreen from './src/screens/CreateAccountScreen';
@@ -34,13 +35,14 @@ import SendFriendRequestScreen from './src/screens/SendFriendRequestScreen';
 //Different Stack navigators used within the main switch and tab navigators
 const AuthStack = createStackNavigator(
   {
+    Loading: LoadingScreen,
     Login: LoginScreen,
     ForgotPassword: ForgotPasswordScreen,
     CheckEmail: CheckEmailScreen,
     CreateAccount: CreateAccountScreen
   },
   {
-    initialRouteName: "Login"
+    initialRouteName: "Loading"
   }
 );
 const HomeStack = createStackNavigator(
