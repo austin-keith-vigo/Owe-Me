@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
+import GLOBALS from './../Globals';
 
 import { connect } from 'react-redux';
 
@@ -52,7 +53,8 @@ const styles = StyleSheet.create({
   textStyle:{
     fontSize: 16,
     fontWeight: 'bold',
-    paddingLeft: 5
+    paddingLeft: 5,
+    fontFamily: GLOBALS.FONT
   }
 });
 

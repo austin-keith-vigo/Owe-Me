@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
-
+import GLOBALS from './../Globals';
 class HomeFlatListTile extends Component{
 
   //conditional rendering to determine whether to render an renderImage
@@ -51,10 +51,12 @@ const styles = StyleSheet.create({
     margin: 10
   },
   recordTextTitleStyle: {
-    fontSize: 20
+    fontSize: 20,
+
   },
   recordTotalStyle: {
-    fontSize: 18
+    fontSize: 18,
+    fontFamily: GLOBALS.FONT
   }
 })
 
