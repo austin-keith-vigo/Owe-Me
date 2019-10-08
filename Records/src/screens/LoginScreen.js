@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 45,
     fontWeight: "bold",
-    padding: 40
+    padding: 40,
+    fontFamily: GLOBALS.FONT
   },
   viewStyle: {
     flex: 1,
@@ -99,7 +100,8 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     paddingTop: 15,
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: GLOBALS.FONT
   }
 });
 

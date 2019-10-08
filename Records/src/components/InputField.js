@@ -5,6 +5,7 @@ import {
   TextInput,
   StyleSheet
 } from 'react-native';
+import GLOBALS from './../Globals';
 
 class InputField extends Component{
   render(){
@@ -35,7 +36,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20,
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
+    fontFamily: GLOBALS.FONT
   }
 });
 

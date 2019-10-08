@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity
 } from 'react-native';
+import GLOBALS from './../Globals';
 
 const HeaderButton = (props) => {
   return(
@@ -17,7 +18,8 @@ const styles = {
   textStyle: {
     fontSize: 20,
     color: 'black',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: GLOBALS.FONT
   }
 }
 

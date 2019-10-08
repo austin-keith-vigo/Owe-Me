@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   buttonTextStyle:{
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: GLOBALS.FONT
   }
 });
 
