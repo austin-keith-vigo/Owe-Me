@@ -21,11 +21,24 @@ class LoadingScreen extends Component {
     }
   };
 
+  _animateAway(email, password, navigation) {
+    this.xPos.setValue(0);
+    Animated.timing(
+      this.xPos,
+      {
+        toValue: 1,
+        duration: 2000
+      }
+    ).start(() => this.props.loginUser(email, password, navigation));
+  }
+
   //Try to login the user asynchronously
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.xPos = new Animated.Value(0);
     this._getLoginCredentials()
       .then(({email, password})=>{
-        this.props.loginUser(email, password, this.props.navigation);
+        this._animateAway(email, password, this.props.navigation)
       });
   }
 
@@ -34,7 +47,7 @@ class LoadingScreen extends Component {
     try {
       const email = await AsyncStorage.getItem('email');
       const password = await AsyncStorage.getItem('password');
-      
+
       if(email == null || password == null){
         //Email and password is not settings
         this.props.navigation.navigate('Login');
@@ -42,16 +55,34 @@ class LoadingScreen extends Component {
         return {email: email, password: password};
       }
     } catch (error) {
-      console.log(error);
     }
   }
+
   render(){
+    //Set values for animation
+    const pos = this.xPos.interpolate({
+       inputRange: [0,1],
+       outputRange: [-35, -350]
+     });
+
     return(
       <View style={styles.viewStyle}>
-        <View style={styles.titleView}>
-          {console.log(this.props)}
-          <Text>Records</Text>
-        </View>
+        <Animated.View style={
+          {
+            height: 300,
+            width: 350,
+            backgroundColor: GLOBALS.COLORS.DARK_GREEN,
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+            position: 'absolute',
+            top: GLOBALS.SCREEN_HEIGHT * .1,
+            left: -35,
+            borderRadius: 35,
+            transform: [{translateX: pos}]
+          }
+        }>
+          <Text style={styles.textStyle}>Records</Text>
+        </Animated.View>
       </View>
     );
   }
@@ -60,12 +91,24 @@ class LoadingScreen extends Component {
 const styles = {
   viewStyle: {
     backgroundColor: GLOBALS.COLORS.GREEN,
-    flex: 1
+    flex: 1,
   },
   titleView: {
-    height: '40%',
-    width: '80%',
-    backgroundColor: 'blue'
+    height: 300,
+    width: 350,
+    backgroundColor: GLOBALS.COLORS.DARK_GREEN,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: GLOBALS.SCREEN_HEIGHT * .1,
+    left: -35,
+    borderRadius: 35
+  },
+  textStyle: {
+    fontFamily: GLOBALS.FONT,
+    fontSize: 60,
+    marginRight: 20,
+    color: 'white'
   }
 };
 
