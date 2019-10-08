@@ -48,7 +48,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10
+    margin: 10,
+
+    //Gives a shadow
+    shadowColor: "#000",
+    shadowOffset: {
+    	width: 0,
+    	height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+
+    elevation: 7,
   },
   recordTextTitleStyle: {
     fontSize: 20,
