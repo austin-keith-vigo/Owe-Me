@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
+    fontFamily: GLOBALS.FONT
   }
 });
 

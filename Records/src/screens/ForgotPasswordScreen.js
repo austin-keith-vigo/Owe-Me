@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   buttonTextStyle:{
     fontSize: 20,
-    fontFamily: GLOBALS.FONT
+    fontFamily: GLOBALS.FONT1
   },
   bufferView: {
     height: 80,

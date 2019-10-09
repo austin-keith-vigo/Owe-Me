@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
+import GLOBALS from './../Globals';
 
 class RecordFlatListItem extends Component{
 
@@ -36,11 +37,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     position:'absolute',
     left: 15,
+    fontFamily: GLOBALS.FONT
   },
   amountStyle: {
     position:'absolute',
     right: 15,
-    fontSize: 18
+    fontSize: 18,
+    fontFamily: GLOBALS.FONT
   }
 })
 

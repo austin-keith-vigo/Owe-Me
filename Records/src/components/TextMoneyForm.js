@@ -5,6 +5,7 @@ import {
   TextInput,
   StyleSheet
 } from 'react-native';
+import GLOBALS from './../Globals';
 
 import { connect } from 'react-redux';
 
@@ -20,7 +21,7 @@ class TextMoneyForm extends Component{
           value={this.props.titleValue}
         />
         <View style={styles.moneyInputFieldViewStyle}>
-          <Text>$</Text>
+          <Text style={{fontFamily: GLOBALS.FONT}}>$</Text>
           <TextInput
             style={styles.moneyInputField}
             onChangeText={this.props.onChangeTextValue}
@@ -60,7 +61,8 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     backgroundColor: 'white',
     width: 300,
-    marginBottom: 15
+    marginBottom: 15,
+    fontFamily: GLOBALS.FONT
   }
 })
 
