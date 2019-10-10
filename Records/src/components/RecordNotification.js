@@ -59,14 +59,17 @@ const styles = StyleSheet.create({
   },
   titleTextStyle: {
     fontSize: 20,
+    fontFamily: GLOBALS.FONT,
     fontWeight: 'bold'
   },
   senderTextStyle: {
     fontSize: 18,
+    fontFamily: GLOBALS.FONT,
     fontWeight: 'bold'
   },
   buttonTextStyle: {
     fontSize: 18,
+    fontFamily: GLOBALS.FONT,
     color: GLOBALS.COLORS.BLUE,
     marginRight: 5
   },

@@ -58,15 +58,18 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 15,
+    fontFamily: GLOBALS.FONT,
     fontWeight: 'bold'
   },
   textUsernameStyle: {
     fontSize: 20,
+    fontFamily: GLOBALS.FONT,
     fontWeight: 'bold'
   },
   buttonTextStyle: {
     fontSize: 18,
     color: GLOBALS.COLORS.BLUE,
+    fontFamily: GLOBALS.FONT,
     marginRight: 5
   },
   imageViewStyle: {

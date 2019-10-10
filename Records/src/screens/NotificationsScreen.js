@@ -70,7 +70,7 @@ class NotificationsScreen extends Component{
     return(
       <View style={styles.viewStyle}>
         <Header
-          header="Notifications"
+          header="NOTIFICATIONS"
         />
         <FlatList
           data={this.props.notifications}
