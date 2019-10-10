@@ -65,13 +65,15 @@ const styles = {
   },
   listTextStyle: {
     fontSize: 18,
+    fontFamily: GLOBALS.FONT,
     fontWeight: 'bold',
     marginLeft: 5
   },
   textStyle: {
     color: GLOBALS.COLORS.BLUE,
     marginRight: 5,
-    fontSize: 18
+    fontSize: 18,
+    fontFamily: GLOBALS.FONT
   }
 }
 
