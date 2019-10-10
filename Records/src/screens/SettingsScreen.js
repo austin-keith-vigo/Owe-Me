@@ -98,7 +98,8 @@ const styles = {
   },
   iconTextStyle:{
     fontSize: 150,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: GLOBALS.FONT
   },
   setttingsButtonViewStyle: {
     height: 50,
@@ -109,10 +110,12 @@ const styles = {
   },
   usernameStyle: {
     fontSize: 55,
+    fontFamily: GLOBALS.FONT,
     fontWeight: 'bold',
   },
   settingsButtonTextStyle: {
     fontSize: 20,
+    fontFamily: GLOBALS.FONT,
     fontWeight: 'bold',
     marginLeft: 20
   }
