@@ -20,7 +20,7 @@ class FriendsScreen extends Component{
       headerStyle: {
         backgroundColor: GLOBALS.COLORS.GREEN,
         borderBottomWidth: 0,
-        height: 0
+        height: 0,
       }
     };
   };
@@ -45,7 +45,7 @@ class FriendsScreen extends Component{
       <View style={{flex:1}}>
 
         <Header
-          header='Friends'
+          header='FRIENDS'
           rightButton={
             <HeaderButton
               title='ADD FRIEND'

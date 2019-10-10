@@ -60,10 +60,12 @@ const styles = {
   },
   friendNameStyle: {
     fontSize: 18,
+    fontFamily: GLOBALS.FONT,
     marginLeft: 5
   },
   amountOwedStyle: {
     fontSize: 18,
+    fontFamily: GLOBALS.FONT,
     marginRight: 5
   },
   iconBackgroundStyle: {
@@ -80,7 +82,8 @@ const styles = {
     marginLeft: 5,
     marginRight: 5,
     fontWeight: 'bold',
-    fontSize: 25
+    fontSize: 25,
+    fontFamily: GLOBALS.FONT
   }
 };
 

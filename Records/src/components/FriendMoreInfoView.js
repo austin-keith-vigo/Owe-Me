@@ -71,12 +71,14 @@ const styles = {
   titleStyle: {
     marginLeft: 5,
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: GLOBALS.FONT
   },
   amountOwedStyle: {
     marginRight: 5,
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: GLOBALS.FONT
   }
 }
 export default FriendMoreInfoView;

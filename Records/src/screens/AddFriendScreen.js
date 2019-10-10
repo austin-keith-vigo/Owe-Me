@@ -50,10 +50,10 @@ class AddFriendScreen extends Component{
     return(
       <View style={styles.viewStyle}>
         <Header
-          header="Send Friend Request"
+          header="SEND FRIEND REQUEST"
           leftButton={
             <HeaderButton
-              title="Back"
+              title="BACK"
               onPress={()=>this.props.navigation.pop()}
             />
           }
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
   },
   inputContainerStyle: {
     backgroundColor: 'white',
+    fontFamily: GLOBALS.FONT
   }
 });
 
