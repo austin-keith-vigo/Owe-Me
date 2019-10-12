@@ -1,5 +1,6 @@
 import React from 'react';
 import Record from './../Record';
+import SingletonClass from './../SingletonClass';
 
 import {
   LOGIN_USER_SUCCESS,
@@ -16,7 +17,8 @@ import {
   SELECT_FRIENDS_SUCCESS,
   ADDED_NEW_RECORD_SUCCESS,
   BACK_BUTTTON_PRESSED_ADD_RECORD,
-  ON_BACK_BUTTON_PRESSED_SELECT_FRIENDS
+  ON_BACK_BUTTON_PRESSED_SELECT_FRIENDS,
+  UPDATE_DATA_FROM_DATABASE
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -33,6 +35,9 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch(action.type){
+    case UPDATE_DATA_FROM_DATABASE:
+      console.log('updated Home');
+      return {...state, records: [...SingletonClass.getInstance().getRecords()]};
     case BACK_BUTTTON_PRESSED_ADD_RECORD:
       return {...state, ...INITIAL_STATE};
     case LOGIN_USER_SUCCESS:

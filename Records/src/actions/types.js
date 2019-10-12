@@ -5,6 +5,7 @@ export const LOGIN_USER_SUCCESS = 'login_user_success';
 export const LOGIN_USER_FAILURE = 'login_user_fail';
 export const CLOSE_ERROR_MESSAGE = 'close_error_message';
 export const START_LOGGING_IN = 'start_logging_in';
+export const UPDATE_DATA_FROM_DATABASE = 'update_data_from_database';
 
 //Forgot password screen
 export const EMAIL_CHANGED_FORGOT_PASSWORD = 'email_changed_forgot_password';
