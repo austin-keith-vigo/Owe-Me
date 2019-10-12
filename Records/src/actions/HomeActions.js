@@ -80,6 +80,15 @@ export const createRecord = (title, amount, navigation, records) => {
     }
   }
 
+  //Check if the title contains a special character
+  var re = new RegExp('^[a-zA-Z1-9 ]*$');
+  if(!re.test(title)){
+    return {
+      type: CREATE_RECORD_FAILURE,
+      payload: 'Title cannot contain special characters'
+    }
+  }
+
   //Start the new record and move to next screen
   navigation.navigate('SelectFriends');
   var newRecord = new Record(title, {});
