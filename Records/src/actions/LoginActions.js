@@ -5,6 +5,7 @@ import {
   LOGIN_USER_FAILURE,
   CLOSE_ERROR_MESSAGE,
   START_LOGGING_IN,
+  UPDATE_DATA_FROM_DATABASE
 } from './types';
 
 import Record from './../Record';
@@ -29,13 +30,16 @@ export const passwordChanged = (text) => {
 //A promise that the Singleon will be initialized.
 //Is a promise to make sure the app does not move on to anymore pages until
 //Singleton is initialized.
-const willInitializeSingleton = () => {
+const willInitializeSingleton = (dispatch) => {
   return new Promise(function(resolve, reject) {
     SingletonClass.getInstance().setUserUID(firebase.auth().currentUser.uid);
     var filepath = SingletonClass.getInstance().getUserUID();
     var databaseRef = firebase.database().ref(filepath);
 
-    databaseRef.once('value').then((snapshot)=>{
+    databaseRef.on('value', (snapshot) => {
+
+      //Clear the singleton because it will be reset.
+      SingletonClass.getInstance().clearSingleton();
 
       //Set singleton username and UID
       SingletonClass.getInstance().setUsername(snapshot.val()['username']);
@@ -59,11 +63,13 @@ const willInitializeSingleton = () => {
         SingletonClass.getInstance().addNotification(key, notificationsData[key]);
       }
 
+      //Call an update for all states to re-render the app to reflect changes
+      dispatch({type:UPDATE_DATA_FROM_DATABASE})
       resolve('Completed');
-    })
-    .catch((error)=>{
-      reject(error.messsage);
     });
+    // .catch((error)=>{
+    //   reject(error.messsage);
+    // });
   });
 };
 
@@ -86,9 +92,8 @@ export const loginUser = (email, password, navigation) => {
       .then(() => {
         //Initialize the Singleton before moving on
         _storeLoginCredentials(email, password);
-        willInitializeSingleton()
+        willInitializeSingleton(dispatch)
           .then(()=> {
-            console.log('here');
             dispatch({
               type: LOGIN_USER_SUCCESS,
               payload: {

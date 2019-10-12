@@ -7,7 +7,8 @@ import {
   ADDED_NEW_RECORD_SUCCESS,
   SENT_REQUEST,
   USER_LOGGED_OUT_SUCCESS,
-  FRIEND_NOTIFICATION_ACCEPTED
+  FRIEND_NOTIFICATION_ACCEPTED,
+  UPDATE_DATA_FROM_DATABASE
 } from './../actions/types';
 
 const INITIAL_STATE = {
@@ -23,6 +24,9 @@ import SingletonClass from './../SingletonClass';
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case UPDATE_DATA_FROM_DATABASE:
+      console.log('updated Friends');
+      return {...state, friends: SingletonClass.getInstance().getFriends()};
     case LOGIN_USER_SUCCESS:
       return {...state, friends: action.payload.friends};
     case ADDED_NEW_RECORD_SUCCESS:
