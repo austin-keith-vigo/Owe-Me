@@ -102,8 +102,24 @@ export const loginUser = (email, password, navigation) => {
                 notifications: SingletonClass.getInstance().getNotifications()
               }
             });
+
+            //Get token for push notifications
+            const fcmToken = await firebase.messaging().getToken();
+            const enabled = await firebase.messaging().hasPermission();
+            if (!enabled) {
+            // user has permissions
+              try {
+                await firebase.messaging().requestPermission();
+                // User has authorised
+              }
+              catch (error) {
+                  // User has rejected permissions
+              }
+            }
+
             navigation.navigate('App');
           })
+          
           .catch((error)=> {
             dispatch({
               type: LOGIN_USER_FAILURE,
